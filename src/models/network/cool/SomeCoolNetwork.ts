@@ -21,4 +21,8 @@ export class SomeCoolNetwork implements NeuralNet, UnsupervisedNetwork{
 		throw new Error('SomeCoolNetwork.train not implemented')
 	}
 
+	scoreTrainingResult(resultID: string, score: number) {
+		throw new Error('SomeCoolNetwork.scoreTrainingResult not implemented')
+	}
+
 }

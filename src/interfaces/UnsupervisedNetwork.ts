@@ -3,4 +3,6 @@ import {UnsupervisedNetworkTrainingResult} from "./UnsupervisedNetworkTrainingRe
 
 export interface UnsupervisedNetwork {
 	train(input: NeuralNetInput[], callback: (error: string, result: UnsupervisedNetworkTrainingResult) => void);
+
+	scoreTrainingResult(resultID: string, score: number, callback: (error: string) => void);
 }
