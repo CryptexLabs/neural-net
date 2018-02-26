@@ -7,10 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "cryptex-shared-models": "git+ssh://git@github.com/CryptexLabs/neural-net.git"
+    "cryptex-shared-models": "git+ssh://git@github.com/CryptexLabs/shared-models.git"
   },
   "author": "Cryptex Labs",
-
   "license": "ISC",
   "devDependencies": {
     "tslint": "^5.9.1",
