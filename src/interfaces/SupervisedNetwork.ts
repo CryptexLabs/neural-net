@@ -1,6 +1,6 @@
-import {NeuralNetInput} from "./NeuralNetInput";
 import {SupervisedNetworkTrainingResult} from "./SupervisedNetworkTrainingResult";
+import {SupervisedNeuralNetInput} from "./SupervisedNeuralNetInput";
 
 export interface SupervisedNetwork {
-	train(input: NeuralNetInput[], callback: (error: string, result: SupervisedNetworkTrainingResult) => void);
+	train(inputs: SupervisedNeuralNetInput[], callback: (error: string, result: SupervisedNetworkTrainingResult) => void);
 }
