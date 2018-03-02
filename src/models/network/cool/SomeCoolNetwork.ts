@@ -1,9 +1,3 @@
-///<ref="../../../interfaces/NeuralNet.ts"/>
-///<ref="../../../interfaces/NeuralNetInput.ts"/>
-///<ref="../../../interfaces/NeuralNetOutput.ts"/>
-///<ref="../../../interfaces/UnsupervisedNetwork.ts"/>
-///<ref="../../../interfaces/UnsupervisedNetworkTrainingResult.ts"/>
-
 import {NeuralNet} from "../../../interfaces/NeuralNet";
 import {NeuralNetInput} from "../../../interfaces/NeuralNetInput";
 import {NeuralNetOutput} from "../../../interfaces/NeuralNetOutput";

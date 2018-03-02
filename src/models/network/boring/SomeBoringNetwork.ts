@@ -7,5 +7,4 @@ export class SomeBoringNetwork implements SupervisedNetwork {
 	train(inputs: SupervisedBoringNeuralNetInput[], callback: (error: string, result: SupervisedNetworkTrainingResult) => void) {
 		throw new Error('SomeBoringNetwork.train not implemented')
 	}
-
 }

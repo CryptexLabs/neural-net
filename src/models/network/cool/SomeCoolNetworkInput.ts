@@ -1,5 +1,3 @@
-///<ref="../../../interfaces/NeuralNetInput.ts"/>
-
 import {NeuralNetInput} from "../../../interfaces/NeuralNetInput";
 
 export class SomeCoolNetworkInput implements NeuralNetInput {
