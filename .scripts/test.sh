@@ -1,3 +1,10 @@
 #!/usr/bin/env bash
 echo "Running unit tests"
-node ./node_modules/.bin/mocha --require tests/bootstrap.ts --recursive tests
+realpath() {
+    [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
+}
+ABSPATH=$(realpath $0)
+SCRIPTPATH=$(dirname ${ABSPATH})
+BASEPATH=$(dirname ${SCRIPTPATH})
+
+node ${BASEPATH}/node_modules/.bin/mocha --require tests/bootstrap.ts --recursive tests
