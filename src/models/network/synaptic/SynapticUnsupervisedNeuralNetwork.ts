@@ -3,6 +3,7 @@ import {UnsupervisedNetworkTrainingResult} from "../../../interfaces/Unsupervise
 import {UnsupervisedLearningSet} from "./UnsupervisedLearningSet";
 
 export class SynapticUnsupervisedNeuralNetwork {
+
 	private _network;
 
 	public train(inputs: RSIStrategyConfigNetworkInput[], callback: (error: string, result: UnsupervisedNetworkTrainingResult) => void) {
@@ -10,9 +11,9 @@ export class SynapticUnsupervisedNeuralNetwork {
 
 			let learning_set = new UnsupervisedLearningSet(inputs);
 
-			_network.train(learning_set);
+			this._network.train(learning_set);
 
-			_network.predict();
+			this._network.predict();
 
 
 		}

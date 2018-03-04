@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class SomeBoringNetwork {
+const BaseNetwork_1 = require("../base/BaseNetwork");
+class SomeBoringNetwork extends BaseNetwork_1.BaseNetwork {
     train(inputs, callback) {
         throw new Error('SomeBoringNetwork.train not implemented');
     }

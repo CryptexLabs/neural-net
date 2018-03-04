@@ -5,13 +5,15 @@ import {SomeBoringNetwork} from '../../../../src/models/network/boring/SomeBorin
 import {SupervisedBoringNeuralNetInput} from "../../../../src/models/network/boring/SupervisedBoringNeuralNetInput";
 import {SomeBoringNetworkInput} from "../../../../src/models/network/boring/SomeBoringNetworkInput";
 import {SomeBoringNetworkOutput} from "../../../../src/models/network/boring/SomeBoringNetworkOutput";
+import {Market} from "cryptex-shared-models/src/models/market/Market"
 
 describe('SomeBoringNetwork', () => {
 
 	let _input: SomeBoringNetworkInput;
 	let _output: SomeBoringNetworkOutput;
+	let _market: Market = new Market('GDAX', 'USD', 'BTC');
 
-	const result = new SomeBoringNetwork();
+	const result = new SomeBoringNetwork(_market);
 	let inputs   = [new SupervisedBoringNeuralNetInput(_input, _output)];
 
 	it('should instantiate new instance of SomeBoringNetwork', (done) => {

@@ -10,6 +10,8 @@ class SomeCoolNetwork {
     scoreTrainingResult(resultID, score) {
         throw new Error('SomeCoolNetwork.scoreTrainingResult not implemented');
     }
+    setOutputsForInputs(inputs, outputs) {
+    }
 }
 exports.SomeCoolNetwork = SomeCoolNetwork;
 //# sourceMappingURL=SomeCoolNetwork.js.map
