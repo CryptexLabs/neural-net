@@ -1,0 +1,4 @@
+# Cryptex Neural Net #
+Wrapper for training, and getting results from cryptex neural networks
+
+![Build Status](https://codebuild.us-west-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiWm14bURJa25SQVF6OW1URlhpRkVQekFQZXZhajd1MmlPQjNYaWc1eWVEdWFXWmoxTEV3bGxWWmVQVzlhdHcxSW9KaWhIV3pOQVdMUmRMTDNOY1RNQ3JBPSIsIml2UGFyYW1ldGVyU3BlYyI6IlhyZlRiWnBHOEFGdGRrMVAiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)

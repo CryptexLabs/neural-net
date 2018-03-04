@@ -1,9 +1,4 @@
 "use strict";
-///<ref="../../../interfaces/NeuralNet.ts"/>
-///<ref="../../../interfaces/NeuralNetInput.ts"/>
-///<ref="../../../interfaces/NeuralNetOutput.ts"/>
-///<ref="../../../interfaces/UnsupervisedNetwork.ts"/>
-///<ref="../../../interfaces/UnsupervisedNetworkTrainingResult.ts"/>
 Object.defineProperty(exports, "__esModule", { value: true });
 class SomeCoolNetwork {
     loadResult(input, callback) {

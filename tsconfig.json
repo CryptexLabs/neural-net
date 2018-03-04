@@ -2,15 +2,19 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es2016",
-    "sourceMap": true
+    "sourceMap": true,
+    "typeRoots": [
+      "./node_modules/@types"
+    ]
   },
   "files": [
     "./node_modules/@types/mocha/index.d.ts",
     "./node_modules/@types/node/index.d.ts"
   ],
   "include": [
-    "src/*.ts",
-    "node_modules/cryptex-shared-models/*.ts"
+    "src/**/*.ts",
+    "tests/**/*.ts",
+    "node_modules/cryptex-**/*.ts"
   ],
   "exclude": [
     "node_modules"

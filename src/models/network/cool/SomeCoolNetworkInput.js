@@ -1,5 +1,4 @@
 "use strict";
-///<ref="../../../interfaces/NeuralNetInput.ts"/>
 Object.defineProperty(exports, "__esModule", { value: true });
 class SomeCoolNetworkInput {
     constructor(a, b, c) {
