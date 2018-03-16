@@ -1,5 +1,5 @@
 import {RSIConfigNetworkOutput} from "./RSIConfigNetworkOutput";
-import {SupervisedNeuralNetInput} from "../../../../interfaces/SupervisedNeuralNetInput";
+import {SupervisedNeuralNetInput} from "../../../../interfaces/supervised/SupervisedNeuralNetInput";
 import {RSIStrategyConfigNetworkInput} from "./RSIStrategyConfigNetworkInput";
 
 export class RSIConfigNeuralNetworkInput implements SupervisedNeuralNetInput {

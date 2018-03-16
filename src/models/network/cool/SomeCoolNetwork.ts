@@ -1,8 +1,8 @@
 import {NeuralNet} from "../../../interfaces/NeuralNet";
 import {NeuralNetInput} from "../../../interfaces/NeuralNetInput";
 import {NeuralNetOutput} from "../../../interfaces/NeuralNetOutput";
-import {UnsupervisedNetwork} from "../../../interfaces/UnsupervisedNetwork";
-import {UnsupervisedNetworkTrainingResult} from "../../../interfaces/UnsupervisedNetworkTrainingResult";
+import {UnsupervisedNetwork} from "../../../interfaces/unsupervised/UnsupervisedNetwork";
+import {UnsupervisedNetworkTrainingResult} from "../../../interfaces/unsupervised/UnsupervisedNetworkTrainingResult";
 import {SomeCoolNetworkInput} from "./SomeCoolNetworkInput";
 
 export class SomeCoolNetwork implements NeuralNet, UnsupervisedNetwork{

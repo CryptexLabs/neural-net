@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const InputOutputMap_1 = require("../../map/InputOutputMap");
 class RSIConfigNetwork {
-    constructor() {
+    constructor(provider, market) {
     }
     loadResult(input, callback) {
         if (this._inputOutputMap) {

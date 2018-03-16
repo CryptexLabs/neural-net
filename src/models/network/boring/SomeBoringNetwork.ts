@@ -1,5 +1,5 @@
-import {SupervisedNetwork} from "../../../interfaces/SupervisedNetwork";
-import {SupervisedNetworkTrainingResult} from "../../../interfaces/SupervisedNetworkTrainingResult";
+import {SupervisedNetwork} from "../../../interfaces/supervised/SupervisedNetwork";
+import {SupervisedNetworkTrainingResult} from "../../../interfaces/supervised/SupervisedNetworkTrainingResult";
 import {SupervisedBoringNeuralNetInput} from "./SupervisedBoringNeuralNetInput";
 import {BaseNetwork} from "../base/BaseNetwork";
 

@@ -1,5 +1,5 @@
 import {RSIStrategyConfigNetworkInput} from "../config/rsi/RSIStrategyConfigNetworkInput";
-import {UnsupervisedNetworkTrainingResult} from "../../../interfaces/UnsupervisedNetworkTrainingResult";
+import {UnsupervisedNetworkTrainingResult} from "../../../interfaces/unsupervised/UnsupervisedNetworkTrainingResult";
 import {UnsupervisedLearningSet} from "./UnsupervisedLearningSet";
 
 export class SynapticUnsupervisedNeuralNetwork {

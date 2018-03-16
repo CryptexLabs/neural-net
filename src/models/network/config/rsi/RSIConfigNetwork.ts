@@ -1,18 +1,20 @@
 import {NeuralNet} from "../../../../interfaces/NeuralNet";
 import {NeuralNetInput} from "../../../../interfaces/NeuralNetInput";
 import {NeuralNetOutput} from "../../../../interfaces/NeuralNetOutput";
-import {UnsupervisedNetwork} from "../../../../interfaces/UnsupervisedNetwork";
-import {UnsupervisedNetworkTrainingResult} from "../../../../interfaces/UnsupervisedNetworkTrainingResult";
+import {UnsupervisedNetwork} from "../../../../interfaces/unsupervised/UnsupervisedNetwork";
+import {UnsupervisedNetworkTrainingResult} from "../../../../interfaces/unsupervised/UnsupervisedNetworkTrainingResult";
 import {RSIStrategyConfigNetworkInput} from "./RSIStrategyConfigNetworkInput";
 import {InputOutputMap} from "../../map/InputOutputMap";
 import {SynapticUnsupervisedNeuralNetwork} from "../../synaptic/SynapticUnsupervisedNeuralNetwork";
+import {Market} from "cryptex-shared-models/src/models/market/Market";
+import {NetworkProvider} from "../../../../interfaces/provider/NetworkProvider";
 
 export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork {
 
 	private _inputOutputMap: InputOutputMap;
 	private _synapticNeuralNetwork: SynapticUnsupervisedNeuralNetwork;
 
-	constructor() {
+	constructor(provider : NetworkProvider, market: Market) {
 
 	}
 
