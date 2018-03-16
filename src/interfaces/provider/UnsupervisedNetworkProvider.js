@@ -1,3 +1,3 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=NetworkProvider.js.map
+//# sourceMappingURL=UnsupervisedNetworkProvider.js.map

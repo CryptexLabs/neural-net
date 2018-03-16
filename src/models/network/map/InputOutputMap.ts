@@ -1,5 +1,5 @@
-import {NeuralNetInput} from "../../../interfaces/NeuralNetInput";
-import {NeuralNetOutput} from "../../../interfaces/NeuralNetOutput";
+import {NeuralNetInput} from "../../../interfaces/input/NeuralNetInput";
+import {NeuralNetOutput} from "../../../interfaces/output/NeuralNetOutput";
 
 export class InputOutputMap {
 

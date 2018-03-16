@@ -1,11 +1,13 @@
-import {NeuralNetInput} from "../NeuralNetInput";
+import {NeuralNetInput} from "../input/NeuralNetInput";
 import {UnsupervisedNetworkTrainingResult} from "./UnsupervisedNetworkTrainingResult";
-import {NeuralNetOutput} from "../NeuralNetOutput";
+import {NeuralNetOutput} from "../output/NeuralNetOutput";
+import {NeuralNetInputData} from "../input/NeuralNetInputData";
 
 export interface UnsupervisedNetwork {
-	train(inputs: NeuralNetInput[], callback: (error: string, result: UnsupervisedNetworkTrainingResult) => void);
 
-	scoreTrainingResult(resultID: string, score: number, callback: (error: string) => void);
+	train(input: NeuralNetInputData): Promise<UnsupervisedNetworkTrainingResult>;
+
+	scoreTrainingResult(resultID: string, score: number): Promise<boolean>;
 
 	setOutputsForInputs(inputs:NeuralNetInput[], outputs: NeuralNetOutput[]);
 }

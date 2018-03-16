@@ -1,4 +1,4 @@
-import {NeuralNetInput} from "../../../interfaces/NeuralNetInput";
+import {NeuralNetInput} from "../../../interfaces/input/NeuralNetInput";
 
 export class SomeBoringNetworkInput implements NeuralNetInput {
 

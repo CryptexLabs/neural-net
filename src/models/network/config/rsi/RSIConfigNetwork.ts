@@ -1,22 +1,30 @@
 import {NeuralNet} from "../../../../interfaces/NeuralNet";
-import {NeuralNetInput} from "../../../../interfaces/NeuralNetInput";
-import {NeuralNetOutput} from "../../../../interfaces/NeuralNetOutput";
+import {NeuralNetInput} from "../../../../interfaces/input/NeuralNetInput";
+import {NeuralNetOutput} from "../../../../interfaces/output/NeuralNetOutput";
 import {UnsupervisedNetwork} from "../../../../interfaces/unsupervised/UnsupervisedNetwork";
 import {UnsupervisedNetworkTrainingResult} from "../../../../interfaces/unsupervised/UnsupervisedNetworkTrainingResult";
-import {RSIStrategyConfigNetworkInput} from "./RSIStrategyConfigNetworkInput";
 import {InputOutputMap} from "../../map/InputOutputMap";
 import {SynapticUnsupervisedNeuralNetwork} from "../../synaptic/SynapticUnsupervisedNeuralNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
-import {NetworkProvider} from "../../../../interfaces/provider/NetworkProvider";
+import {UnsupervisedNetworkProvider} from "../../../../interfaces/provider/UnsupervisedNetworkProvider";
+import {NeuralNetInputData} from "../../../../interfaces/input/NeuralNetInputData";
 
 export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork {
 
 	private _inputOutputMap: InputOutputMap;
 	private _synapticNeuralNetwork: SynapticUnsupervisedNeuralNetwork;
 
-	constructor(provider : NetworkProvider, market: Market) {
+	constructor(provider : UnsupervisedNetworkProvider, market: Market) {
 
 	}
+
+    train(input: NeuralNetInputData): Promise<UnsupervisedNetworkTrainingResult> {
+        return undefined;
+    }
+
+    scoreTrainingResult(resultID: string, score: number): Promise<boolean> {
+        return undefined;
+    }
 
 	loadResult(input: NeuralNetInput, callback: (error: string, output: NeuralNetOutput) => void) {
 		if(this._inputOutputMap) {
@@ -24,17 +32,6 @@ export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork {
 		} else {
 			// Get result from network
 		}
-	}
-
-	train(inputs: RSIStrategyConfigNetworkInput[], callback: (error: string, result: UnsupervisedNetworkTrainingResult) => void) {
-		if (this._synapticNeuralNetwork){
-			this._synapticNeuralNetwork.train(inputs, callback)
-		}
-		throw new Error('RSIConfigNetwork.train not implemented')
-	}
-
-	scoreTrainingResult(resultID: string, score: number) {
-		throw new Error('RSIConfigNetwork.scoreTrainingResult not implemented')
 	}
 
 	setOutputsForInputs(inputs: NeuralNetInput[], outputs: NeuralNetOutput[]) {

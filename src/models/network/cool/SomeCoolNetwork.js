@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class SomeCoolNetwork {
+    scoreTrainingResult(resultID, score) {
+        throw new Error("Method not implemented.");
+    }
+    train(input) {
+        throw new Error("Method not implemented.");
+    }
     loadResult(input, callback) {
         throw new Error('SomeCoolNetwork.loadResult not implemented');
-    }
-    train(input, callback) {
-        throw new Error('SomeCoolNetwork.train not implemented');
-    }
-    scoreTrainingResult(resultID, score) {
-        throw new Error('SomeCoolNetwork.scoreTrainingResult not implemented');
     }
     setOutputsForInputs(inputs, outputs) {
     }

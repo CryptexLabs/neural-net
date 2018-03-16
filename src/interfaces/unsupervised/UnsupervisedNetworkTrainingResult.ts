@@ -1,6 +1,9 @@
-import {NeuralNetOutput} from "../NeuralNetOutput";
+import {NeuralNetOutputData} from "../output/NeuralNetOutputData";
 
 export interface UnsupervisedNetworkTrainingResult {
-	getOutputs(): NeuralNetOutput[];
-	getResultID(): string;
+
+    getOutput(): NeuralNetOutputData;
+
+    getResultID(): string;
+    
 }

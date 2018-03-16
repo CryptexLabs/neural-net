@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class SageMakerNetworkProvider {
-    getNetwork() {
-        return undefined;
+    getSupervisedNetwork() {
+        throw new Error("Method not implemented.");
     }
 }
 exports.SageMakerNetworkProvider = SageMakerNetworkProvider;

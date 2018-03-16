@@ -1,1 +1,1 @@
-{"version":3,"file":"SageMakerNetworkProvider.js","sourceRoot":"","sources":["SageMakerNetworkProvider.ts"],"names":[],"mappings":";;AAGA;IAEI,UAAU;QACN,MAAM,CAAC,SAAS,CAAC;IACrB,CAAC;CACJ;AALD,4DAKC"}
+{"version":3,"file":"SageMakerNetworkProvider.js","sourceRoot":"","sources":["SageMakerNetworkProvider.ts"],"names":[],"mappings":";;AAGA;IACI,oBAAoB;QAChB,MAAM,IAAI,KAAK,CAAC,yBAAyB,CAAC,CAAC;IAC/C,CAAC;CACJ;AAJD,4DAIC"}
