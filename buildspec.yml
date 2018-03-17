@@ -14,7 +14,7 @@ phases:
       - chmod 600 /root/.ssh/config
       - chown root:root /root/.ssh/config
       - npm install -g npm@5.7.1
-  prebuild:
+  pre_build:
     commands:
       - aws s3 cp s3://cryptex-credentials/neural-net/test/config.json config.json
   build:
