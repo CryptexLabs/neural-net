@@ -1,9 +1,10 @@
 declare module NodeJS  {
 	interface Global {
-		AWS: any
+		AWS: any,
+		ENV: string
 	}
 }
-
+global.ENV = 'TEST';
 global.AWS = require('aws-sdk');
 let options = {
 	'region': 'us-west-2'

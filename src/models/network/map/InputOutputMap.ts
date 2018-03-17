@@ -3,12 +3,12 @@ import {NeuralNetOutput} from "../../../interfaces/output/NeuralNetOutput";
 
 export class InputOutputMap {
 
-	setOutputsForInputs(inputs:NeuralNetInput[], outputs: NeuralNetOutput[]){
-
+	public setOutputsForInputs(inputs:NeuralNetInput[], outputs: NeuralNetOutput[]){
+		// TODO Implement InputOutputMap::setOutputsForInputs
 	}
 
-	getOutputForInput(input: NeuralNetInput): NeuralNetOutput {
-		// TODO
+	public getOutputForInput(input: NeuralNetInput): NeuralNetOutput {
+		// TODO Implement InputOutputMap::getOutputForInput
 		return null;
 	}
 }

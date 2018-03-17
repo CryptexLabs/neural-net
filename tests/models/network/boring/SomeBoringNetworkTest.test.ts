@@ -28,7 +28,7 @@ describe('SomeBoringNetwork', () => {
 
 	    // Fails
 		// let inputs = new SupervisedBoringNeuralNetInput(_input, _output);
-		// result.train([inputs], function(err, res) {
+		// result.trainUnsupervisedNetwork([inputs], function(err, res) {
 		// 	expect(err).is.equal(null);
 		// 	done();
 		// });

@@ -29,7 +29,7 @@ describe('RSIConfigNetwork', () => {
         let inputs = [_input0, _input1, _input2];
 
         // Fails
-        // rsiConfigNetwork.train(inputs, function (err, res) {
+        // rsiConfigNetwork.trainUnsupervisedNetwork(inputs, function (err, res) {
         //     expect(err).is.equal(null);
         //     done();
         // });

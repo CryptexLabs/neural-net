@@ -2,9 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class InputOutputMap {
     setOutputsForInputs(inputs, outputs) {
+        // TODO Implement InputOutputMap::setOutputsForInputs
     }
     getOutputForInput(input) {
-        // TODO
+        // TODO Implement InputOutputMap::getOutputForInput
         return null;
     }
 }

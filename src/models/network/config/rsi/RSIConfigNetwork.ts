@@ -6,51 +6,51 @@ import {UnsupervisedNetworkTrainingResult} from "../../../../interfaces/unsuperv
 import {InputOutputMap} from "../../map/InputOutputMap";
 import {SynapticUnsupervisedNeuralNetwork} from "../../synaptic/SynapticUnsupervisedNeuralNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
-import {UnsupervisedNetworkProvider} from "../../../../interfaces/provider/UnsupervisedNetworkProvider";
 import {NeuralNetInputData} from "../../../../interfaces/input/NeuralNetInputData";
 import {UnsupervisedProvidedNetwork} from "../../../../interfaces/provider/UnsupervisedProvidedNetwork";
+import {KMeansNetworkProvider} from "../../../../interfaces/provider/KMeansNetworkProvider";
 
 export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork {
 
-	private _inputOutputMap: InputOutputMap;
-	private _synapticNeuralNetwork: SynapticUnsupervisedNeuralNetwork;
-	private _networkProvider: UnsupervisedNetworkProvider;
-	private _market: Market;
+    private _inputOutputMap: InputOutputMap;
+    private _synapticNeuralNetwork: SynapticUnsupervisedNeuralNetwork;
+    private _networkProvider: KMeansNetworkProvider;
+    private _market: Market;
 
-	constructor(provider: UnsupervisedNetworkProvider, market: Market) {
-		this._networkProvider = provider;
-		this._market          = market;
-	}
+    constructor(provider: KMeansNetworkProvider, market: Market) {
+        this._networkProvider = provider;
+        this._market = market;
+    }
 
-	train(input: NeuralNetInputData): Promise<UnsupervisedNetworkTrainingResult> {
-		return this._networkProvider
-			.getUnsupervisedNetwork(this._getNetworkName())
-			.then((network: UnsupervisedProvidedNetwork) => {
-				return network.train(input);
-			});
-	}
+    train(input: NeuralNetInputData): Promise<UnsupervisedNetworkTrainingResult> {
+        return this._networkProvider
+            .getKMeansNetwork(this._getNetworkName())
+            .then((network: UnsupervisedProvidedNetwork) => {
+                return network.trainUnsupervisedNetwork(input);
+            });
+    }
 
-	private _getNetworkName(): string {
-		return ['RSI_CONFIG', this._market.getMarketKey()].join('_');
-	}
+    private _getNetworkName(): string {
+        return ['RSI_CONFIG', this._market.getMarketKey()].join('_');
+    }
 
-	scoreTrainingResult(resultID: string, score: number): Promise<boolean> {
-		return undefined;
-	}
+    scoreTrainingResult(resultID: string, score: number): Promise<boolean> {
+        return undefined;
+    }
 
-	loadResult(input: NeuralNetInput, callback: (error: string, output: NeuralNetOutput) => void) {
-		if(this._inputOutputMap) {
-			callback(null, this._inputOutputMap.getOutputForInput(input))
-		} else {
-			// Get result from network
-		}
-	}
+    loadResult(input: NeuralNetInput, callback: (error: string, output: NeuralNetOutput) => void) {
+        if (this._inputOutputMap) {
+            callback(null, this._inputOutputMap.getOutputForInput(input))
+        } else {
+            // Get result from network
+        }
+    }
 
-	setOutputsForInputs(inputs: NeuralNetInput[], outputs: NeuralNetOutput[]) {
-		if(!this._inputOutputMap) {
-			this._inputOutputMap = new InputOutputMap()
-		}
-		this._inputOutputMap.setOutputsForInputs(inputs, outputs);
-	}
+    setOutputsForInputs(inputs: NeuralNetInput[], outputs: NeuralNetOutput[]) {
+        if (!this._inputOutputMap) {
+            this._inputOutputMap = new InputOutputMap()
+        }
+        this._inputOutputMap.setOutputsForInputs(inputs, outputs);
+    }
 
 }

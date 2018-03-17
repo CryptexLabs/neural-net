@@ -1,16 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class SageMakerNetwork {
+    trainUnsupervisedNetwork(input) {
+        throw new Error("Method not implemented.");
+    }
+    trainSupervisedNetwork(input) {
+        throw new Error("Method not implemented.");
+    }
     static createFromCreateModelOutput(createOutput) {
-        // TODO
-        return undefined;
+        // TODO Implement SageMakerNetwork::createFromCreateModelOutput
+        return new SageMakerNetwork();
     }
     static createFromDescribeModelOutput(describeOutput) {
-        // TODO
-        return undefined;
-    }
-    train(input) {
-        return undefined;
+        // TODO SageMakerNetwork::createFromDescribeModelOutput
+        return new SageMakerNetwork();
     }
 }
 exports.SageMakerNetwork = SageMakerNetwork;

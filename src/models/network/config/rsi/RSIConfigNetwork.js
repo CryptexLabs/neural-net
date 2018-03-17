@@ -8,9 +8,9 @@ class RSIConfigNetwork {
     }
     train(input) {
         return this._networkProvider
-            .getUnsupervisedNetwork(this._getNetworkName())
+            .getKMeansNetwork(this._getNetworkName())
             .then((network) => {
-            return network.train(input);
+            return network.trainUnsupervisedNetwork(input);
         });
     }
     _getNetworkName() {

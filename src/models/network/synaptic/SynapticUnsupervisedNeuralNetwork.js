@@ -5,10 +5,10 @@ class SynapticUnsupervisedNeuralNetwork {
     train(inputs, callback) {
         if (this._network) {
             let learning_set = new UnsupervisedLearningSet_1.UnsupervisedLearningSet(inputs);
-            this._network.train(learning_set);
+            this._network.trainUnsupervisedNetwork(learning_set);
             this._network.predict();
         }
-        throw new Error('SynapticUnsupervisedNeuralNetwork.train not implemented');
+        throw new Error('SynapticUnsupervisedNeuralNetwork.trainUnsupervisedNetwork not implemented');
     }
 }
 exports.SynapticUnsupervisedNeuralNetwork = SynapticUnsupervisedNeuralNetwork;
