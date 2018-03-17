@@ -15,6 +15,7 @@
   "include": [
     "src/**/*.ts",
     "tests/**/*.ts",
+    "examples/**/*.ts",
     "node_modules/cryptex-**/*.ts"
   ],
   "exclude": [

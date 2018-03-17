@@ -7,11 +7,18 @@ class RSIConfigNetwork {
         this._market = market;
     }
     train(input) {
-        return this._networkProvider
-            .getKMeansNetwork(this._getNetworkName())
+        return this._getNetwork()
             .then((network) => {
             return network.trainUnsupervisedNetwork(input);
         });
+    }
+    _getNetwork() {
+        if (!this._unsupervisedNetwork) {
+            return this._networkProvider.getKMeansNetwork(this._getNetworkName());
+        }
+        else {
+            return Promise.resolve(this._unsupervisedNetwork);
+        }
     }
     _getNetworkName() {
         return ['RSI_CONFIG', this._market.getMarketKey()].join('_');
@@ -19,12 +26,13 @@ class RSIConfigNetwork {
     scoreTrainingResult(resultID, score) {
         return undefined;
     }
-    loadResult(input, callback) {
+    loadResult(input) {
         if (this._inputOutputMap) {
-            callback(null, this._inputOutputMap.getOutputForInput(input));
+            return Promise.resolve(this._inputOutputMap.getOutputForInput(input));
         }
         else {
-            // Get result from network
+            // TODO Get result from network
+            return undefined;
         }
     }
     setOutputsForInputs(inputs, outputs) {

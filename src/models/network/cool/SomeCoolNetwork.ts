@@ -16,12 +16,11 @@ export class SomeCoolNetwork implements NeuralNet, UnsupervisedNetwork{
         throw new Error("Method not implemented.");
     }
 
-	loadResult(input: NeuralNetInput, callback: (error: string, output: NeuralNetOutput) => void) {
-		throw new Error('SomeCoolNetwork.loadResult not implemented')
-	}
-
     setOutputsForInputs(inputs: NeuralNetInput[], outputs: NeuralNetOutput[]) {
 
     }
 
+    loadResult(input: NeuralNetInput): Promise<NeuralNetOutput> {
+        throw new Error('SomeCoolNetwork.loadResult not implemented')
+    }
 }

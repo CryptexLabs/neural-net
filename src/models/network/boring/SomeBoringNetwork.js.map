@@ -1,1 +1,1 @@
-{"version":3,"file":"SomeBoringNetwork.js","sourceRoot":"","sources":["SomeBoringNetwork.ts"],"names":[],"mappings":";;AAGA,qDAAgD;AAEhD,uBAA+B,SAAQ,yBAAW;IAEjD,KAAK,CAAC,MAAwC,EAAE,QAA0E;QACzH,MAAM,IAAI,KAAK,CAAC,4DAA4D,CAAC,CAAA;IAC9E,CAAC;CACD;AALD,8CAKC"}
+{"version":3,"file":"SomeBoringNetwork.js","sourceRoot":"","sources":["SomeBoringNetwork.ts"],"names":[],"mappings":";;AAEA,qDAAgD;AAGhD,uBAA+B,SAAQ,yBAAW;IAC9C,KAAK,CAAC,MAAkC,EAAE,QAA0E;QAChH,MAAM,IAAI,KAAK,CAAC,4DAA4D,CAAC,CAAA;IACjF,CAAC;CAEJ;AALD,8CAKC"}

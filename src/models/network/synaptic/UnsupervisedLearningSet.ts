@@ -1,10 +1,11 @@
-import {RSIStrategyConfigNetworkInput} from "../config/rsi/RSIStrategyConfigNetworkInput";
+
+import {RSIConfigNetworkInput} from "../config/rsi/RSIConfigNetworkInput";
 
 export class UnsupervisedLearningSet {
 	_inputs: number[];
 	_outputs: number[];
 
-	constructor(inputs: RSIStrategyConfigNetworkInput[]) {
+	constructor(inputs: RSIConfigNetworkInput[]) {
 
 	}
 }

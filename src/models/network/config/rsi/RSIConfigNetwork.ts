@@ -4,7 +4,6 @@ import {NeuralNetOutput} from "../../../../interfaces/output/NeuralNetOutput";
 import {UnsupervisedNetwork} from "../../../../interfaces/unsupervised/UnsupervisedNetwork";
 import {UnsupervisedNetworkTrainingResult} from "../../../../interfaces/unsupervised/UnsupervisedNetworkTrainingResult";
 import {InputOutputMap} from "../../map/InputOutputMap";
-import {SynapticUnsupervisedNeuralNetwork} from "../../synaptic/SynapticUnsupervisedNeuralNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
 import {NeuralNetInputData} from "../../../../interfaces/input/NeuralNetInputData";
 import {UnsupervisedProvidedNetwork} from "../../../../interfaces/provider/UnsupervisedProvidedNetwork";
@@ -12,8 +11,9 @@ import {KMeansNetworkProvider} from "../../../../interfaces/provider/KMeansNetwo
 
 export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork {
 
+
     private _inputOutputMap: InputOutputMap;
-    private _synapticNeuralNetwork: SynapticUnsupervisedNeuralNetwork;
+    private _unsupervisedNetwork: UnsupervisedProvidedNetwork;
     private _networkProvider: KMeansNetworkProvider;
     private _market: Market;
 
@@ -23,11 +23,18 @@ export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork {
     }
 
     train(input: NeuralNetInputData): Promise<UnsupervisedNetworkTrainingResult> {
-        return this._networkProvider
-            .getKMeansNetwork(this._getNetworkName())
+        return this._getNetwork()
             .then((network: UnsupervisedProvidedNetwork) => {
                 return network.trainUnsupervisedNetwork(input);
             });
+    }
+
+    private _getNetwork(): Promise<UnsupervisedProvidedNetwork> {
+        if(!this._unsupervisedNetwork){
+            return this._networkProvider.getKMeansNetwork(this._getNetworkName())
+        }else{
+            return Promise.resolve(this._unsupervisedNetwork);
+        }
     }
 
     private _getNetworkName(): string {
@@ -38,11 +45,12 @@ export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork {
         return undefined;
     }
 
-    loadResult(input: NeuralNetInput, callback: (error: string, output: NeuralNetOutput) => void) {
+    loadResult(input: NeuralNetInput): Promise<NeuralNetOutput> {
         if (this._inputOutputMap) {
-            callback(null, this._inputOutputMap.getOutputForInput(input))
+            return Promise.resolve(this._inputOutputMap.getOutputForInput(input))
         } else {
-            // Get result from network
+            // TODO Get result from network
+            return undefined;
         }
     }
 

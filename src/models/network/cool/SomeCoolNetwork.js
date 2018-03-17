@@ -7,10 +7,10 @@ class SomeCoolNetwork {
     train(input) {
         throw new Error("Method not implemented.");
     }
-    loadResult(input, callback) {
-        throw new Error('SomeCoolNetwork.loadResult not implemented');
-    }
     setOutputsForInputs(inputs, outputs) {
+    }
+    loadResult(input) {
+        throw new Error('SomeCoolNetwork.loadResult not implemented');
     }
 }
 exports.SomeCoolNetwork = SomeCoolNetwork;

@@ -1,1 +1,1 @@
-{"version":3,"file":"SomeBoringNetworkOutput.js","sourceRoot":"","sources":["SomeBoringNetworkOutput.ts"],"names":[],"mappings":";;AAEA;IAIC,YAAY,CAAS;QACpB,IAAI,CAAC,EAAE,GAAG,CAAC,CAAC;IACb,CAAC;CACD;AAPD,0DAOC"}
+{"version":3,"file":"SomeBoringNetworkOutput.js","sourceRoot":"","sources":["SomeBoringNetworkOutput.ts"],"names":[],"mappings":";;AAEA;IAII,YAAY,CAAS;QACjB,IAAI,CAAC,EAAE,GAAG,CAAC,CAAC;IAChB,CAAC;IAED,SAAS;QACL,MAAM,CAAC,CAAC,IAAI,CAAC,EAAE,CAAC,CAAC;IACrB,CAAC;CACJ;AAXD,0DAWC"}
