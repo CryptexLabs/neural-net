@@ -1,0 +1,3 @@
+--require tests/bootstrap.js
+--require ts-node/register
+--recursive

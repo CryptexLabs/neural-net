@@ -8,23 +8,35 @@ import {SynapticUnsupervisedNeuralNetwork} from "../../synaptic/SynapticUnsuperv
 import {Market} from "cryptex-shared-models/src/models/market/Market";
 import {UnsupervisedNetworkProvider} from "../../../../interfaces/provider/UnsupervisedNetworkProvider";
 import {NeuralNetInputData} from "../../../../interfaces/input/NeuralNetInputData";
+import {UnsupervisedProvidedNetwork} from "../../../../interfaces/provider/UnsupervisedProvidedNetwork";
 
 export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork {
 
 	private _inputOutputMap: InputOutputMap;
 	private _synapticNeuralNetwork: SynapticUnsupervisedNeuralNetwork;
+	private _networkProvider: UnsupervisedNetworkProvider;
+	private _market: Market;
 
-	constructor(provider : UnsupervisedNetworkProvider, market: Market) {
-
+	constructor(provider: UnsupervisedNetworkProvider, market: Market) {
+		this._networkProvider = provider;
+		this._market          = market;
 	}
 
-    train(input: NeuralNetInputData): Promise<UnsupervisedNetworkTrainingResult> {
-        return undefined;
-    }
+	train(input: NeuralNetInputData): Promise<UnsupervisedNetworkTrainingResult> {
+		return this._networkProvider
+			.getUnsupervisedNetwork(this._getNetworkName())
+			.then((network: UnsupervisedProvidedNetwork) => {
+				return network.train(input);
+			});
+	}
 
-    scoreTrainingResult(resultID: string, score: number): Promise<boolean> {
-        return undefined;
-    }
+	private _getNetworkName(): string {
+		return ['RSI_CONFIG', this._market.getMarketKey()].join('_');
+	}
+
+	scoreTrainingResult(resultID: string, score: number): Promise<boolean> {
+		return undefined;
+	}
 
 	loadResult(input: NeuralNetInput, callback: (error: string, output: NeuralNetOutput) => void) {
 		if(this._inputOutputMap) {

@@ -9,6 +9,7 @@
     "postinstall": "if [ -f .scripts/env-install.sh ]; then .scripts/env-install.sh; fi;"
   },
   "dependencies": {
+    "aws-sdk": "^2.211.0",
     "cryptex-shared-models": "git+ssh://git@github.com/CryptexLabs/shared-models.git"
   },
   "repository": {

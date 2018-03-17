@@ -1,5 +1,5 @@
-import {SupervisedProvidedNetwork} from "./SupervisedProvidedNetwork";
+import {UnsupervisedProvidedNetwork} from "./UnsupervisedProvidedNetwork";
 
 export interface UnsupervisedNetworkProvider {
-    getSupervisedNetwork(): Promise<SupervisedProvidedNetwork>;
+    getUnsupervisedNetwork(name: string): Promise<UnsupervisedProvidedNetwork>;
 }

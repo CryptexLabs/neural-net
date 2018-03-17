@@ -7,4 +7,4 @@ ABSPATH=$(realpath $0)
 SCRIPTPATH=$(dirname ${ABSPATH})
 BASEPATH=$(dirname ${SCRIPTPATH})
 
-node ${BASEPATH}/node_modules/.bin/mocha --require tests/bootstrap.ts --recursive tests
+node ${BASEPATH}/node_modules/.bin/mocha --opts tests/mocha.opts tests

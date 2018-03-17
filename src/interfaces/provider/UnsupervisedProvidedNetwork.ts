@@ -1,7 +1,7 @@
 import {NeuralNetInputData} from "../input/NeuralNetInputData";
-import {NeuralNetOutputData} from "../output/NeuralNetOutputData";
+import {UnsupervisedNetworkTrainingResult} from "../unsupervised/UnsupervisedNetworkTrainingResult";
 
 export interface UnsupervisedProvidedNetwork {
 
-    train(input: NeuralNetInputData): Promise<NeuralNetOutputData>;
+    train(input: NeuralNetInputData): Promise<UnsupervisedNetworkTrainingResult>;
 }
