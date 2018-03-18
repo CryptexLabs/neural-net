@@ -16,12 +16,12 @@ export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork, OutputC
 
     private _networkProvider: KMeansNetworkProvider;
     private _market: Market;
-    private _cacher: ProvidedNetworkOutputCache<RSIConfigNetworkOutput>;
+    private _cache: ProvidedNetworkOutputCache<RSIConfigNetworkOutput>;
 
     constructor(market: Market, provider: KMeansNetworkProvider) {
         this._market = market;
         this._networkProvider = provider;
-        this._cacher = new ProvidedNetworkOutputCache<RSIConfigNetworkOutput>();
+        this._cache = new ProvidedNetworkOutputCache<RSIConfigNetworkOutput>();
     }
 
     public train(input: NeuralNetInputData<RSIConfigNetworkInput>): Promise<UnsupervisedNetworkTrainingResult> {
@@ -41,12 +41,12 @@ export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork, OutputC
     public guess(input: NeuralNetInput): Promise<NeuralNetOutput> {
         return this._getNetwork()
             .then((network: UnsupervisedProvidedNetwork) => {
-                return this._cacher.guess(network, input);
+                return this._cache.guess(network, input);
             });
     }
 
-    public setOutputsForInputs(inputs: NeuralNetInput[], outputs: RSIConfigNetworkOutput[]) {
-        return this._cacher.setOutputsForInputs(inputs, outputs);
+    public setOutputsForInputs(inputs: RSIConfigNetworkInput[], outputs: RSIConfigNetworkOutput[]) {
+        return this._cache.setOutputsForInputs(inputs, outputs);
     }
 
     private _getNetwork(): Promise<UnsupervisedProvidedNetwork> {
