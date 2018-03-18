@@ -1,10 +1,15 @@
-import {NetworkProviderService} from "../src/models/NetworkProviderService";
+import {NeuralNetService} from "../src/models/NeuralNetService";
 import {RSIConfigNetwork} from "../src/models/network/config/rsi/RSIConfigNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
 import {RSIConfigNetworkInput} from "../src/models/network/config/rsi/RSIConfigNetworkInput";
 import {NeuralNetOutput} from "../src/interfaces/output/NeuralNetOutput";
+import {NeuralNetConfig} from "../src/interfaces/NeuralNetConfig";
 
-let provider = NetworkProviderService.getDefaultProvider();
+let config = require('../config.json') as NeuralNetConfig;
+
+let service = new NeuralNetService(config);
+
+let provider = service.getDefaultProvider();
 
 let market = new Market('GDAX', 'BTC', 'USD');
 

@@ -1,5 +1,5 @@
 import {SageMakerNetwork} from "./SageMakerNetwork";
-import {NeuralNetConfigFile, SageMakerNeuralNetConfig} from "../../../interfaces/NeuralNetConfigFile";
+import {SageMakerNeuralNetConfig} from "../../../interfaces/NeuralNetConfig";
 import {AWSError, SageMaker} from "aws-sdk";
 import {UnsupervisedNetworkProvider} from "../../../interfaces/provider/UnsupervisedNetworkProvider";
 import {UnsupervisedProvidedNetwork} from "../../../interfaces/provider/UnsupervisedProvidedNetwork";
@@ -15,11 +15,10 @@ declare let ENV: string;
 
 export class SageMakerNetworkProvider implements UnsupervisedNetworkProvider, KMeansNetworkProvider {
 
-    private config: SageMakerNeuralNetConfig;
+    private _config: SageMakerNeuralNetConfig;
 
-    constructor() {
-        let config = require('../../../../config.json') as NeuralNetConfigFile;
-        this.config = config.amazon.sagemaker;
+    constructor(config: SageMakerNeuralNetConfig) {
+        this._config = config;
     }
 
     public getKMeansNetwork(name: string): Promise<UnsupervisedProvidedNetwork> {
@@ -50,7 +49,7 @@ export class SageMakerNetworkProvider implements UnsupervisedNetworkProvider, KM
 
             sagemaker.describeModel(describeModelInput, (error: AWSError, data: SageMaker.Types.DescribeModelOutput) => {
                 if (!error) {
-                    resolve(SageMakerNetwork.createFromDescribeModelOutput( data))
+                    resolve(SageMakerNetwork.createFromDescribeModelOutput(data))
                 } else {
                     this._getNetworkFromNewModel(description).then(resolve).catch(reject);
                 }
@@ -63,7 +62,7 @@ export class SageMakerNetworkProvider implements UnsupervisedNetworkProvider, KM
         return new Promise<SageMakerNetwork>((resolve, reject) => {
 
             let createModelInput: SageMaker.CreateModelInput = {
-                ExecutionRoleArn: this.config.roleARN,
+                ExecutionRoleArn: this._config.roleARN,
                 ModelName: description.getName(),
                 PrimaryContainer: {
                     Image: description.getContainerImage(),

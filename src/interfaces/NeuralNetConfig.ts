@@ -4,6 +4,6 @@ export interface SageMakerNeuralNetConfig {
 export interface AmazonNeuralNetConfig {
     sagemaker: SageMakerNeuralNetConfig;
 }
-export interface NeuralNetConfigFile {
+export interface NeuralNetConfig {
     amazon: AmazonNeuralNetConfig;
 }

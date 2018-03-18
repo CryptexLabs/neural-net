@@ -9,23 +9,44 @@ Wrapper for training, and getting results from cryptex neural networks
 npm install --save git+ssh://git@github.com/CryptexLabs/neural-net.git
 ```
 
+## Before you test
+Make sure your config.json file is filed out properly
+
+```json
+{
+  "amazon": {
+    "sagemaker" : {
+      "roleARN" : "arn:aws:iam::00000000000000:role/service-role/AmazonSageMaker-ExecutionRole-20180317T115106"
+    }
+  }
+}
+```
+
+If you do not already have a config.json in the root of the project directory, then one will created from the example config
+
 ## How to test
 
 ```bash
 npm test
 ```
+If you do not configure the config.json before running your tests then your tests will fail because some of the tests are integration tests.
 
 ## How to train
 
 ```typescript
-import {NetworkProviderService} from "./src/models/NetworkProviderService";
+import {NeuralNetService} from "./src/models/NeuralNetService";
 import {RSIConfigNetwork} from "./src/models/network/config/rsi/RSIConfigNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
 import {S3CSVInputData} from "./src/models/input/S3CSVInputData";
 import {UnsupervisedNetworkTrainingResult} from "./src/interfaces/unsupervised/UnsupervisedNetworkTrainingResult";
 import {UnsupervisedNetworkTrainingPerformanceResult} from "./src/interfaces/unsupervised/UnsupervisedNetworkTrainingPerformanceResult";
+import {NeuralNetConfig} from "./src/interfaces/NeuralNetConfig";
 
-let provider = NetworkProviderService.getDefaultProvider();
+let config = require('../config.json') as NeuralNetConfig;
+
+let service = new NeuralNetService(config);
+
+let provider = service.getDefaultProvider();
 
 let market = new Market('GDAX', 'BTC', 'USD');
 
@@ -63,13 +84,18 @@ network
 ## How to use
 
 ```typescript
-import {NetworkProviderService} from "./src/models/NetworkProviderService";
+import {NeuralNetService} from "./src/models/NeuralNetService";
 import {RSIConfigNetwork} from "./src/models/network/config/rsi/RSIConfigNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
 import {RSIConfigNetworkInput} from "./src/models/network/config/rsi/RSIConfigNetworkInput";
 import {NeuralNetOutput} from "./src/interfaces/output/NeuralNetOutput";
+import {NeuralNetConfig} from "./src/interfaces/NeuralNetConfig";
 
-let provider = NetworkProviderService.getDefaultProvider();
+let config = require('../config.json') as NeuralNetConfig;
+
+let service = new NeuralNetService(config);
+
+let provider = service.getDefaultProvider();
 
 let market = new Market('GDAX', 'BTC', 'USD');
 
@@ -88,3 +114,36 @@ network
         // Do something with the error.
     });
 ```
+
+## Other
+
+### Easy load provider from default config
+
+```typescript
+import {NeuralNetService} from "./src/models/NeuralNetService";
+
+let provider = NeuralNetService.getDefaultProvider();
+
+```
+This will load the config file from ./config.json and return the default network provider. It is designed for ease of use and is not required.
+
+### Git hooks
+#### pre-commit hook
+If you cloned the project, when you run 
+```bash
+npm install
+```
+a pre-commit hook will automatically be installed. The pre-commit hook will compile the typescript and run the tests before 
+
+#### post-receive
+After each check-in a web hook will notify AWS CodeBuild service that a new version has been checked-in. The code will build and run the tests. If the tests fail the build will show as passing in this readme but an email will be sent to anyone subscribed to receiving notifications through the AWS SNS service. If you would like to receive notifications when there is a build failure please contact project owner.
+
+### Contributors
+- Josh Woodcock
+- Gordon Goodrum
+
+### License
+MIT
+
+### Copyright
+Cryptex Labs

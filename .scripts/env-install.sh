@@ -14,5 +14,5 @@ fi;
 
 if [ ! -f ${BASEPATH}/config.json ]; then
     echo "Creating config file from example config file"
-    cp ${BASEPATH}/config-example.json ${BASEPATH}/config.json
+    cp ${BASEPATH}/example/config-example.json ${BASEPATH}/config.json
 fi

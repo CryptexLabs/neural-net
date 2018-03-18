@@ -3,8 +3,8 @@ import 'mocha';
 
 import {RSIConfigNetwork} from "../../../../src/models/network/config/rsi/RSIConfigNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
-import {SageMakerNetworkProvider} from "../../../../src/models/provider/sagemaker/SageMakerNetworkProvider";
 import {RSIConfigNetworkInput} from "../../../../src/models/network/config/rsi/RSIConfigNetworkInput";
+import {NeuralNetService} from "../../../../src/models/NeuralNetService";
 
 describe('RSIConfigNetwork', () => {
 
@@ -14,7 +14,9 @@ describe('RSIConfigNetwork', () => {
     let _input1 = new RSIConfigNetworkInput(1, 2, 3, 4, 5, 6);
     let _input2 = new RSIConfigNetworkInput(2, 3, 4, 5, 6, 7);
 
-    const rsiConfigNetwork = new RSIConfigNetwork(new SageMakerNetworkProvider(), new Market('GDAX', 'BTC', 'USD'));
+    let provider = NeuralNetService.getDefaultProvider();
+
+    const rsiConfigNetwork = new RSIConfigNetwork(provider, new Market('GDAX', 'BTC', 'USD'));
 
     it('should instantiate new instance of RSIConfigNetwork', (done) => {
 

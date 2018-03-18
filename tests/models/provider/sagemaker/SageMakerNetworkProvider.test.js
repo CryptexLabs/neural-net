@@ -2,11 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 require("mocha");
 const chai = require("chai");
-const SageMakerNetworkProvider_1 = require("../../../../src/models/provider/sagemaker/SageMakerNetworkProvider");
+const NeuralNetService_1 = require("../../../../src/models/NeuralNetService");
 describe('SageMakerNetworkProvider', () => {
-    let networkProvider = new SageMakerNetworkProvider_1.SageMakerNetworkProvider();
+    let service = NeuralNetService_1.NeuralNetService.getWithDefaultConfig();
+    let provider = service.getSageMakerNetworkProvider();
     it('should get an instance of an unsupervised test network', (done) => {
-        networkProvider
+        provider
             .getKMeansNetwork('TestNetwork')
             .then((network) => {
             chai.expect(network).not.to.be.undefined;

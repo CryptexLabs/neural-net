@@ -4,9 +4,8 @@ const SageMakerNetwork_1 = require("./SageMakerNetwork");
 const SageMakerConfigNetworkDescription_1 = require("./descriptions/SageMakerConfigNetworkDescription");
 const SageMakerInferenceImageDescriptions_1 = require("../../../interfaces/provider/sagemaker/SageMakerInferenceImageDescriptions");
 class SageMakerNetworkProvider {
-    constructor() {
-        let config = require('../../../../config.json');
-        this.config = config.amazon.sagemaker;
+    constructor(config) {
+        this._config = config;
     }
     getKMeansNetwork(name) {
         return this.getNetwork(new SageMakerConfigNetworkDescription_1.SageMakerConfigNetworkDescription(name, AWS.config.region, SageMakerInferenceImageDescriptions_1.SageMakerInferenceImageAlgorithm.kmeans));
@@ -36,7 +35,7 @@ class SageMakerNetworkProvider {
     _getNetworkFromNewModel(description) {
         return new Promise((resolve, reject) => {
             let createModelInput = {
-                ExecutionRoleArn: this.config.roleARN,
+                ExecutionRoleArn: this._config.roleARN,
                 ModelName: description.getName(),
                 PrimaryContainer: {
                     Image: description.getContainerImage(),

@@ -1,10 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const NetworkProviderService_1 = require("../src/models/NetworkProviderService");
+const NeuralNetService_1 = require("../src/models/NeuralNetService");
 const RSIConfigNetwork_1 = require("../src/models/network/config/rsi/RSIConfigNetwork");
 const Market_1 = require("cryptex-shared-models/src/models/market/Market");
 const S3CSVInputData_1 = require("../src/models/input/S3CSVInputData");
-let provider = NetworkProviderService_1.NetworkProviderService.getDefaultProvider();
+let config = require('../config.json');
+let service = new NeuralNetService_1.NeuralNetService(config);
+let provider = service.getDefaultProvider();
 let market = new Market_1.Market('GDAX', 'BTC', 'USD');
 let network = new RSIConfigNetwork_1.RSIConfigNetwork(provider, market);
 let data = new S3CSVInputData_1.S3CSVInputData('a-bucket-with-data', 'rsi/dev/data.csv');
