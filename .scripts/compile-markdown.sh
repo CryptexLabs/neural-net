@@ -14,5 +14,8 @@ if [ ! -f /usr/local/opt/go/bin/bin/embedmd ]; then
 else
     /usr/local/opt/go/bin/bin/embedmd ${BASEPATH}/in/examples/network/README.md > ${BASEPATH}/examples/network/README.md
     /usr/local/opt/go/bin/bin/embedmd ${BASEPATH}/in/README.md > ${BASEPATH}/README.md
+    cd ${BASEPATH}
+    git add ${BASEPATH}/examples/network/README.md
+    git add ${BASEPATH}/README.md
     exit 0
 fi
