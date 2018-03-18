@@ -24,7 +24,6 @@ Make sure your config.json file is filed out properly
 ```
 
 If you do not already have a config.json in the root of the project directory, then one will created from the example config. 
-##### If you do not change the default configurations from the example-config.js file your tests will fail!
 For more on configuring your IDE to run tests please se the section on [configuring your IDE to run tests](tests)
 
 ## How to test

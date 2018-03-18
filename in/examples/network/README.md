@@ -1,4 +1,4 @@
-[//]: <> (Only edit this file if it is in $project/in directory. This file is compiled)
+[//]: # (Only edit this file if it is in $project/in directory. This file is compiled)
 ## Implementing a new network
 
 ### Guidelines
