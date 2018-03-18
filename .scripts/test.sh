@@ -12,4 +12,4 @@ echo "Compiling typescript files"
 ${BASEPATH}/node_modules/typescript/bin/tsc -p ${BASEPATH}/tsconfig.json
 
 echo "Running tests"
-node ${BASEPATH}/node_modules/.bin/mocha --opts tests/mocha.opts tests
+node ${BASEPATH}/node_modules/.bin/mocha --opts tests/mocha.opts tests/**/*.test.ts

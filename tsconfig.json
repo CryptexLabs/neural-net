@@ -5,7 +5,8 @@
     "sourceMap": true,
     "typeRoots": [
       "./node_modules/@types"
-    ]
+    ],
+    "outDir": "outputDirectory"
   },
   "files": [
     "./node_modules/@types/mocha/index.d.ts",
