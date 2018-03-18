@@ -7,7 +7,7 @@ SCRIPTPATH=$(dirname ${ABSPATH})
 BASEPATH=$(dirname ${SCRIPTPATH})
 
 if ${BASEPATH}/node_modules/typescript/bin/tsc | grep -q 'error' ; then
-    ${BASEPATH}/node_modules/typescript/bin/tsc
+    ${BASEPATH}/node_modules/typescript/bin/tsc -p ${BASEPATH}/tsconfig.json
     exit 1
 else
     exit 0

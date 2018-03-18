@@ -4,5 +4,5 @@ realpath() {
 }
 ABSPATH=$(realpath $0)
 SCRIPTPATH=$(dirname ${ABSPATH})
-${SCRIPTPATH}/compile.sh
 ${SCRIPTPATH}/test.sh
+${SCRIPTPATH}/compile-markdown.sh

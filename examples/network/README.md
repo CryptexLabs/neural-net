@@ -1,3 +1,4 @@
+[//]: <> (Only edit this file if it is in $project/in directory. This file is compiled)
 ## Implementing a new network
 
 ### Guidelines
@@ -12,35 +13,38 @@ There are 2 types of networks that can be implemented
 Each unsupervised network should implement 3 classes like so
 
 1. A network class. This is the base class for the network that clients of the library will conduct training on and getting network guesses from.
+
+[embedmd]:# (../../../examples/network/cool/SomeCoolNetwork.ts typescript)
 ```typescript
-import {NeuralNet} from "../../src/interfaces/NeuralNet";
-import {NeuralNetInput} from "../../src/interfaces/input/NeuralNetInput";
-import {NeuralNetOutput} from "../../src/interfaces/output/NeuralNetOutput";
-import {UnsupervisedNetwork} from "../../src/interfaces/unsupervised/UnsupervisedNetwork";
-import {UnsupervisedNetworkTrainingResult} from "../../src/interfaces/unsupervised/UnsupervisedNetworkTrainingResult";
-import {NeuralNetInputData} from "../../src/interfaces/input/NeuralNetInputData";
-import {SomeCoolNetworkInput} from "./cool/SomeCoolNetworkInput";
+import {NeuralNet} from "../../../src/interfaces/NeuralNet";
+import {NeuralNetInput} from "../../../src/interfaces/input/NeuralNetInput";
+import {NeuralNetOutput} from "../../../src/interfaces/output/NeuralNetOutput";
+import {UnsupervisedNetwork} from "../../../src/interfaces/unsupervised/UnsupervisedNetwork";
+import {UnsupervisedNetworkTrainingResult} from "../../../src/interfaces/unsupervised/UnsupervisedNetworkTrainingResult";
+import {NeuralNetInputData} from "../../../src/interfaces/input/NeuralNetInputData";
+import {SomeCoolNetworkInput} from "./SomeCoolNetworkInput";
 
 export class SomeCoolNetwork implements NeuralNet, UnsupervisedNetwork {
 
-    scoreTrainingResult(resultID: string, score: number): Promise<boolean> {
+    public scoreTrainingResult(resultID: string, score: number): Promise<void> {
         throw new Error("Method not implemented.");
     }
 
-    train(input: NeuralNetInputData<SomeCoolNetworkInput>): Promise<UnsupervisedNetworkTrainingResult> {
+    public  train(input: NeuralNetInputData<SomeCoolNetworkInput>): Promise<UnsupervisedNetworkTrainingResult> {
         throw new Error("Method not implemented.");
     }
 
-    guess(input: NeuralNetInput): Promise<NeuralNetOutput> {
-        throw new Error("Method not implemented.");
+    public guess(input: NeuralNetInput): Promise<NeuralNetOutput> {
+        throw new Error('SomeCoolNetwork.guess not implemented')
     }
 }
-
 ```
 
 2. An input class. This class is the structure that the neural network expects in or to make a guess and / or train the network.
+
+[embedmd]:# (../../../examples/network/cool/SomeCoolNetworkInput.ts typescript)
 ```typescript
-import {NeuralNetInput} from "../../src/interfaces/input/NeuralNetInput";
+import {NeuralNetInput} from "../../../src/interfaces/input/NeuralNetInput";
 
 export class SomeCoolNetworkInput implements NeuralNetInput {
 
@@ -65,8 +69,10 @@ export class SomeCoolNetworkInput implements NeuralNetInput {
 ```
 
 3. An output class. This is the data that the network will the return when the network makes a guess.
+
+[embedmd]:# (../../../examples/network/cool/SomeCoolNetworkOutput.ts typescript)
 ```typescript
-import {NeuralNetOutput} from "../../src/interfaces/output/NeuralNetOutput";
+import {NeuralNetOutput} from "../../../src/interfaces/output/NeuralNetOutput";
 
 export class SomeCoolNetworkOutput implements NeuralNetOutput {
     

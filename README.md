@@ -12,6 +12,7 @@ npm install --save git+ssh://git@github.com/CryptexLabs/neural-net.git
 ## Before you test
 Make sure your config.json file is filed out properly
 
+[embedmd]:# (../examples/config-example.json json)
 ```json
 {
   "amazon": {
@@ -34,21 +35,22 @@ If you do not configure the config.json before running your tests then your test
 
 ## How to train
 
+[embedmd]:# (../examples/training-example.ts typescript)
 ```typescript
-import {NeuralNetService} from "./src/models/NeuralNetService";
-import {RSIConfigNetwork} from "./src/models/network/config/rsi/RSIConfigNetwork";
+import {NeuralNetService} from "../src/models/NeuralNetService";
+import {RSIConfigNetwork} from "../src/models/network/config/rsi/RSIConfigNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
-import {S3CSVInputData} from "./src/models/input/S3CSVInputData";
-import {UnsupervisedNetworkTrainingResult} from "./src/interfaces/unsupervised/UnsupervisedNetworkTrainingResult";
-import {UnsupervisedNetworkTrainingPerformanceResult} from "./src/interfaces/unsupervised/UnsupervisedNetworkTrainingPerformanceResult";
-import {NeuralNetConfig} from "./src/interfaces/NeuralNetConfig";
-import {RSIConfigNetworkInput} from "src/models/network/config/rsi/RSIConfigNetworkInput";
+import {S3CSVInputData} from "../src/models/input/S3CSVInputData";
+import {UnsupervisedNetworkTrainingResult} from "../src/interfaces/unsupervised/UnsupervisedNetworkTrainingResult";
+import {UnsupervisedNetworkTrainingPerformanceResult} from "../src/interfaces/unsupervised/UnsupervisedNetworkTrainingPerformanceResult";
+import {NeuralNetConfig} from "../src/interfaces/NeuralNetConfig";
+import {RSIConfigNetworkInput} from "../src/models/network/config/rsi/RSIConfigNetworkInput";
 
 let config = require('../config.json') as NeuralNetConfig;
 
-let service = new NeuralNetService(config);
-
 let market = new Market('GDAX', 'BTC', 'USD');
+
+let service = new NeuralNetService(config);
 
 let provider = service.getDefaultProvider();
 
@@ -73,9 +75,9 @@ network
         return Promise.resolve(performanceResult);
     })
     .then((result: UnsupervisedNetworkTrainingPerformanceResult) => {
-        return network.scoreTrainingResult(result.getTrainingResultID(), result.getScore());
+        return network.scoreTrainingResult(result.getTrainingResultID(), result.getScore())
     })
-    .then((success: boolean) => {
+    .then(() => {
         // Run the training again or stop the training session
     })
     .catch((reason: Error) => {
@@ -85,13 +87,14 @@ network
     
 ## How to use
 
+[embedmd]:# (../examples/load-result-example.ts typescript)
 ```typescript
-import {NeuralNetService} from "./src/models/NeuralNetService";
-import {RSIConfigNetwork} from "./src/models/network/config/rsi/RSIConfigNetwork";
+import {NeuralNetService} from "../src/models/NeuralNetService";
+import {RSIConfigNetwork} from "../src/models/network/config/rsi/RSIConfigNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
-import {RSIConfigNetworkInput} from "./src/models/network/config/rsi/RSIConfigNetworkInput";
-import {NeuralNetOutput} from "./src/interfaces/output/NeuralNetOutput";
-import {NeuralNetConfig} from "./src/interfaces/NeuralNetConfig";
+import {RSIConfigNetworkInput} from "../src/models/network/config/rsi/RSIConfigNetworkInput";
+import {NeuralNetOutput} from "../src/interfaces/output/NeuralNetOutput";
+import {NeuralNetConfig} from "../src/interfaces/NeuralNetConfig";
 
 let config = require('../config.json') as NeuralNetConfig;
 
