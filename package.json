@@ -6,7 +6,7 @@
   "scripts": {
     "test": ".scripts/test.sh",
     "compile": ".scripts/compile.sh",
-    "postinstall": "if [ -f .scripts/env-install.sh ]; then .scripts/env-install.sh; fi;"
+    "postinstall": "npm run compile; if [ -f .scripts/env-install.sh ]; then .scripts/env-install.sh; fi;"
   },
   "dependencies": {
     "aws-sdk": "^2.211.0",

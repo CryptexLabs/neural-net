@@ -6,7 +6,7 @@
     "typeRoots": [
       "./node_modules/@types"
     ],
-    "outDir": "outputDirectory"
+    "outDir": "build"
   },
   "files": [
     "./node_modules/@types/mocha/index.d.ts",

@@ -138,6 +138,9 @@ a pre-commit hook will automatically be installed. The pre-commit hook will comp
 #### post-receive
 After each check-in a web hook will notify AWS CodeBuild service that a new version has been checked-in. The code will build and run the tests. If the tests fail the build will show as passing in this readme but an email will be sent to anyone subscribed to receiving notifications through the AWS SNS service. If you would like to receive notifications when there is a build failure please contact project owner.
 
+### Using this project in a JavaScript project
+If you want to use this TypeScript project in your JavaScript project you need to include the files in the ./build directory instead of the ./src
+
 ### Contributors
 - Josh Woodcock
 - Gordon Goodrum
