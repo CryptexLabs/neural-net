@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 echo "Running unit tests"
 realpath() {
     [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
