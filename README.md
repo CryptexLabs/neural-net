@@ -3,6 +3,12 @@ Wrapper for training, and getting results from cryptex neural networks
 
 ![Build Status](https://codebuild.us-west-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiWHRrVk9iaWxpSnFHUVFuY3BjN2tSUWhkR3ZHRU1VbVViYlMwY05PMm1yWDFuU2lGSFlhUTY4c0ovUVJjQW9YOVRsYk5ka2RrRzhHcTRRc0lncUxIMi80PSIsIml2UGFyYW1ldGVyU3BlYyI6Ijc4MzNVMllzS29pcml4bmsiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)
 
+## How to install
+
+```bash
+npm install --save git+ssh://git@github.com/CryptexLabs/neural-net.git
+```
+
 ## How to test
 
 ```bash
@@ -44,7 +50,7 @@ network
         return Promise.resolve(performanceResult);
     })
     .then((result: UnsupervisedNetworkTrainingPerformanceResult) => {
-        return network.scoreTrainingResult(result.getTrainingResultID(), result.getScore())
+        return network.scoreTrainingResult(result.getTrainingResultID(), result.getScore());
     })
     .then((success: boolean) => {
         // Run the training again or stop the training session
