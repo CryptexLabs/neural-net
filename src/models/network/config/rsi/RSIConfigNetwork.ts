@@ -56,7 +56,12 @@ export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork, OutputC
     }
 
     private _getNetworkName(): string {
-        return ucwords(['RSI', 'Config', this._market.getMarketKey()].join(' ')).split(' ').join('');
+        return ucwords([
+            this.constructor.name,
+            this._market.getExchangeKey(),
+            this._market.getBaseKey(),
+            this._market.getAssetKey()
+        ].join(' ')).split(' ').join('');
     }
 
 }
