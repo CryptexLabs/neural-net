@@ -128,7 +128,7 @@ let provider = NeuralNetService.getDefaultProvider();
 This will load the config file from ./config.json and return the default network provider. It is designed for ease of use and is not required.
 
 ### Git hooks
-#### pre-commit hook
+#### pre-commit
 If you cloned the project, when you run 
 ```bash
 npm install
