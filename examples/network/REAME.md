@@ -19,6 +19,7 @@ import {NeuralNetOutput} from "../../src/interfaces/output/NeuralNetOutput";
 import {UnsupervisedNetwork} from "../../src/interfaces/unsupervised/UnsupervisedNetwork";
 import {UnsupervisedNetworkTrainingResult} from "../../src/interfaces/unsupervised/UnsupervisedNetworkTrainingResult";
 import {NeuralNetInputData} from "../../src/interfaces/input/NeuralNetInputData";
+import {SomeCoolNetworkInput} from "./cool/SomeCoolNetworkInput";
 
 export class SomeCoolNetwork implements NeuralNet, UnsupervisedNetwork {
 
@@ -26,7 +27,7 @@ export class SomeCoolNetwork implements NeuralNet, UnsupervisedNetwork {
         throw new Error("Method not implemented.");
     }
 
-    train(input: NeuralNetInputData): Promise<UnsupervisedNetworkTrainingResult> {
+    train(input: NeuralNetInputData<SomeCoolNetworkInput>): Promise<UnsupervisedNetworkTrainingResult> {
         throw new Error("Method not implemented.");
     }
 

@@ -8,6 +8,7 @@ import {Market} from "cryptex-shared-models/src/models/market/Market";
 import {NeuralNetInputData} from "../../../../interfaces/input/NeuralNetInputData";
 import {UnsupervisedProvidedNetwork} from "../../../../interfaces/provider/UnsupervisedProvidedNetwork";
 import {KMeansNetworkProvider} from "../../../../interfaces/provider/KMeansNetworkProvider";
+import {RSIConfigNetworkInput} from "./RSIConfigNetworkInput";
 
 export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork {
 
@@ -20,25 +21,32 @@ export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork {
         this._networkProvider = provider;
     }
 
-    train(input: NeuralNetInputData): Promise<UnsupervisedNetworkTrainingResult> {
+    public train(input: NeuralNetInputData<RSIConfigNetworkInput>): Promise<UnsupervisedNetworkTrainingResult> {
         return this._getNetwork()
             .then((network: UnsupervisedProvidedNetwork) => {
                 return network.trainUnsupervisedNetwork(input);
             });
     }
 
-    scoreTrainingResult(resultID: string, score: number): Promise<boolean> {
+    public scoreTrainingResult(resultID: string, score: number): Promise<void> {
         return this._getNetwork()
             .then((network: UnsupervisedProvidedNetwork)=>{
                 return network.scoreTrainingResult(resultID, score);
             })
     }
 
-    guess(input: NeuralNetInput): Promise<NeuralNetOutput> {
+    public guess(input: NeuralNetInput): Promise<NeuralNetOutput> {
         return this._getNetwork()
             .then((network: UnsupervisedProvidedNetwork) => {
                 return network.guess(input);
             });
+    }
+
+    public setOutputsForInputs(inputs: NeuralNetInput[], outputs: NeuralNetOutput[]) {
+        if (!this._inputOutputMap) {
+            this._inputOutputMap = new InputOutputMap()
+        }
+        this._inputOutputMap.setOutputsForInputs(inputs, outputs);
     }
 
     private _getNetwork(): Promise<UnsupervisedProvidedNetwork> {
@@ -47,13 +55,6 @@ export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork {
 
     private _getNetworkName(): string {
         return ['RSI_CONFIG', this._market.getMarketKey()].join('_');
-    }
-
-    setOutputsForInputs(inputs: NeuralNetInput[], outputs: NeuralNetOutput[]) {
-        if (!this._inputOutputMap) {
-            this._inputOutputMap = new InputOutputMap()
-        }
-        this._inputOutputMap.setOutputsForInputs(inputs, outputs);
     }
 
 }

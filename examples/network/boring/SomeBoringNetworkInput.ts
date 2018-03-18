@@ -14,11 +14,11 @@ export class SomeBoringNetworkInput implements NeuralNetInput {
 		this._d = d;
 	}
 
-	getUniqueID(): string {
+    public getUniqueID(): string {
 		return this.getInput().join('_');
 	}
 
-	getInput(): any[] {
+    public getInput(): any[] {
 		return [this._a, this._b, this._c, this._d] ;
 	}
 

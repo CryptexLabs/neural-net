@@ -27,6 +27,7 @@ export class SageMakerConfigNetworkDescription implements SageMakerNetworkDescri
     }
 
     public getModelDataUrl(): string {
+        // TODO Implement SageMakerConfigNetworkDescription::getModelDataUrl
         return undefined;
     }
 }

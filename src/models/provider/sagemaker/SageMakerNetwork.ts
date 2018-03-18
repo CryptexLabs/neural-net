@@ -11,22 +11,22 @@ declare let AWS;
 
 export class SageMakerNetwork implements UnsupervisedProvidedNetwork, SupervisedProvidedNetwork {
 
-    scoreTrainingResult(resultID: string, score: number): Promise<boolean> {
+    public scoreTrainingResult(resultID: string, score: number): Promise<void> {
         // TODO Implement SageMakerNetwork::scoreTrainingResult
         throw new Error("Method not implemented.");
     }
 
-    guess(input: NeuralNetInput): Promise<NeuralNetOutput> {
+    public guess(input: NeuralNetInput): Promise<NeuralNetOutput> {
         // TODO Implement SageMakerNetwork::guess
         throw new Error("Method not implemented.");
     }
 
-    trainUnsupervisedNetwork(input: NeuralNetInputData): Promise<UnsupervisedNetworkTrainingResult> {
+    public trainUnsupervisedNetwork<T extends NeuralNetInput>(input: NeuralNetInputData<T>): Promise<UnsupervisedNetworkTrainingResult> {
         // TODO Implement SageMakerNetwork::trainUnsupervisedNetwork
         throw new Error("Method not implemented.");
     }
 
-    trainSupervisedNetwork(input: SupervisedNeuralNetInputData): Promise<UnsupervisedNetworkTrainingResult> {
+    public trainSupervisedNetwork(input: SupervisedNeuralNetInputData): Promise<UnsupervisedNetworkTrainingResult> {
         // TODO Implement SageMakerNetwork::trainSupervisedNetwork
         throw new Error("Method not implemented.");
     }
@@ -37,7 +37,7 @@ export class SageMakerNetwork implements UnsupervisedProvidedNetwork, Supervised
     }
 
     public static createFromDescribeModelOutput(describeOutput: SageMaker.Types.DescribeModelOutput): SageMakerNetwork {
-        // TODO SageMakerNetwork::createFromDescribeModelOutput
+        // TODO Implement SageMakerNetwork::createFromDescribeModelOutput
         return new SageMakerNetwork();
     }
 

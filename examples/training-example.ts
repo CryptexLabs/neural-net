@@ -5,6 +5,7 @@ import {S3CSVInputData} from "../src/models/input/S3CSVInputData";
 import {UnsupervisedNetworkTrainingResult} from "../src/interfaces/unsupervised/UnsupervisedNetworkTrainingResult";
 import {UnsupervisedNetworkTrainingPerformanceResult} from "../src/interfaces/unsupervised/UnsupervisedNetworkTrainingPerformanceResult";
 import {NeuralNetConfig} from "../src/interfaces/NeuralNetConfig";
+import {RSIConfigNetworkInput} from "../src/models/network/config/rsi/RSIConfigNetworkInput";
 
 let config = require('../config.json') as NeuralNetConfig;
 
@@ -16,7 +17,7 @@ let provider = service.getDefaultProvider();
 
 let network = new RSIConfigNetwork(market, provider);
 
-let data = new S3CSVInputData('a-bucket-with-data', 'rsi/dev/data.csv');
+let data = new S3CSVInputData<RSIConfigNetworkInput>('a-bucket-with-data', 'rsi/dev/data.csv');
 
 network
     .train(data)
@@ -37,7 +38,7 @@ network
     .then((result: UnsupervisedNetworkTrainingPerformanceResult) => {
         return network.scoreTrainingResult(result.getTrainingResultID(), result.getScore())
     })
-    .then((success: boolean) => {
+    .then(() => {
         // Run the training again or stop the training session
     })
     .catch((reason: Error) => {

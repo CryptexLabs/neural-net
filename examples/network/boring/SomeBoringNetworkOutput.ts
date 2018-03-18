@@ -7,4 +7,8 @@ export class SomeBoringNetworkOutput implements NeuralNetOutput {
     constructor(a: number) {
         this._a = a;
     }
+
+    get a(): number {
+        return this._a;
+    }
 }

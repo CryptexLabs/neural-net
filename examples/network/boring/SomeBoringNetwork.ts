@@ -11,7 +11,7 @@ export class SomeBoringNetwork implements SupervisedNetwork {
         this._market = market;
     }
 
-    train(inputs: SupervisedNeuralNetInput[], callback: (error: string, result: SupervisedNetworkTrainingResult) => void) {
+    public train(inputs: SupervisedNeuralNetInput[], callback: (error: string, result: SupervisedNetworkTrainingResult) => void) {
         throw new Error('SomeBoringNetwork.trainUnsupervisedNetwork not implemented')
     }
 }

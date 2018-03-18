@@ -46,7 +46,7 @@ let loopInterval = setInterval(()=>{
             .then((result: UnsupervisedNetworkTrainingPerformanceResult) => {
                 return network.scoreTrainingResult(result.getTrainingResultID(), result.getScore())
             })
-            .then((success: boolean) => {
+            .then(() => {
                 isTraining = false;
                 sessionCount++;
             })

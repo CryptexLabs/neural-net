@@ -12,11 +12,11 @@ export class SupervisedBoringNeuralNetInput implements SupervisedNeuralNetInput 
 		this._output = output;
 	}
 
-	getInput(): SomeBoringNetworkInput {
+    public getInput(): SomeBoringNetworkInput {
 		return this._input;
 	}
 
-	getOutput(): SomeBoringNetworkOutput {
+    public getOutput(): SomeBoringNetworkOutput {
 		return this._output;
 	}
 
