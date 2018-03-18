@@ -9,8 +9,4 @@ export interface UnsupervisedNetwork {
 
 	scoreTrainingResult(resultID: string, score: number): Promise<void>;
 
-    /**
-	 * @deprecated TODO find alternative
-     */
-	setOutputsForInputs(inputs:NeuralNetInput[], outputs: NeuralNetOutput[]);
 }

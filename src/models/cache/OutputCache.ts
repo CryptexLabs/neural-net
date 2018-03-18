@@ -3,12 +3,12 @@ import {NeuralNetInput} from "../../interfaces/input/NeuralNetInput";
 import {NeuralNetOutput} from "../../interfaces/output/NeuralNetOutput";
 import {NeuralNetInputOutputMap} from "../../interfaces/map/NeuralNetInputOutputMap";
 
-export class ResultCache<V extends NeuralNetOutput> implements NeuralNet, NeuralNetInputOutputMap<V> {
+export class OutputCache<V extends NeuralNetOutput> implements NeuralNet, NeuralNetInputOutputMap<V> {
 
-    private _map: Map<string, V>;
+    private _cache: Map<string, V>;
 
     constructor(){
-        this._map = new Map<string, V>();
+        this._cache = new Map<string, V>();
     }
 
     guess(input: NeuralNetInput): Promise<NeuralNetOutput> {
@@ -16,12 +16,12 @@ export class ResultCache<V extends NeuralNetOutput> implements NeuralNet, Neural
     }
 
     set(input: NeuralNetInput, output: V) {
-        this._map.set(input.getUniqueID(), output);
+        this._cache.set(input.getUniqueID(), output);
     }
 
     get(input: NeuralNetInput): Promise<V> {
-        if(this._map.has(input.getUniqueID())){
-            return Promise.resolve(this._map.get(input.getUniqueID()));
+        if(this._cache.has(input.getUniqueID())){
+            return Promise.resolve(this._cache.get(input.getUniqueID()));
         }else{
             return Promise.reject(new Error('No output exists for input'));
         }

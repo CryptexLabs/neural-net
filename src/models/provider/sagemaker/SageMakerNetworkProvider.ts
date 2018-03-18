@@ -1,6 +1,6 @@
 import {SageMakerNetwork} from "./SageMakerNetwork";
 import {SageMakerNeuralNetConfig} from "../../../interfaces/NeuralNetConfig";
-import {AWSError, SageMaker} from "aws-sdk";
+import {SageMaker} from "aws-sdk";
 import {UnsupervisedNetworkProvider} from "../../../interfaces/provider/UnsupervisedNetworkProvider";
 import {UnsupervisedProvidedNetwork} from "../../../interfaces/provider/UnsupervisedProvidedNetwork";
 import {SageMakerNetworkDescription} from "../../../interfaces/provider/sagemaker/SageMakerNetworkDescription";
@@ -8,17 +8,23 @@ import {KMeansNetworkProvider} from "../../../interfaces/provider/KMeansNetworkP
 import {SageMakerConfigNetworkDescription} from "./descriptions/SageMakerConfigNetworkDescription";
 import {SageMakerInferenceImageAlgorithm} from "../../../interfaces/provider/sagemaker/SageMakerInferenceImageDescriptions";
 import {SupervisedProvidedNetwork} from "../../../interfaces/provider/SupervisedProvidedNetwork";
+import {ProvidedNetworkCache} from "../../cache/ProvidedNetworkCache";
+import {NetworkProvider} from "../../../interfaces/provider/NetworkProvider";
+import {ServiceNetworkProvider} from "../../../interfaces/provider/ServiceNetworkProvider";
 
 declare let AWS;
-
 declare let ENV: string;
 
-export class SageMakerNetworkProvider implements UnsupervisedNetworkProvider, KMeansNetworkProvider {
+export class SageMakerNetworkProvider implements NetworkProvider, ServiceNetworkProvider, UnsupervisedNetworkProvider, KMeansNetworkProvider {
 
     private _config: SageMakerNeuralNetConfig;
+    private _cache: ProvidedNetworkCache<SageMakerNetworkProvider, SageMakerNetwork>;
+    private _sageMaker: SageMaker;
 
     constructor(config: SageMakerNeuralNetConfig) {
         this._config = config;
+        this._cache = new ProvidedNetworkCache<SageMakerNetworkProvider, SageMakerNetwork>(this);
+        this._sageMaker = new AWS.SageMaker();
     }
 
     public getKMeansNetwork(name: string): Promise<UnsupervisedProvidedNetwork> {
@@ -38,56 +44,46 @@ export class SageMakerNetworkProvider implements UnsupervisedNetworkProvider, KM
     }
 
     public getNetwork(description: SageMakerNetworkDescription): Promise<SageMakerNetwork> {
+        return this._cache.getNetwork(description);
+    }
 
-        return new Promise<SageMakerNetwork>((resolve, reject) => {
+    public getProvidedNetwork(description: SageMakerNetworkDescription): Promise<SageMakerNetwork> {
+        return this._getNetworkFromExistingModel(description)
+            .catch(() => {
+                return this._getNetworkFromNewModel(description);
+            });
+    }
 
-            let sagemaker = new AWS.SageMaker();
+    private _getNetworkFromExistingModel(description: SageMakerNetworkDescription): Promise<SageMakerNetwork> {
 
-            let describeModelInput: SageMaker.DescribeModelInput = {
-                ModelName: description.getName()
-            };
+        let describeModelInput: SageMaker.DescribeModelInput = {
+            ModelName: description.getUniqueName()
+        };
 
-            sagemaker
-                .describeModel(describeModelInput).promise()
-                .then((data: SageMaker.Types.DescribeModelOutput) => {
-                    resolve(SageMakerNetwork.createFromDescribeModelOutput(data));
-                })
-                .catch(() => {
-                    return this._getNetworkFromNewModel(description);
-                })
-                .then(resolve)
-                .catch(reject);
-        });
+        return this._sageMaker
+            .describeModel(describeModelInput).promise()
+            .then(SageMakerNetwork.createFromDescribeModelOutput)
     }
 
     private _getNetworkFromNewModel(description: SageMakerNetworkDescription): Promise<SageMakerNetwork> {
 
-        return new Promise<SageMakerNetwork>((resolve, reject) => {
-
-            let createModelInput: SageMaker.CreateModelInput = {
-                ExecutionRoleArn: this._config.roleARN,
-                ModelName: description.getName(),
-                PrimaryContainer: {
-                    Image: description.getContainerImage(),
-                    ModelDataUrl: description.getModelDataUrl()
+        let createModelInput: SageMaker.CreateModelInput = {
+            ExecutionRoleArn: this._config.roleARN,
+            ModelName: description.getUniqueName(),
+            PrimaryContainer: {
+                Image: description.getContainerImage(),
+                ModelDataUrl: description.getModelDataUrl()
+            },
+            Tags: [
+                {
+                    Key: 'environment',
+                    Value: ENV
                 },
-                Tags: [
-                    {
-                        Key: 'environment',
-                        Value: ENV
-                    },
-                ]
-            };
+            ]
+        };
 
-            let sagemaker = new AWS.SageMaker();
-
-            sagemaker.createModel(createModelInput).promise()
-                .then((data: SageMaker.Types.CreateModelOutput) => {
-                    return resolve(SageMakerNetwork.createFromCreateModelOutput(data))
-                })
-                .catch(reject);
-
-        })
+        return this._sageMaker
+            .createModel(createModelInput).promise()
+            .then(SageMakerNetwork.createFromCreateModelOutput);
     }
-
 }

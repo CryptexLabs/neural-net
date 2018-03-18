@@ -18,7 +18,7 @@ export class SageMakerConfigNetworkDescription implements SageMakerNetworkDescri
         this._algorithm = algorithm;
     }
 
-    public getName(): string {
+    public getUniqueName(): string {
         return this._name;
     }
 
