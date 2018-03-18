@@ -12,6 +12,8 @@ import {ProvidedNetworkOutputCache} from "../../../cache/ProvidedNetworkOutputCa
 import {OutputCacher} from "../../../../interfaces/cache/OutputCacher";
 import {RSIConfigNetworkOutput} from "./RSIConfigNetworkOutput";
 
+let ucwords = require("ucwords");
+
 export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork, OutputCacher<RSIConfigNetworkOutput> {
 
     private _networkProvider: KMeansNetworkProvider;
@@ -54,7 +56,7 @@ export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork, OutputC
     }
 
     private _getNetworkName(): string {
-        return ['RSI_CONFIG', this._market.getMarketKey()].join('_');
+        return ucwords(['RSI', 'Config', this._market.getMarketKey()].join(' ')).split(' ').join('');
     }
 
 }

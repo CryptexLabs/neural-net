@@ -1,8 +1,7 @@
 {
   "name": "cryptex-neural-net",
   "version": "1.0.0",
-  "description": "Interface to Cryptex neural networks",
-  "main": "index.js",
+  "description": "Common tnterface to neural networks",
   "scripts": {
     "test": ".scripts/test.sh",
     "compile": ".scripts/compile.sh",
@@ -10,15 +9,20 @@
   },
   "dependencies": {
     "aws-sdk": "^2.211.0",
-    "cryptex-shared-models": "git+ssh://git@github.com/CryptexLabs/shared-models.git"
+    "cryptex-shared-models": "git+ssh://git@github.com/CryptexLabs/shared-models.git",
+    "ucwords": "^1.0.5"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/CryptexLabs/neural-net.git"
   },
   "author": "Cryptex Labs",
-  "license": "UNLICENSED",
-  "private": true,
+  "contributors": [
+    "Josh Woodcock",
+    "Gordon Goodrum"
+  ],
+  "license": "MIT",
+  "private": false,
   "devDependencies": {
     "@types/chai": "^4.1.2",
     "@types/es6-promise": "^3.3.0",
