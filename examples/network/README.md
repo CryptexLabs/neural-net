@@ -31,14 +31,6 @@ export class SomeCoolNetwork implements NeuralNet, UnsupervisedNetwork {
         throw new Error("Method not implemented.");
     }
 
-    /**
-    * @deprecated
-    * @todo remove
-    */
-    setOutputsForInputs(inputs: NeuralNetInput[], outputs: NeuralNetOutput[]) {
-        throw new Error("Method not implemented.");
-    }
-
     guess(input: NeuralNetInput): Promise<NeuralNetOutput> {
         throw new Error("Method not implemented.");
     }
