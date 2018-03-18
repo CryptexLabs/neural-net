@@ -1,10 +1,10 @@
 import {expect} from 'chai';
 import 'mocha';
 
-import {SomeBoringNetwork} from '../../../../src/models/network/boring/SomeBoringNetwork';
-import {SupervisedBoringNeuralNetInput} from "../../../../src/models/network/boring/SupervisedBoringNeuralNetInput";
-import {SomeBoringNetworkInput} from "../../../../src/models/network/boring/SomeBoringNetworkInput";
-import {SomeBoringNetworkOutput} from "../../../../src/models/network/boring/SomeBoringNetworkOutput";
+import {SomeBoringNetwork} from '../../../../examples/network/boring/SomeBoringNetwork';
+import {SupervisedBoringNeuralNetInput} from "../../../../examples/network/boring/SupervisedBoringNeuralNetInput";
+import {SomeBoringNetworkInput} from "../../../../examples/network/boring/SomeBoringNetworkInput";
+import {SomeBoringNetworkOutput} from "../../../../examples/network/boring/SomeBoringNetworkOutput";
 import {Market} from "cryptex-shared-models/src/models/market/Market"
 
 describe('SomeBoringNetwork', () => {

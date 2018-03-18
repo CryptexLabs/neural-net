@@ -11,15 +11,13 @@ import {KMeansNetworkProvider} from "../../../../interfaces/provider/KMeansNetwo
 
 export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork {
 
-
     private _inputOutputMap: InputOutputMap;
-    private _unsupervisedNetwork: UnsupervisedProvidedNetwork;
     private _networkProvider: KMeansNetworkProvider;
     private _market: Market;
 
-    constructor(provider: KMeansNetworkProvider, market: Market) {
-        this._networkProvider = provider;
+    constructor(market: Market, provider: KMeansNetworkProvider) {
         this._market = market;
+        this._networkProvider = provider;
     }
 
     train(input: NeuralNetInputData): Promise<UnsupervisedNetworkTrainingResult> {
@@ -29,29 +27,26 @@ export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork {
             });
     }
 
+    scoreTrainingResult(resultID: string, score: number): Promise<boolean> {
+        return this._getNetwork()
+            .then((network: UnsupervisedProvidedNetwork)=>{
+                return network.scoreTrainingResult(resultID, score);
+            })
+    }
+
+    guess(input: NeuralNetInput): Promise<NeuralNetOutput> {
+        return this._getNetwork()
+            .then((network: UnsupervisedProvidedNetwork) => {
+                return network.guess(input);
+            });
+    }
+
     private _getNetwork(): Promise<UnsupervisedProvidedNetwork> {
-        if(!this._unsupervisedNetwork){
-            return this._networkProvider.getKMeansNetwork(this._getNetworkName())
-        }else{
-            return Promise.resolve(this._unsupervisedNetwork);
-        }
+        return this._networkProvider.getKMeansNetwork(this._getNetworkName());
     }
 
     private _getNetworkName(): string {
         return ['RSI_CONFIG', this._market.getMarketKey()].join('_');
-    }
-
-    scoreTrainingResult(resultID: string, score: number): Promise<boolean> {
-        return undefined;
-    }
-
-    loadResult(input: NeuralNetInput): Promise<NeuralNetOutput> {
-        if (this._inputOutputMap) {
-            return Promise.resolve(this._inputOutputMap.getOutputForInput(input))
-        } else {
-            // TODO Get result from network
-            return undefined;
-        }
     }
 
     setOutputsForInputs(inputs: NeuralNetInput[], outputs: NeuralNetOutput[]) {

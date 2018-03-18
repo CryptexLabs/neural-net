@@ -1,6 +1,9 @@
 import {NeuralNetInput} from "../../../interfaces/input/NeuralNetInput";
 import {NeuralNetOutput} from "../../../interfaces/output/NeuralNetOutput";
 
+/**
+ * @deprecated Use ResultCache instead
+ */
 export class InputOutputMap {
 
 	public setOutputsForInputs(inputs:NeuralNetInput[], outputs: NeuralNetOutput[]){

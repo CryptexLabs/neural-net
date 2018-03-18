@@ -5,11 +5,11 @@ import {S3CSVInputData} from "../src/models/input/S3CSVInputData";
 import {UnsupervisedNetworkTrainingResult} from "../src/interfaces/unsupervised/UnsupervisedNetworkTrainingResult";
 import {UnsupervisedNetworkTrainingPerformanceResult} from "../src/interfaces/unsupervised/UnsupervisedNetworkTrainingPerformanceResult";
 
-let provider = NeuralNetService.getDefaultProvider();
-
 let market = new Market('GDAX', 'BTC', 'USD');
 
-let network = new RSIConfigNetwork(provider, market);
+let provider = NeuralNetService.getDefaultProvider();
+
+let network = new RSIConfigNetwork(market, provider);
 
 let data = new S3CSVInputData('a-bucket-with-data', 'rsi/dev/data.csv');
 

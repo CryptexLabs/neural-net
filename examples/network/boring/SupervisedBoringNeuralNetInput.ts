@@ -1,4 +1,4 @@
-import {SupervisedNeuralNetInput} from "../../../interfaces/supervised/SupervisedNeuralNetInput";
+import {SupervisedNeuralNetInput} from "../../../src/interfaces/supervised/SupervisedNeuralNetInput";
 import {SomeBoringNetworkInput} from "./SomeBoringNetworkInput";
 import {SomeBoringNetworkOutput} from "./SomeBoringNetworkOutput";
 

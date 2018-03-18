@@ -7,8 +7,4 @@ export class RSIConfigNetworkOutput implements NeuralNetOutput {
     constructor(a: number) {
         this._a = a;
     }
-
-    getValues(): any[] {
-        return [this._a];
-    }
 }

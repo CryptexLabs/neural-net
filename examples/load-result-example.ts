@@ -9,20 +9,19 @@ let config = require('../config.json') as NeuralNetConfig;
 
 let service = new NeuralNetService(config);
 
-let provider = service.getDefaultProvider();
-
 let market = new Market('GDAX', 'BTC', 'USD');
 
-let network = new RSIConfigNetwork(provider, market);
+let provider = service.getDefaultProvider();
+
+let network = new RSIConfigNetwork(market, provider);
 
 let input = new RSIConfigNetworkInput(40, 45, 60, 70, 40, 29);
 
 network
-    .loadResult(input)
+    .guess(input)
     .then((output: NeuralNetOutput) => {
         // This is the guess of the neural network.
         // Use it in your application.
-        console.log(output.getValues());
     })
     .catch((error: Error) => {
         // Do something with the error.

@@ -9,5 +9,8 @@ export interface UnsupervisedNetwork {
 
 	scoreTrainingResult(resultID: string, score: number): Promise<boolean>;
 
+    /**
+	 * @deprecated TODO find alternative
+     */
 	setOutputsForInputs(inputs:NeuralNetInput[], outputs: NeuralNetOutput[]);
 }

@@ -23,7 +23,7 @@ Make sure your config.json file is filed out properly
 ```
 
 If you do not already have a config.json in the root of the project directory, then one will created from the example config. 
-For more on configuring your IDE to run tests please se the section on [configuring your IDE to run tests](https://github.com/CryptexLabs/neural-net/tree/master/tests)
+For more on configuring your IDE to run tests please se the section on [configuring your IDE to run tests](tests)
 
 ## How to test
 
@@ -47,11 +47,11 @@ let config = require('../config.json') as NeuralNetConfig;
 
 let service = new NeuralNetService(config);
 
-let provider = service.getDefaultProvider();
-
 let market = new Market('GDAX', 'BTC', 'USD');
 
-let network = new RSIConfigNetwork(provider, market);
+let provider = service.getDefaultProvider();
+
+let network = new RSIConfigNetwork(market, provider);
 
 let data = new S3CSVInputData('a-bucket-with-data', 'rsi/dev/data.csv');
 
@@ -96,16 +96,16 @@ let config = require('../config.json') as NeuralNetConfig;
 
 let service = new NeuralNetService(config);
 
-let provider = service.getDefaultProvider();
-
 let market = new Market('GDAX', 'BTC', 'USD');
 
-let network = new RSIConfigNetwork(provider, market);
+let provider = service.getDefaultProvider();
+
+let network = new RSIConfigNetwork(market, provider);
 
 let input = new RSIConfigNetworkInput(40, 45, 60, 70, 40, 29);
 
 network
-    .loadResult(input)
+    .guess(input)
     .then((output: NeuralNetOutput) => {
         // This is the guess of the neural network.
         // Use it in your application.
@@ -115,6 +115,9 @@ network
         // Do something with the error.
     });
 ```
+
+## How to create a new neural network
+Please see [Network implementations](examples/network) for more information
 
 ## Other
 

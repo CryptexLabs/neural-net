@@ -1,4 +1,4 @@
-import {NeuralNetOutput} from "../../../interfaces/output/NeuralNetOutput";
+import {NeuralNetOutput} from "../../../src/interfaces/output/NeuralNetOutput";
 
 export class SomeBoringNetworkOutput implements NeuralNetOutput {
     
@@ -6,9 +6,5 @@ export class SomeBoringNetworkOutput implements NeuralNetOutput {
 
     constructor(a: number) {
         this._a = a;
-    }
-
-    getValues(): any[] {
-        return [this._a];
     }
 }

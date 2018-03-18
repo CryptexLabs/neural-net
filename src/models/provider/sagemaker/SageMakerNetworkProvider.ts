@@ -47,13 +47,16 @@ export class SageMakerNetworkProvider implements UnsupervisedNetworkProvider, KM
                 ModelName: description.getName()
             };
 
-            sagemaker.describeModel(describeModelInput, (error: AWSError, data: SageMaker.Types.DescribeModelOutput) => {
-                if (!error) {
-                    resolve(SageMakerNetwork.createFromDescribeModelOutput(data))
-                } else {
-                    this._getNetworkFromNewModel(description).then(resolve).catch(reject);
-                }
-            })
+            sagemaker
+                .describeModel(describeModelInput).promise()
+                .then((data: SageMaker.Types.DescribeModelOutput) => {
+                    resolve(SageMakerNetwork.createFromDescribeModelOutput(data));
+                })
+                .catch(() => {
+                    return this._getNetworkFromNewModel(description);
+                })
+                .then(resolve)
+                .catch(reject);
         });
     }
 
@@ -78,13 +81,11 @@ export class SageMakerNetworkProvider implements UnsupervisedNetworkProvider, KM
 
             let sagemaker = new AWS.SageMaker();
 
-            sagemaker.createModel(createModelInput, (error: AWSError, data: SageMaker.Types.CreateModelOutput) => {
-                if (!error) {
-                    resolve(SageMakerNetwork.createFromCreateModelOutput(data))
-                } else {
-                    reject(error);
-                }
-            });
+            sagemaker.createModel(createModelInput).promise()
+                .then((data: SageMaker.Types.CreateModelOutput) => {
+                    return resolve(SageMakerNetwork.createFromCreateModelOutput(data))
+                })
+                .catch(reject);
 
         })
     }

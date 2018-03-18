@@ -8,13 +8,13 @@ import {NeuralNetConfig} from "../src/interfaces/NeuralNetConfig";
 
 let config = require('../config.json') as NeuralNetConfig;
 
+let market = new Market('GDAX', 'BTC', 'USD');
+
 let service = new NeuralNetService(config);
 
 let provider = service.getDefaultProvider();
 
-let market = new Market('GDAX', 'BTC', 'USD');
-
-let network = new RSIConfigNetwork(provider, market);
+let network = new RSIConfigNetwork(market, provider);
 
 let data = new S3CSVInputData('a-bucket-with-data', 'rsi/dev/data.csv');
 

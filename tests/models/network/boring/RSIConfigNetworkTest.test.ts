@@ -16,7 +16,7 @@ describe('RSIConfigNetwork', () => {
 
     let provider = NeuralNetService.getDefaultProvider();
 
-    const rsiConfigNetwork = new RSIConfigNetwork(provider, new Market('GDAX', 'BTC', 'USD'));
+    const rsiConfigNetwork = new RSIConfigNetwork(new Market('GDAX', 'BTC', 'USD'), provider);
 
     it('should instantiate new instance of RSIConfigNetwork', (done) => {
 

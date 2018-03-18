@@ -1,3 +1,1 @@
-export interface NeuralNetOutput {
-    getValues(): any[];
-}
+export interface NeuralNetOutput {}
