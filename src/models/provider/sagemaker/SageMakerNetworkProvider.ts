@@ -5,7 +5,7 @@ import {UnsupervisedNetworkProvider} from "../../../interfaces/provider/Unsuperv
 import {UnsupervisedProvidedNetwork} from "../../../interfaces/provider/UnsupervisedProvidedNetwork";
 import {SageMakerNetworkDescription} from "../../../interfaces/provider/sagemaker/SageMakerNetworkDescription";
 import {KMeansNetworkProvider} from "../../../interfaces/provider/KMeansNetworkProvider";
-import {SageMakerConfigNetworkDescription} from "./descriptions/SageMakerConfigNetworkDescription";
+import {SageMakerConfigNetworkDescription} from "./description/SageMakerConfigNetworkDescription";
 import {SageMakerInferenceImageAlgorithm} from "../../../interfaces/provider/sagemaker/SageMakerInferenceImageDescriptions";
 import {SupervisedProvidedNetwork} from "../../../interfaces/provider/SupervisedProvidedNetwork";
 import {ProvidedNetworkCache} from "../../cache/ProvidedNetworkCache";
