@@ -1,6 +1,6 @@
-import {NeuralNetService} from "../model/NeuralNetService";
+import {NeuralNetService} from "../service/NeuralNetService";
 import {DefaultNetworkProvider} from "../interface/provider/provider/DefaultNetworkProvider";
-import {NeuralNetConfig} from "../interface/NeuralNetConfig";
+import {NeuralNetConfig} from "../config/NeuralNetConfig";
 
 let DefaultConfig = require('../../config.json') as NeuralNetConfig;
 

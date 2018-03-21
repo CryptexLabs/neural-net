@@ -1,5 +1,5 @@
 import {SageMakerNetwork} from "./SageMakerNetwork";
-import {NeuralNetConfig} from "../../../../interface/NeuralNetConfig";
+import {NeuralNetConfig} from "../../../../config/NeuralNetConfig";
 import {UnsupervisedProvidedNetwork} from "../../../../interface/provider/network/UnsupervisedProvidedNetwork";
 import {KMeansNetworkProvider} from "../../../../interface/provider/provider/kmeans/KMeansNetworkProvider";
 import {SupervisedProvidedNetwork} from "../../../../interface/provider/network/SupervisedProvidedNetwork";

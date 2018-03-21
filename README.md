@@ -39,13 +39,13 @@ If you do not configure the config.json before running your tests then your test
 
 [embedmd]:# (../examples/training-example.ts typescript)
 ```typescript
-import {NeuralNetService} from "../src/model/NeuralNetService";
+import {NeuralNetService} from "../src/service/NeuralNetService";
 import {RSIConfigNetwork} from "../src/module/network/config/rsi/model/RSIConfigNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
 import {S3CSVInputData} from "../src/model/input/S3CSVInputData";
 import {UnsupervisedNetworkTrainingResult} from "../src/interface/unsupervised/UnsupervisedNetworkTrainingResult";
 import {UnsupervisedNetworkTrainingPerformanceResult} from "../src/interface/unsupervised/UnsupervisedNetworkTrainingPerformanceResult";
-import {NeuralNetConfig} from "../src/interface/NeuralNetConfig";
+import {NeuralNetConfig} from "../src/config/NeuralNetConfig";
 import {RSIConfigNetworkInput} from "../src/module/network/config/rsi/model/RSIConfigNetworkInput";
 
 let config = require('../config.json') as NeuralNetConfig;
@@ -91,12 +91,12 @@ network
 
 [embedmd]:# (../examples/load-result-example.ts typescript)
 ```typescript
-import {NeuralNetService} from "../src/model/NeuralNetService";
+import {NeuralNetService} from "../src/service/NeuralNetService";
 import {RSIConfigNetwork} from "../src/module/network/config/rsi/model/RSIConfigNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
 import {RSIConfigNetworkInput} from "../src/module/network/config/rsi/model/RSIConfigNetworkInput";
 import {NeuralNetOutput} from "../src/interface/output/NeuralNetOutput";
-import {NeuralNetConfig} from "../src/interface/NeuralNetConfig";
+import {NeuralNetConfig} from "../src/config/NeuralNetConfig";
 
 let config = require('../config.json') as NeuralNetConfig;
 

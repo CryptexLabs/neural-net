@@ -1,9 +1,9 @@
-import {NeuralNetService} from "../src/model/NeuralNetService";
+import {NeuralNetService} from "../src/service/NeuralNetService";
 import {RSIConfigNetwork} from "../src/module/network/config/rsi/model/RSIConfigNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
 import {RSIConfigNetworkInput} from "../src/module/network/config/rsi/model/RSIConfigNetworkInput";
 import {NeuralNetOutput} from "../src/interface/output/NeuralNetOutput";
-import {NeuralNetConfig} from "../src/interface/NeuralNetConfig";
+import {NeuralNetConfig} from "../src/config/NeuralNetConfig";
 
 let config = require('../config.json') as NeuralNetConfig;
 
