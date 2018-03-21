@@ -8,8 +8,7 @@ export class SageMakerNetworkProviderContextHelper {
     private constructor(){}
 
     public static bindContext(container: Container){
-        container.bind<DefaultSageMakerNetworkMultiVariantDescription>(DefaultSageMakerNetworkMultiVariantDescription).toSelf().inSingletonScope();
-        container.bind<SageMakerKMeansNetworkProvider>(SageMakerKMeansNetworkProvider).toSelf().inSingletonScope();
+
     }
 
 }

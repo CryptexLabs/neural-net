@@ -9,13 +9,15 @@ import {NeuralNetOutput} from "../../../interfaces/output/NeuralNetOutput";
 import {NetworkMultiVariantDescriptor} from "../../../interfaces/provider/descriptor/NetworkMultiVariantDescriptor";
 import {SageMakerNetworkDescriptor} from "../../../interfaces/provider/sagemaker/SageMakerNetworkDescription";
 import {NetworkDescription} from "../../../interfaces/description/NetworkDescription";
-import {injectable} from "inversify";
+import {Container, inject, injectable} from "inversify";
 import "reflect-metadata";
 import {SageMakerModelService} from "./service/SageMakerModelService";
 import {SageMakerJobService} from "./service/SageMakerJobService";
 import {SageMakerEndpointService} from "./service/SageMakerEndpointService";
 import {MultiVariantNetwork} from "../../../interfaces/provider/network/MultiVariantNetwork";
-import {SageMakerNeuralNetConfig} from "../../../interfaces/NeuralNetConfig";
+import {NeuralNetConfig, SageMakerNeuralNetConfig} from "../../../interfaces/NeuralNetConfig";
+
+interface D extends NetworkDescription, SageMakerNetworkDescriptor {}
 
 @injectable()
 export class SageMakerNetwork implements UnsupervisedProvidedNetwork, SupervisedProvidedNetwork, MultiVariantNetwork {
@@ -24,10 +26,19 @@ export class SageMakerNetwork implements UnsupervisedProvidedNetwork, Supervised
     private _modelService: SageMakerModelService;
     private _jobService: SageMakerJobService;
 
-    public constructor(config: SageMakerNeuralNetConfig, description: NetworkDescription & SageMakerNetworkDescriptor) {
-        this._endPointService = new SageMakerEndpointService(config, description);
-        this._modelService = new SageMakerModelService(config, description);
-        this._jobService = new SageMakerJobService(config, description.getUniqueName());
+    private _container: Container;
+
+    @inject("Config")
+    private _config: SageMakerNeuralNetConfig;
+
+    public init(description: D) {
+        this._endPointService = new SageMakerEndpointService(this._config, description);
+        this._modelService = new SageMakerModelService(this._config, description);
+        this._jobService = new SageMakerJobService(this._config, description.getUniqueName());
+
+        this._container = new Container();
+        this._container.bind<D>("Description").toConstantValue(description).whenTargetIsDefault();
+        this._container.bind<SageMakerJobService>(SageMakerJobService).toSelf();
     }
 
     public setMultiVariantDescriptor(descriptor: NetworkMultiVariantDescriptor) {
