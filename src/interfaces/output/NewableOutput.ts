@@ -1,0 +1,1 @@
+export type NewableOutput<T> = { new (output: any[]): T; };

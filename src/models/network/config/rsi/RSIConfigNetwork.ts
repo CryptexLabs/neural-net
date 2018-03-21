@@ -5,8 +5,8 @@ import {UnsupervisedNetwork} from "../../../../interfaces/unsupervised/Unsupervi
 import {UnsupervisedNetworkTrainingResult} from "../../../../interfaces/unsupervised/UnsupervisedNetworkTrainingResult";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
 import {NeuralNetInputData} from "../../../../interfaces/input/NeuralNetInputData";
-import {UnsupervisedProvidedNetwork} from "../../../../interfaces/provider/UnsupervisedProvidedNetwork";
-import {KMeansNetworkProvider} from "../../../../interfaces/provider/KMeansNetworkProvider";
+import {UnsupervisedProvidedNetwork} from "../../../../interfaces/provider/network/UnsupervisedProvidedNetwork";
+import {KMeansNetworkProvider} from "../../../../interfaces/provider/provider/KMeansNetworkProvider";
 import {RSIConfigNetworkInput} from "./RSIConfigNetworkInput";
 import {ProvidedNetworkOutputCache} from "../../../cache/ProvidedNetworkOutputCache";
 import {OutputCacher} from "../../../../interfaces/cache/OutputCacher";
@@ -52,7 +52,7 @@ export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork, OutputC
     }
 
     private _getNetwork(): Promise<UnsupervisedProvidedNetwork> {
-        return this._networkProvider.getKMeansNetwork(this._getNetworkName());
+        return this._networkProvider.getKMeansNetwork(RSIConfigNetworkOutput, this._getNetworkName());
     }
 
     private _getNetworkName(): string {

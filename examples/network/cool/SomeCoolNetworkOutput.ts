@@ -5,9 +5,9 @@ export class SomeCoolNetworkOutput implements NeuralNetOutput {
     private _a: number;
     private _b: string;
 
-    constructor(a: number, b: string) {
-        this._a = a;
-        this._b = b;
+    constructor(output: any[]) {
+        this._a = output[0];
+        this._b = output[1];
     }
 
     get a(): number {

@@ -1,50 +1,64 @@
-import {SageMakerNetworkDescription} from "../../../../interfaces/provider/sagemaker/SageMakerNetworkDescription";
+import {SageMakerNetworkDescriptor} from "../../../../interfaces/provider/sagemaker/SageMakerNetworkDescription";
 import {
-	SageMakerInferenceImageAlgorithm,
-	SageMakerInferenceImageDescriptions
+    SageMakerInferenceImageAlgorithm,
+    SageMakerInferenceImageDescriptions
 } from "../../../../interfaces/provider/sagemaker/SageMakerInferenceImageDescriptions";
+import {NeuralNetOutput} from "../../../../interfaces/output/NeuralNetOutput";
+import {NewableOutput} from "../../../../interfaces/output/NewableOutput";
+import {NetworkDescription} from "../../../../interfaces/description/NetworkDescription";
 
 let SageMakerInferenceImageConfig = require('./sagemaker-inference-image-paths.json') as SageMakerInferenceImageDescriptions;
 
-export class SageMakerConfigNetworkDescription implements SageMakerNetworkDescription {
+export class SageMakerConfigNetworkDescription implements SageMakerNetworkDescriptor, NetworkDescription {
 
-	private _name: string;
-	private _region: string;
-	private _algorithm: string;
-	private _modelDataUrl:string;
+    private _name: string;
+    private _region: string;
+    private _algorithm: string;
+    private _modelDataUrl: string;
+    private _outputClass: NewableOutput<NeuralNetOutput>;
 
-	constructor(name: string, region: string, algorithm: SageMakerInferenceImageAlgorithm) {
-		this._name = name;
-		this._setContainerImage(algorithm, region);
-	}
+    constructor(name: string, region: string, algorithm: SageMakerInferenceImageAlgorithm, outputClass: NewableOutput<NeuralNetOutput>) {
+        this._name = name;
+        this._setContainerImage(algorithm, region);
+        this._outputClass = outputClass;
+    }
 
-	public getUniqueName(): string {
-		return this._name;
-	}
+    public getUniqueName(): string {
+        return this._name;
+    }
 
-	public getContainerImage(): string {
-		return SageMakerInferenceImageConfig[this._algorithm][this._region];
-	}
+    public getContainerImage(): string {
+        return SageMakerInferenceImageConfig[this._algorithm][this._region];
+    }
 
-	public getModelDataUrl(): string {
-		return this._modelDataUrl;
-	}
+    public getModelDataUrl(): string {
+        return this._modelDataUrl;
+    }
 
-	public setModelDataUrl(url: string) {
-		if (!url.match(/(s3:\/\/)(.*)(\/)(.*)(\.tar\.gz)/)){
-			throw new Error('invalid model url (' + url + ')');
-		}
-		this._modelDataUrl = url;
-	}
+    public setModelDataUrl(url: string) {
+        if (!url.match(/(s3:\/\/)(.*)(\/)(.*)(\.tar\.gz)/)) {
+            throw new Error('invalid model url (' + url + ')');
+        }
+        this._modelDataUrl = url;
+    }
 
-	private _setContainerImage(algorithm: SageMakerInferenceImageAlgorithm, region: string) {
+    public getNewOutput(data: any): NeuralNetOutput {
+        // TODO Implement SageMakerConfigNetworkDescription::getNewOutput
+        return new this._outputClass([]);
+    }
 
-		if(!SageMakerInferenceImageConfig[algorithm]) { throw new Error('invalid algorithm (' + algorithm + ')'); }
-		if(!SageMakerInferenceImageConfig[algorithm][region]) { throw new Error('invalid region for algorithm (' + algorithm + ', ' + region + ')'); }
+    private _setContainerImage(algorithm: SageMakerInferenceImageAlgorithm, region: string) {
 
-		this._algorithm = algorithm;
-		this._region    = region;
+        if (!SageMakerInferenceImageConfig[algorithm]) {
+            throw new Error('invalid algorithm (' + algorithm + ')');
+        }
+        if (!SageMakerInferenceImageConfig[algorithm][region]) {
+            throw new Error('invalid region for algorithm (' + algorithm + ', ' + region + ')');
+        }
 
-	}
+        this._algorithm = algorithm;
+        this._region = region;
+
+    }
 
 }

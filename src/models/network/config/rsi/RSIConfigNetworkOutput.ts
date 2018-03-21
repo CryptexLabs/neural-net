@@ -4,7 +4,7 @@ export class RSIConfigNetworkOutput implements NeuralNetOutput {
 
     private _a: number;
 
-    constructor(a: number) {
-        this._a = a;
+    constructor(output: any[]) {
+        this._a = output[0];
     }
 }

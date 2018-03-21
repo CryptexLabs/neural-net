@@ -1,89 +1,94 @@
 import {SageMakerNetwork} from "./SageMakerNetwork";
 import {SageMakerNeuralNetConfig} from "../../../interfaces/NeuralNetConfig";
 import {SageMaker} from "aws-sdk";
-import {UnsupervisedNetworkProvider} from "../../../interfaces/provider/UnsupervisedNetworkProvider";
-import {UnsupervisedProvidedNetwork} from "../../../interfaces/provider/UnsupervisedProvidedNetwork";
-import {SageMakerNetworkDescription} from "../../../interfaces/provider/sagemaker/SageMakerNetworkDescription";
-import {KMeansNetworkProvider} from "../../../interfaces/provider/KMeansNetworkProvider";
+import {UnsupervisedProvidedNetwork} from "../../../interfaces/provider/network/UnsupervisedProvidedNetwork";
+import {KMeansNetworkProvider} from "../../../interfaces/provider/provider/KMeansNetworkProvider";
 import {SageMakerConfigNetworkDescription} from "./description/SageMakerConfigNetworkDescription";
 import {SageMakerInferenceImageAlgorithm} from "../../../interfaces/provider/sagemaker/SageMakerInferenceImageDescriptions";
-import {SupervisedProvidedNetwork} from "../../../interfaces/provider/SupervisedProvidedNetwork";
+import {SupervisedProvidedNetwork} from "../../../interfaces/provider/network/SupervisedProvidedNetwork";
 import {ProvidedNetworkCache} from "../../cache/ProvidedNetworkCache";
-import {NetworkProvider} from "../../../interfaces/provider/NetworkProvider";
-import {ServiceNetworkProvider} from "../../../interfaces/provider/ServiceNetworkProvider";
+import {NeuralNetOutput} from "../../../interfaces/output/NeuralNetOutput";
+import {NewableOutput} from "../../../interfaces/output/NewableOutput";
+import {NetworkMultiVariantDescriptor} from "../../../interfaces/provider/descriptor/NetworkMultiVariantDescriptor";
+import {NetworkDescription} from "../../../interfaces/description/NetworkDescription";
+import {NeuralNet} from "../../../interfaces/NeuralNet";
+import {SageMakerProductionVariantInstanceType} from "../../../interfaces/provider/sagemaker/SageMakerProductionVariantInstanceType";
+import {SageMakerNetworkDescriptor} from "../../../interfaces/provider/sagemaker/SageMakerNetworkDescription";
+import {ServiceNetworkProvider} from "../../../interfaces/provider/provider/ServiceNetworkProvider";
+import {DefaultSageMakerNetworkMultiVariantDescription} from "./description/DefaultSageMakerNetworkMultiVariantDescription";
+import {NeuralNetServiceContext} from "../../../interfaces/NeuralNetServiceContext";
+import {MultiVariantNetwork} from "../../../interfaces/provider/network/MultiVariantNetwork";
 
 declare let AWS;
-declare let ENV: string;
 
-export class SageMakerNetworkProvider implements NetworkProvider, ServiceNetworkProvider, UnsupervisedNetworkProvider, KMeansNetworkProvider {
+interface D extends NetworkDescription, SageMakerNetworkDescriptor {
+}
+
+interface N extends NeuralNet, UnsupervisedProvidedNetwork, SupervisedProvidedNetwork, MultiVariantNetwork {
+}
+
+export class SageMakerNetworkProvider implements ServiceNetworkProvider<D>, KMeansNetworkProvider {
 
     private _config: SageMakerNeuralNetConfig;
-    private _cache: ProvidedNetworkCache<SageMakerNetworkProvider, SageMakerNetwork>;
+    private _cache: ProvidedNetworkCache<SageMakerNetworkProvider, N, D>;
     private _sageMaker: SageMaker;
+    private _instanceType: SageMakerProductionVariantInstanceType;
+    private _multiVariantDescriptor: NetworkMultiVariantDescriptor;
+    private _serviceContext: NeuralNetServiceContext;
 
-    constructor(config: SageMakerNeuralNetConfig) {
+    constructor(serviceContext: NeuralNetServiceContext, config: SageMakerNeuralNetConfig) {
         this._config = config;
-        this._cache = new ProvidedNetworkCache<SageMakerNetworkProvider, SageMakerNetwork>(this);
+        this._cache = new ProvidedNetworkCache<SageMakerNetworkProvider, N, D>(this);
         this._sageMaker = new AWS.SageMaker();
+        this._instanceType = SageMakerProductionVariantInstanceType.ml_t2_medium;
+        this._multiVariantDescriptor = new DefaultSageMakerNetworkMultiVariantDescription();
+        this._serviceContext = serviceContext;
     }
 
-    public getKMeansNetwork(name: string): Promise<UnsupervisedProvidedNetwork> {
-        return this.getNetwork(
-            new SageMakerConfigNetworkDescription(name,
-                AWS.config.region,
-                SageMakerInferenceImageAlgorithm.kmeans)
+    public getKMeanMultiVariantNetwork(outputClass: NewableOutput<NeuralNetOutput>, name: string, variantDescriptor: NetworkMultiVariantDescriptor): Promise<UnsupervisedProvidedNetwork & MultiVariantNetwork> {
+        let description = new SageMakerConfigNetworkDescription(
+            name,
+            AWS.config.region,
+            SageMakerInferenceImageAlgorithm.kmeans,
+            outputClass
         );
-    }
-
-    public getSupervisedNetwork(description: SageMakerNetworkDescription): Promise<SupervisedProvidedNetwork> {
-        return this.getNetwork(description);
-    }
-
-    public getUnsupervisedNetwork(description: SageMakerNetworkDescription): Promise<UnsupervisedProvidedNetwork> {
-        return this.getNetwork(description);
-    }
-
-    public getNetwork(description: SageMakerNetworkDescription): Promise<SageMakerNetwork> {
-        return this._cache.getNetwork(description);
-    }
-
-    public getProvidedNetwork(description: SageMakerNetworkDescription): Promise<SageMakerNetwork> {
-        return this._getNetworkFromExistingModel(description)
-            .catch(() => {
-                return this._getNetworkFromNewModel(description);
+        return this._getNetwork(description)
+            .then((network: N) => {
+                network.setMultiVariantDescriptor(variantDescriptor);
+                return network;
             });
     }
 
-    private _getNetworkFromExistingModel(description: SageMakerNetworkDescription): Promise<SageMakerNetwork> {
+    public getKMeansNetwork(outputClass: NewableOutput<NeuralNetOutput>, name: string): Promise<UnsupervisedProvidedNetwork> {
 
-        let describeModelInput: SageMaker.DescribeModelInput = {
-            ModelName: description.getUniqueName()
-        };
+        let description = new SageMakerConfigNetworkDescription(
+            name,
+            AWS.config.region,
+            SageMakerInferenceImageAlgorithm.kmeans,
+            outputClass
+        );
 
-        return this._sageMaker
-            .describeModel(describeModelInput).promise()
-            .then(SageMakerNetwork.createFromDescribeModelOutput)
+        return this.getUnsupervisedNetwork(description);
     }
 
-    private _getNetworkFromNewModel(description: SageMakerNetworkDescription): Promise<SageMakerNetwork> {
+    public getSupervisedNetwork(description: SageMakerNetworkDescriptor & NetworkDescription): Promise<SupervisedProvidedNetwork> {
+        return this._getNetwork(description);
+    }
 
-        let createModelInput: SageMaker.CreateModelInput = {
-            ExecutionRoleArn: this._config.roleARN,
-            ModelName: description.getUniqueName(),
-            PrimaryContainer: {
-                Image: description.getContainerImage(),
-                ModelDataUrl: description.getModelDataUrl()
-            },
-            Tags: [
-                {
-                    Key: 'environment',
-                    Value: ENV
-                },
-            ]
-        };
+    public getUnsupervisedNetwork(description: SageMakerNetworkDescriptor & NetworkDescription): Promise<UnsupervisedProvidedNetwork> {
+        return this._getNetwork(description);
+    }
 
-        return this._sageMaker
-            .createModel(createModelInput).promise()
-            .then(SageMakerNetwork.createFromCreateModelOutput);
+    public getNetwork(description: D): Promise<NeuralNet> {
+        return this._getNetwork(description);
+    }
+
+    private _getNetwork(description: NetworkDescription & SageMakerNetworkDescriptor): Promise<N> {
+        return this._cache.getNetwork(description);
+    }
+
+    public getProvidedNetwork(description: D): Promise<NeuralNet> {
+        let network = new SageMakerNetwork(description, this._instanceType);
+        return Promise.resolve(network);
     }
 }

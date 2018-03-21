@@ -1,10 +1,10 @@
-import {ServiceNetworkProvider} from "../../interfaces/provider/ServiceNetworkProvider";
-import {NetworkProvider} from "../../interfaces/provider/NetworkProvider";
-import {NetworkDescription} from "../../interfaces/description/NetworkDescription";
+import {ServiceNetworkProvider} from "../../interfaces/provider/provider/ServiceNetworkProvider";
+import {NetworkProvider} from "../../interfaces/provider/provider/NetworkProvider";
 import {NeuralNet} from "../../interfaces/NeuralNet";
 import {NetworkCache} from "./NetworkCache";
+import {NetworkDescription} from "../../interfaces/description/NetworkDescription";
 
-export class ProvidedNetworkCache<P extends ServiceNetworkProvider, N extends NeuralNet> implements NetworkProvider {
+export class ProvidedNetworkCache<P extends ServiceNetworkProvider<D>, N extends NeuralNet, D extends NetworkDescription> implements NetworkProvider<D> {
 
     private _provider: P;
     private _cache: NetworkCache<N>;
@@ -14,13 +14,13 @@ export class ProvidedNetworkCache<P extends ServiceNetworkProvider, N extends Ne
         this._cache = new NetworkCache<N>()
     }
 
-    public getNetwork(description: NetworkDescription): Promise<N> {
+    public getNetwork(description: D): Promise<N> {
         return this._cache.get(description.getUniqueName())
-            .catch(()=>{
+            .catch(() => {
                 return this._provider.getProvidedNetwork(description);
             })
             .then((network: N) => {
-                this._cache.set(description.getUniqueName(), network)
+                this._cache.set(description.getUniqueName(), network);
                 return Promise.resolve<N>(network);
             });
     }

@@ -1,12 +1,16 @@
 import 'mocha';
-
-let itParam = require('mocha-param');
 import * as chai from "chai";
 import {SageMakerConfigNetworkDescription} from "../../../../../src/models/provider/sagemaker/description/SageMakerConfigNetworkDescription";
 import {SageMakerInferenceImageAlgorithm} from "../../../../../src/interfaces/provider/sagemaker/SageMakerInferenceImageDescriptions";
+import {NeuralNetOutput} from "../../../../../src/interfaces/output/NeuralNetOutput";
+import {NetworkMultiVariantDescriptor} from "../../../../../src/interfaces/provider/descriptor/NetworkMultiVariantDescriptor";
+import {NetworkVariantDescriptor} from "../../../../../src/interfaces/provider/descriptor/NetworkVariantDescriptor";
+
+let itParam = require('mocha-param');
 
 describe('SageMakerConfigNetworkDescription', () => {
 
+	class TestOutput implements NeuralNetOutput {}
 
 	function getDataForContainerImage() {
 		return [
@@ -77,17 +81,16 @@ describe('SageMakerConfigNetworkDescription', () => {
 		];
 	}
 
-
 	itParam("should throw exception for not yet supported algorithm region pair ${value.region} (algorithm ${value.algorithm})", getDataForNotYetSupportedRegion(), function(testData) {
 
 		chai.expect(() => {
-			return new SageMakerConfigNetworkDescription("testName", testData.region, testData.algorithm)
+			return new SageMakerConfigNetworkDescription("testName", testData.region, testData.algorithm, TestOutput)
 		})
 			.to.throw(testData.exceptionString);
 	});
 
 	itParam("should return a container image for ${value.region} (image ${value.containerImage})", getDataForContainerImage(), function(testData) {
-		let config = new SageMakerConfigNetworkDescription("testName", testData.region, testData.algorithm);
+		let config = new SageMakerConfigNetworkDescription("testName", testData.region, testData.algorithm, TestOutput);
 
 		let image = config.getContainerImage();
 		chai.assert.isNotNull(image);
@@ -96,7 +99,7 @@ describe('SageMakerConfigNetworkDescription', () => {
 	});
 
 	itParam("should return a unique name for ${value.name} (name ${value.uniqueName})", getDataForUniqueName(), function(testData) {
-		let config = new SageMakerConfigNetworkDescription(testData.name, "us-west-2", SageMakerInferenceImageAlgorithm.kmeans);
+		let config = new SageMakerConfigNetworkDescription(testData.name, "us-west-2", SageMakerInferenceImageAlgorithm.kmeans, TestOutput);
 
 		chai.assert.equal(config.getUniqueName(), testData.name)
 
@@ -104,7 +107,7 @@ describe('SageMakerConfigNetworkDescription', () => {
 
 	itParam("should throw an exception for invalid url ${value.name} (name ${value.uniqueName})", getDataForUrl(), function(testData) {
 		chai.expect(() => {
-			let config = new SageMakerConfigNetworkDescription("testName", "us-west-2", SageMakerInferenceImageAlgorithm.kmeans);
+			let config = new SageMakerConfigNetworkDescription("testName", "us-west-2", SageMakerInferenceImageAlgorithm.kmeans, TestOutput);
 			config.setModelDataUrl(testData.url);
 			return config;
 		})
@@ -112,7 +115,7 @@ describe('SageMakerConfigNetworkDescription', () => {
 	});
 
 	it("should get Data Model Url", function() {
-		let config = new SageMakerConfigNetworkDescription("testName", "us-west-2", SageMakerInferenceImageAlgorithm.kmeans);
+		let config = new SageMakerConfigNetworkDescription("testName", "us-west-2", SageMakerInferenceImageAlgorithm.kmeans, TestOutput);
 		config.setModelDataUrl('s3://bucket-mame/test.tar.gz');
 
 		chai.assert.equal(config.getModelDataUrl(), 's3://bucket-mame/test.tar.gz');

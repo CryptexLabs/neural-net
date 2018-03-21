@@ -6,7 +6,9 @@
     "typeRoots": [
       "./node_modules/@types"
     ],
-    "outDir": "build"
+    "outDir": "build",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "files": [
     "./node_modules/@types/mocha/index.d.ts",

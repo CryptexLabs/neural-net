@@ -19,11 +19,11 @@ Each unsupervised network should implement 3 classes like so
 import {NeuralNet} from "../../../src/interfaces/NeuralNet";
 import {UnsupervisedNetwork} from "../../../src/interfaces/unsupervised/UnsupervisedNetwork";
 import {OutputCacher} from "../../../src/interfaces/cache/OutputCacher";
-import {KMeansNetworkProvider} from "../../../src/interfaces/provider/KMeansNetworkProvider";
+import {KMeansNetworkProvider} from "../../../src/interfaces/provider/provider/KMeansNetworkProvider";
 import {ProvidedNetworkOutputCache} from "../../../src/models/cache/ProvidedNetworkOutputCache";
 import {NeuralNetInputData} from "../../../src/interfaces/input/NeuralNetInputData";
 import {UnsupervisedNetworkTrainingResult} from "../../../src/interfaces/unsupervised/UnsupervisedNetworkTrainingResult";
-import {UnsupervisedProvidedNetwork} from "../../../src/interfaces/provider/UnsupervisedProvidedNetwork";
+import {UnsupervisedProvidedNetwork} from "../../../src/interfaces/provider/network/UnsupervisedProvidedNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
 import {SomeCoolNetworkOutput} from "./SomeCoolNetworkOutput";
 import {SomeCoolNetworkInput} from "./SomeCoolNetworkInput";
@@ -48,6 +48,7 @@ export class SomeCoolNetwork implements NeuralNet, UnsupervisedNetwork, OutputCa
     }
 
     public train(input: NeuralNetInputData<SomeCoolNetworkInput>): Promise<UnsupervisedNetworkTrainingResult> {
+        // For a n unsupervised network a data set that is a list of inputs must be provided
         return this._getNetwork()
             .then((network: UnsupervisedProvidedNetwork) => {
                 return network.trainUnsupervisedNetwork(input);
@@ -55,6 +56,7 @@ export class SomeCoolNetwork implements NeuralNet, UnsupervisedNetwork, OutputCa
     }
 
     public scoreTrainingResult(resultID: string, score: number): Promise<void> {
+        // For unsupervised network a training session must be scored.
         return this._getNetwork()
             .then((network: UnsupervisedProvidedNetwork) => {
                 return network.scoreTrainingResult(resultID, score);
@@ -78,7 +80,8 @@ export class SomeCoolNetwork implements NeuralNet, UnsupervisedNetwork, OutputCa
     }
 
     private _getNetwork(): Promise<UnsupervisedProvidedNetwork> {
-        return this._networkProvider.getKMeansNetwork(this._getNetworkName());
+        // This will return a ProvidedNetwork object that allows you to interact with the network on the remote service
+        return this._networkProvider.getKMeansNetwork(SomeCoolNetworkOutput, this._getNetworkName());
     }
 
     private _getNetworkName(): string {
@@ -135,9 +138,9 @@ export class SomeCoolNetworkOutput implements NeuralNetOutput {
     private _a: number;
     private _b: string;
 
-    constructor(a: number, b: string) {
-        this._a = a;
-        this._b = b;
+    constructor(output: any[]) {
+        this._a = output[0];
+        this._b = output[1];
     }
 
     get a(): number {
