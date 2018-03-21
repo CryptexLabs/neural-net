@@ -32,28 +32,28 @@ export class SageMakerKMeansNetworkProvider implements KMeansNetworkProvider, KM
     }
 
     public getKMeansNetwork(outputClass: NewableOutput<NeuralNetOutput>, uniqueName: string): Promise<UnsupervisedProvidedNetwork> {
-        let description = new SageMakerConfigNetworkDescription(
-            uniqueName,
-            AWS.config.region,
-            SageMakerInferenceImageAlgorithm.kmeans,
-            outputClass
-        );
+        let description = this._getDefaultDescription(uniqueName, outputClass);
 
         return this._provider.getUnsupervisedNetwork(description);
     }
 
     public getKMeanMultiVariantNetwork(outputClass: NewableOutput<NeuralNetOutput>, uniqueName: string, variant: NetworkMultiVariantDescriptor): Promise<UnsupervisedProvidedNetwork & MultiVariantNetwork> {
-        let description = new SageMakerConfigNetworkDescription(
-            uniqueName,
-            AWS.config.region,
-            SageMakerInferenceImageAlgorithm.kmeans,
-            outputClass
-        );
+        let description = this._getDefaultDescription(uniqueName, outputClass);
+
         return this._provider.getUnsupervisedNetwork(description)
             .then((network: N) => {
                 network.setMultiVariantDescriptor(variant);
                 return network;
             });
+    }
+
+    private _getDefaultDescription(uniqueName: string, outputClass: NewableOutput<NeuralNetOutput>) {
+        return new SageMakerConfigNetworkDescription(
+            uniqueName,
+            AWS.config.region,
+            SageMakerInferenceImageAlgorithm.kmeans,
+            outputClass
+        );
     }
 
 }
