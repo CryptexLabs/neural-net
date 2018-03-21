@@ -48,20 +48,19 @@ interface P extends
 @injectable()
 export class SageMakerNetworkProvider implements ServiceNetworkProvider<D>, A, P {
 
-    private _config: NeuralNetConfig;
+    private _config: SageMakerNeuralNetConfig;
 
     private _context: Container;
 
     private _cache: ProvidedNetworkCache<ServiceNetworkProvider<D>, N, D>;
 
-    constructor(
-        @inject("Container") container: Container,
-        @inject("Config") config: NeuralNetConfig) {
+    constructor(@inject("Config") config: NeuralNetConfig) {
+
         this._cache = new ProvidedNetworkCache<ServiceNetworkProvider<D>, N, D>(this);
-        this._config = config;
+        this._config = config.amazon.sagemaker;
 
         this._context = new Container();
-        this._context.bind<SageMakerNeuralNetConfig>("Config").toConstantValue(config.amazon.sagemaker);
+        this._context.bind<SageMakerNeuralNetConfig>("Config").toConstantValue(this._config);
         this._context.bind<SageMakerUnsupervisedNetworkProvider>("ServiceProvider").toConstantValue(this).whenTargetIsDefault();
 
         this._context.bind<DefaultSageMakerNetworkMultiVariantDescription>(DefaultSageMakerNetworkMultiVariantDescription).toSelf().inSingletonScope();
@@ -93,7 +92,7 @@ export class SageMakerNetworkProvider implements ServiceNetworkProvider<D>, A, P
     }
 
     public getProvidedNetwork(description: D): Promise<NeuralNet> {
-        return Promise.resolve(new SageMakerNetwork(this._config.amazon.sagemaker, description));
+        return Promise.resolve(new SageMakerNetwork(this._config, description));
     }
 
     private _getNetwork(description: NetworkDescription & SageMakerNetworkDescriptor): Promise<N> {
