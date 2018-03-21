@@ -6,5 +6,6 @@ import {MultiVariantNetwork} from "../network/MultiVariantNetwork";
 
 export interface KMeansNetworkProvider {
     getKMeansNetwork(outputClass: NewableOutput<NeuralNetOutput>, uniqueName: string): Promise<UnsupervisedProvidedNetwork>;
+
     getKMeanMultiVariantNetwork(outputClass: NewableOutput<NeuralNetOutput>, uniqueName: string, variant: NetworkMultiVariantDescriptor): Promise<UnsupervisedProvidedNetwork & MultiVariantNetwork>;
 }

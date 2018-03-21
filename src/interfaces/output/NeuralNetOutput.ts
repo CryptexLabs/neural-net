@@ -1,1 +1,2 @@
-export interface NeuralNetOutput {}
+export interface NeuralNetOutput {
+}

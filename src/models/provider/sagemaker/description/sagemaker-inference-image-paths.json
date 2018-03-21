@@ -1,6 +1,6 @@
 {
-  "kmeans" : {
-    "us-west-2" : "174872318107.dkr.ecr.us-west-2.amazonaws.com",
+  "kmeans": {
+    "us-west-2": "174872318107.dkr.ecr.us-west-2.amazonaws.com",
     "us-east-1": "382416733822.dkr.ecr.us-east-1.amazonaws.com",
     "us-east-2": "404615174143.dkr.ecr.us-east-2.amazonaws.com",
     "eu-west-1": "438346466558.dkr.ecr.eu-west-1.amazonaws.com"

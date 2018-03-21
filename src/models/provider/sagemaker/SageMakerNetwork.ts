@@ -15,8 +15,7 @@ import {SageMakerModelService} from "./service/SageMakerModelService";
 import {SageMakerJobService} from "./service/SageMakerJobService";
 import {SageMakerEndpointService} from "./service/SageMakerEndpointService";
 import {MultiVariantNetwork} from "../../../interfaces/provider/network/MultiVariantNetwork";
-
-declare let AWS;
+import {SageMakerNeuralNetConfig} from "../../../interfaces/NeuralNetConfig";
 
 @injectable()
 export class SageMakerNetwork implements UnsupervisedProvidedNetwork, SupervisedProvidedNetwork, MultiVariantNetwork {
@@ -29,11 +28,11 @@ export class SageMakerNetwork implements UnsupervisedProvidedNetwork, Supervised
 
     private _jobService: SageMakerJobService;
 
-    public constructor(description: NetworkDescription & SageMakerNetworkDescriptor, instanceType: string) {
+    public constructor(config: SageMakerNeuralNetConfig, description: NetworkDescription & SageMakerNetworkDescriptor, instanceType: string) {
         this._description = description;
-        this._endPointService = new SageMakerEndpointService(description, instanceType);
-        this._modelService = new SageMakerModelService();
-        this._jobService = new SageMakerJobService();
+        this._endPointService = new SageMakerEndpointService(config, description, instanceType);
+        this._modelService = new SageMakerModelService(config, description);
+        this._jobService = new SageMakerJobService(config, description.getUniqueName());
     }
 
     public setMultiVariantDescriptor(descriptor: NetworkMultiVariantDescriptor) {
@@ -67,48 +66,5 @@ export class SageMakerNetwork implements UnsupervisedProvidedNetwork, Supervised
         // TODO Implement SageMakerNetwork::trainSupervisedNetwork
         throw new Error("Method not implemented.");
     }
-
-    // private _getNetworkFromNewModel(description: SageMakerNetworkDescriptor): Promise<SageMakerNetwork> {
-    //
-    //     let createModelInput: SageMaker.CreateModelInput = {
-    //         ExecutionRoleArn: this._config.roleARN,
-    //         ModelName: description.getUniqueName(),
-    //         PrimaryContainer: {
-    //             Image: description.getContainerImage(),
-    //             ModelDataUrl: description.getModelDataUrl()
-    //         },
-    //         Tags: [
-    //             {
-    //                 Key: 'environment',
-    //                 Value: ENV
-    //             },
-    //         ]
-    //     };
-    //
-    //     return this._sageMaker
-    //         .createModel(createModelInput).promise()
-    //         .then(SageMakerNetwork.createFromCreateModelOutput);
-    // }
-    //
-    // private _getNetworkFromExistingModel(description: SageMakerNetworkDescriptor): Promise<SageMakerNetwork> {
-    //
-    //     let describeModelInput: SageMaker.DescribeModelInput = {
-    //         ModelName: description.getUniqueName()
-    //     };
-    //
-    //     return this._sageMaker
-    //         .describeModel(describeModelInput).promise()
-    //         .then(SageMakerNetwork.createFromDescribeModelOutput)
-    // }
-
-    // public static createFromCreateModelOutput(createOutput: SageMaker.Types.CreateModelOutput): SageMakerNetwork {
-    //     // TODO Implement SageMakerNetwork::createFromCreateModelOutput
-    //     return new SageMakerNetwork();
-    // }
-    //
-    // public static createFromDescribeModelOutput(describeOutput: SageMaker.Types.DescribeModelOutput): SageMakerNetwork {
-    //     // TODO Implement SageMakerNetwork::createFromDescribeModelOutput
-    //     return new SageMakerNetwork();
-    // }
 
 }

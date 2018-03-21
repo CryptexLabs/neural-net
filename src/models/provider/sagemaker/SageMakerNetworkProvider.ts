@@ -83,12 +83,12 @@ export class SageMakerNetworkProvider implements ServiceNetworkProvider<D>, KMea
         return this._getNetwork(description);
     }
 
-    private _getNetwork(description: NetworkDescription & SageMakerNetworkDescriptor): Promise<N> {
-        return this._cache.getNetwork(description);
+    public getProvidedNetwork(description: D): Promise<NeuralNet> {
+        let network = new SageMakerNetwork(this._config, description, this._instanceType);
+        return Promise.resolve(network);
     }
 
-    public getProvidedNetwork(description: D): Promise<NeuralNet> {
-        let network = new SageMakerNetwork(description, this._instanceType);
-        return Promise.resolve(network);
+    private _getNetwork(description: NetworkDescription & SageMakerNetworkDescriptor): Promise<N> {
+        return this._cache.getNetwork(description);
     }
 }

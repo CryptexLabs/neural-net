@@ -1,3 +1,3 @@
 export interface NetworkDescription {
-    getUniqueName():string;
+    getUniqueName(): string;
 }

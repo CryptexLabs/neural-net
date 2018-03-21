@@ -17,7 +17,7 @@ export class ProvidedNetworkOutputCache<O extends NeuralNetOutput> implements Ou
             .get(input)
             .catch(() => {
                 return providedNetwork.guess(input);
-            }).then((output: O)=>{
+            }).then((output: O) => {
                 this._cache.set(input, output);
                 return Promise.resolve(output);
             });

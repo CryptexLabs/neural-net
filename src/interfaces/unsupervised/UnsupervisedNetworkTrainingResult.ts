@@ -5,5 +5,5 @@ export interface UnsupervisedNetworkTrainingResult {
     getOutput(): NeuralNetOutputData;
 
     getResultID(): string;
-    
+
 }

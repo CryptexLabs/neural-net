@@ -2,12 +2,12 @@ import {NeuralNetInput} from "../../../../interfaces/input/NeuralNetInput";
 
 export class RSIConfigNetworkInput implements NeuralNetInput {
 
-	private _fifteenMinute: number;
-	private _oneHour: number;
-	private _fourHour: number;
-	private _oneDay: number;
-	private _threeDay: number;
-	private _oneWeek:number;
+    private _fifteenMinute: number;
+    private _oneHour: number;
+    private _fourHour: number;
+    private _oneDay: number;
+    private _threeDay: number;
+    private _oneWeek: number;
 
     constructor(fifteenMinute: number, oneHour: number, fourHour: number, oneDay: number, threeDay: number, oneWeek: number) {
         this._fifteenMinute = fifteenMinute;
@@ -19,10 +19,10 @@ export class RSIConfigNetworkInput implements NeuralNetInput {
     }
 
     getUniqueID(): string {
-		return this.getInput().join('_');
-	}
+        return this.getInput().join('_');
+    }
 
-	getInput(): any[] {
-		return [this._fifteenMinute, this._oneHour, this._fourHour, this._oneDay, this._threeDay, this._oneWeek];
-	}
+    getInput(): any[] {
+        return [this._fifteenMinute, this._oneHour, this._fourHour, this._oneDay, this._threeDay, this._oneWeek];
+    }
 }

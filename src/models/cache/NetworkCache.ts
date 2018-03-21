@@ -5,7 +5,7 @@ export class NetworkCache<N extends NeuralNet> implements NetworkCacher<N> {
 
     private _cache: Map<string, N>;
 
-    constructor(){
+    constructor() {
         this._cache = new Map<string, N>();
     }
 
@@ -13,10 +13,10 @@ export class NetworkCache<N extends NeuralNet> implements NetworkCacher<N> {
         this._cache.set(uniqueName, network);
     }
 
-    get(uniqueName: string): Promise<N>{
-        if(this._cache.has(uniqueName)){
+    get(uniqueName: string): Promise<N> {
+        if (this._cache.has(uniqueName)) {
             return Promise.resolve(this._cache.get(uniqueName));
-        }else{
+        } else {
             return Promise.reject(new Error('No network exists for that unique name'));
         }
     }

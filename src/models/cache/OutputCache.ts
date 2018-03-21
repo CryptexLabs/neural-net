@@ -7,11 +7,11 @@ export class OutputCache<V extends NeuralNetOutput> implements NeuralNet, Neural
 
     private _cache: Map<string, V>;
 
-    constructor(){
+    constructor() {
         this._cache = new Map<string, V>();
     }
 
-    public clear(){
+    public clear() {
         this._cache.clear();
     }
 
@@ -24,9 +24,9 @@ export class OutputCache<V extends NeuralNetOutput> implements NeuralNet, Neural
     }
 
     public get(input: NeuralNetInput): Promise<V> {
-        if(this._cache.has(input.getUniqueID())){
+        if (this._cache.has(input.getUniqueID())) {
             return Promise.resolve(this._cache.get(input.getUniqueID()));
-        }else{
+        } else {
             return Promise.reject(new Error('No output exists for input'));
         }
     }

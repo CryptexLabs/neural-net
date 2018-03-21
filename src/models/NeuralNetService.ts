@@ -17,6 +17,14 @@ export class NeuralNetService implements NeuralNetServiceContext {
         this._injectableContainer = new Container();
     }
 
+    public static getWithDefaultConfig(): NeuralNetService {
+        return new NeuralNetService(DefaultConfig);
+    }
+
+    public static getDefaultProvider(): DefaultNetworkProvider {
+        return NeuralNetService.getWithDefaultConfig().getDefaultProvider();
+    }
+
     public getContext(): Container {
         return this._injectableContainer;
     }
@@ -30,13 +38,5 @@ export class NeuralNetService implements NeuralNetServiceContext {
             this._sageMakerProvider = new SageMakerNetworkProvider(this, this._config.amazon.sagemaker);
         }
         return this._sageMakerProvider;
-    }
-
-    public static getWithDefaultConfig(): NeuralNetService {
-        return new NeuralNetService(DefaultConfig);
-    }
-
-    public static getDefaultProvider(): DefaultNetworkProvider {
-        return NeuralNetService.getWithDefaultConfig().getDefaultProvider();
     }
 }

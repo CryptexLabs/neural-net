@@ -3,8 +3,6 @@ import {NeuralNetInput} from "../../interfaces/input/NeuralNetInput";
 
 export class S3CSVInputData<T extends NeuralNetInput> implements NeuralNetInputData<T> {
 
-    private _bucketName: string;
-    private _filePath: string;
     private _rows: T[];
 
     constructor(bucketName: string, filePath: string) {
@@ -13,9 +11,13 @@ export class S3CSVInputData<T extends NeuralNetInput> implements NeuralNetInputD
         this._rows = [];
     }
 
+    private _bucketName: string;
+
     get bucketName(): string {
         return this._bucketName;
     }
+
+    private _filePath: string;
 
     get filePath(): string {
         return this._filePath;
@@ -28,7 +30,7 @@ export class S3CSVInputData<T extends NeuralNetInput> implements NeuralNetInputD
     public saveToFile(): Promise<void> {
         // TODO Implement S3CSVInputData::saveToFile
         // Save rows to s3
-        for(let rowIndex = 0; rowIndex < this._rows.length; rowIndex){
+        for (let rowIndex = 0; rowIndex < this._rows.length; rowIndex) {
             let csvRow = this._rows[rowIndex].getInput().join(',');
             // push csvRow to output buffer
         }

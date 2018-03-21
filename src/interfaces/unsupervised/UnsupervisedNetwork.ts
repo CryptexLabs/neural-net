@@ -4,8 +4,8 @@ import {NeuralNetInputData} from "../input/NeuralNetInputData";
 
 export interface UnsupervisedNetwork {
 
-	train<T extends NeuralNetInput>(input: NeuralNetInputData<T>): Promise<UnsupervisedNetworkTrainingResult>;
+    train<T extends NeuralNetInput>(input: NeuralNetInputData<T>): Promise<UnsupervisedNetworkTrainingResult>;
 
-	scoreTrainingResult(resultID: string, score: number): Promise<void>;
+    scoreTrainingResult(resultID: string, score: number): Promise<void>;
 
 }
