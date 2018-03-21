@@ -5,7 +5,7 @@ import {NeuralNetOutput} from "../../../../interfaces/output/NeuralNetOutput";
 import {SageMaker} from "aws-sdk";
 import {SageMakerNetworkDescriptor} from "../../../../interfaces/provider/sagemaker/SageMakerNetworkDescription";
 import {NetworkDescription} from "../../../../interfaces/description/NetworkDescription";
-import {SageMakerEnvironmentHelper} from "../helpers/SageMakerEnvironmentHelper";
+import {SageMakerEnvironmentHelper} from "../../../../helpers/provider/sagemaker/SageMakerEnvironmentHelper";
 import {SageMakerNeuralNetConfig} from "../../../../interfaces/NeuralNetConfig";
 
 export class SageMakerEndpointService implements MultiVariantNetwork {

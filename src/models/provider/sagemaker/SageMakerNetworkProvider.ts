@@ -11,13 +11,13 @@ import {NetworkDescription} from "../../../interfaces/description/NetworkDescrip
 import {NeuralNet} from "../../../interfaces/NeuralNet";
 import {SageMakerNetworkDescriptor} from "../../../interfaces/provider/sagemaker/SageMakerNetworkDescription";
 import {ServiceNetworkProvider} from "../../../interfaces/provider/provider/ServiceNetworkProvider";
-import {DefaultSageMakerNetworkMultiVariantDescription} from "./description/DefaultSageMakerNetworkMultiVariantDescription";
-import {NeuralNetServiceContext} from "../../../interfaces/NeuralNetServiceContext";
 import {MultiVariantNetwork} from "../../../interfaces/provider/network/MultiVariantNetwork";
 import {KMeansMultiVariantNetworkProvider} from "../../../interfaces/provider/provider/kmeans/KMeansMultiVariantNetworkProvider";
 import {SageMakerKMeansNetworkProvider} from "./provider/SageMakerKMeansNetworkProvider";
 import {SageMakerUnsupervisedNetworkProvider} from "../../../interfaces/provider/sagemaker/SageMakerUnsupervisedNetworkProvider";
 import {SageMakerSupervisedNetworkProvider} from "../../../interfaces/provider/sagemaker/SageMakerSupervisedNetworkProvider";
+import {injectable, interfaces} from "inversify";
+import Container = interfaces.Container;
 
 // Required network descriptors
 interface D extends
@@ -45,22 +45,21 @@ interface P extends
     SageMakerSupervisedNetworkProvider
 {}
 
+@injectable()
 export class SageMakerNetworkProvider implements ServiceNetworkProvider<D>, A, P {
 
     private _config: SageMakerNeuralNetConfig;
-    private _serviceContext: NeuralNetServiceContext;
+    private _context: Container;
     private _cache: ProvidedNetworkCache<ServiceNetworkProvider<D>, N, D>;
 
-    constructor(serviceContext: NeuralNetServiceContext, config: SageMakerNeuralNetConfig) {
-        this._config = config;
+    constructor() {
         this._cache = new ProvidedNetworkCache<ServiceNetworkProvider<D>, N, D>(this);
-        this._initContext(serviceContext);
     }
 
-    private _initContext(context: NeuralNetServiceContext) {
-        this._serviceContext = context;
-        this._serviceContext.getContext().bind<DefaultSageMakerNetworkMultiVariantDescription>(DefaultSageMakerNetworkMultiVariantDescription).toSelf().inSingletonScope();
-        this._serviceContext.getContext().bind<SageMakerKMeansNetworkProvider>(SageMakerKMeansNetworkProvider).toSelf().inSingletonScope();
+    public init(context: Container, config: SageMakerNeuralNetConfig) {
+        this._config = config;
+        this._context = context;
+        return this;
     }
 
     public getKMeanMultiVariantNetwork(outputClass: NewableOutput<NeuralNetOutput>, name: string, variantDescriptor: NetworkMultiVariantDescriptor): Promise<UnsupervisedProvidedNetwork & MultiVariantNetwork> {
@@ -72,7 +71,7 @@ export class SageMakerNetworkProvider implements ServiceNetworkProvider<D>, A, P
     }
 
     private _getKMeansProvider(): SageMakerKMeansNetworkProvider {
-        return this._serviceContext.getContext().get(SageMakerKMeansNetworkProvider).init(this);
+        return this._context.get(SageMakerKMeansNetworkProvider).init(this);
     }
 
     public getSupervisedNetwork(description: SageMakerNetworkDescriptor & NetworkDescription): Promise<SupervisedProvidedNetwork> {

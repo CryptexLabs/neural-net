@@ -3,8 +3,6 @@ import * as chai from "chai";
 import {SageMakerConfigNetworkDescription} from "../../../../../src/models/provider/sagemaker/description/SageMakerConfigNetworkDescription";
 import {SageMakerInferenceImageAlgorithm} from "../../../../../src/interfaces/provider/sagemaker/SageMakerInferenceImageDescriptions";
 import {NeuralNetOutput} from "../../../../../src/interfaces/output/NeuralNetOutput";
-import {NetworkMultiVariantDescriptor} from "../../../../../src/interfaces/provider/descriptor/NetworkMultiVariantDescriptor";
-import {NetworkVariantDescriptor} from "../../../../../src/interfaces/provider/descriptor/NetworkVariantDescriptor";
 
 let itParam = require('mocha-param');
 

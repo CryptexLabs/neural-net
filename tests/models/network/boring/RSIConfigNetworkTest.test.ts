@@ -4,7 +4,7 @@ import 'mocha';
 import {RSIConfigNetwork} from "../../../../src/models/network/config/rsi/RSIConfigNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
 import {RSIConfigNetworkInput} from "../../../../src/models/network/config/rsi/RSIConfigNetworkInput";
-import {NeuralNetService} from "../../../../src/models/NeuralNetService";
+import {NeuralNetServiceHelper} from "../../../../src/helpers/NeuralNetServiceHelper";
 
 describe('RSIConfigNetwork', () => {
 
@@ -14,7 +14,7 @@ describe('RSIConfigNetwork', () => {
     let _input1 = new RSIConfigNetworkInput(1, 2, 3, 4, 5, 6);
     let _input2 = new RSIConfigNetworkInput(2, 3, 4, 5, 6, 7);
 
-    let provider = NeuralNetService.getDefaultProvider();
+    let provider = NeuralNetServiceHelper.getDefaultProvider();
 
     const rsiConfigNetwork = new RSIConfigNetwork(new Market('GDAX', 'BTC', 'USD'), provider);
 

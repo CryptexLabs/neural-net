@@ -1,13 +1,13 @@
-import {NeuralNetService} from "../src/models/NeuralNetService";
 import {RSIConfigNetwork} from "../src/models/network/config/rsi/RSIConfigNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
 import {S3CSVInputData} from "../src/models/input/S3CSVInputData";
 import {UnsupervisedNetworkTrainingResult} from "../src/interfaces/unsupervised/UnsupervisedNetworkTrainingResult";
 import {UnsupervisedNetworkTrainingPerformanceResult} from "../src/interfaces/unsupervised/UnsupervisedNetworkTrainingPerformanceResult";
+import {NeuralNetServiceHelper} from "../src/helpers/NeuralNetServiceHelper";
 
 let market = new Market('GDAX', 'BTC', 'USD');
 
-let provider = NeuralNetService.getDefaultProvider();
+let provider = NeuralNetServiceHelper.getDefaultProvider();
 
 let network = new RSIConfigNetwork(market, provider);
 

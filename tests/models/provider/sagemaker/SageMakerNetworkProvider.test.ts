@@ -2,8 +2,8 @@ import 'mocha';
 import * as chai from "chai";
 import {SageMakerNetworkProvider} from "../../../../src/models/provider/sagemaker/SageMakerNetworkProvider";
 import {UnsupervisedProvidedNetwork} from "../../../../src/interfaces/provider/network/UnsupervisedProvidedNetwork";
-import {NeuralNetService} from "../../../../src/models/NeuralNetService";
 import {NeuralNetOutput} from "../../../../src/interfaces/output/NeuralNetOutput";
+import {NeuralNetServiceHelper} from "../../../../src/helpers/NeuralNetServiceHelper";
 
 describe('SageMakerNetworkProvider', () => {
 
@@ -11,7 +11,7 @@ describe('SageMakerNetworkProvider', () => {
 
     }
 
-    let service = NeuralNetService.getWithDefaultConfig();
+    let service = NeuralNetServiceHelper.getWithDefaultConfig();
 
     let provider = service.getSageMakerNetworkProvider();
 

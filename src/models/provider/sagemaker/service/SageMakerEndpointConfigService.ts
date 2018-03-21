@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import {MultiVariantNetwork} from "../../../../interfaces/provider/network/MultiVariantNetwork";
 import {NetworkMultiVariantDescriptor} from "../../../../interfaces/provider/descriptor/NetworkMultiVariantDescriptor";
-import {SageMakerEnvironmentHelper} from "../helpers/SageMakerEnvironmentHelper";
+import {SageMakerEnvironmentHelper} from "../../../../helpers/provider/sagemaker/SageMakerEnvironmentHelper";
 import {DefaultSageMakerNetworkMultiVariantDescription} from "../description/DefaultSageMakerNetworkMultiVariantDescription";
 import {SageMakerNeuralNetConfig} from "../../../../interfaces/NeuralNetConfig";
 import SageMaker = require("aws-sdk/clients/sagemaker");

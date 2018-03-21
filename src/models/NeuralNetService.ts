@@ -2,31 +2,24 @@ import {DefaultNetworkProvider} from "../interfaces/provider/provider/DefaultNet
 import {SageMakerNetworkProvider} from "./provider/sagemaker/SageMakerNetworkProvider";
 import {NeuralNetConfig} from "../interfaces/NeuralNetConfig";
 import {Container} from "inversify";
-import {NeuralNetServiceContext} from "../interfaces/NeuralNetServiceContext";
+import {SageMakerNetworkProviderContextHelper} from "../helpers/provider/sagemaker/SageMakerNetworkProviderContextHelper";
 
-let DefaultConfig = require('../../config.json') as NeuralNetConfig;
-
-export class NeuralNetService implements NeuralNetServiceContext {
+export class NeuralNetService {
 
     private _config: NeuralNetConfig;
-    private _injectableContainer: Container;
-    private _sageMakerProvider;
+    private _context: Container;
 
     public constructor(config: NeuralNetConfig) {
         this._config = config;
-        this._injectableContainer = new Container();
+        this._initContexts();
     }
 
-    public static getWithDefaultConfig(): NeuralNetService {
-        return new NeuralNetService(DefaultConfig);
-    }
+    private _initContexts() {
+        this._context = new Container();
 
-    public static getDefaultProvider(): DefaultNetworkProvider {
-        return NeuralNetService.getWithDefaultConfig().getDefaultProvider();
-    }
-
-    public getContext(): Container {
-        return this._injectableContainer;
+        // Sagemaker
+        this._context.bind<SageMakerNetworkProvider>(SageMakerNetworkProvider).toSelf().inSingletonScope();
+        SageMakerNetworkProviderContextHelper.bindContext(this._context);
     }
 
     public getDefaultProvider(): DefaultNetworkProvider {
@@ -34,9 +27,6 @@ export class NeuralNetService implements NeuralNetServiceContext {
     }
 
     public getSageMakerNetworkProvider(): SageMakerNetworkProvider {
-        if (!this._sageMakerProvider) {
-            this._sageMakerProvider = new SageMakerNetworkProvider(this, this._config.amazon.sagemaker);
-        }
-        return this._sageMakerProvider;
+        return this._context.get(SageMakerNetworkProvider).init(this._context, this._config.amazon.sagemaker);
     }
 }
