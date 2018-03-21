@@ -39,14 +39,14 @@ If you do not configure the config.json before running your tests then your test
 
 [embedmd]:# (../examples/training-example.ts typescript)
 ```typescript
-import {NeuralNetService} from "../src/models/NeuralNetService";
-import {RSIConfigNetwork} from "../src/models/network/config/rsi/RSIConfigNetwork";
+import {NeuralNetService} from "../src/model/NeuralNetService";
+import {RSIConfigNetwork} from "../src/module/network/config/rsi/RSIConfigNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
-import {S3CSVInputData} from "../src/models/input/S3CSVInputData";
-import {UnsupervisedNetworkTrainingResult} from "../src/interfaces/unsupervised/UnsupervisedNetworkTrainingResult";
-import {UnsupervisedNetworkTrainingPerformanceResult} from "../src/interfaces/unsupervised/UnsupervisedNetworkTrainingPerformanceResult";
-import {NeuralNetConfig} from "../src/interfaces/NeuralNetConfig";
-import {RSIConfigNetworkInput} from "../src/models/network/config/rsi/RSIConfigNetworkInput";
+import {S3CSVInputData} from "../src/model/input/S3CSVInputData";
+import {UnsupervisedNetworkTrainingResult} from "../src/interface/unsupervised/UnsupervisedNetworkTrainingResult";
+import {UnsupervisedNetworkTrainingPerformanceResult} from "../src/interface/unsupervised/UnsupervisedNetworkTrainingPerformanceResult";
+import {NeuralNetConfig} from "../src/interface/NeuralNetConfig";
+import {RSIConfigNetworkInput} from "../src/module/network/config/rsi/RSIConfigNetworkInput";
 
 let config = require('../config.json') as NeuralNetConfig;
 
@@ -91,12 +91,12 @@ network
 
 [embedmd]:# (../examples/load-result-example.ts typescript)
 ```typescript
-import {NeuralNetService} from "../src/models/NeuralNetService";
-import {RSIConfigNetwork} from "../src/models/network/config/rsi/RSIConfigNetwork";
+import {NeuralNetService} from "../src/model/NeuralNetService";
+import {RSIConfigNetwork} from "../src/module/network/config/rsi/RSIConfigNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
-import {RSIConfigNetworkInput} from "../src/models/network/config/rsi/RSIConfigNetworkInput";
-import {NeuralNetOutput} from "../src/interfaces/output/NeuralNetOutput";
-import {NeuralNetConfig} from "../src/interfaces/NeuralNetConfig";
+import {RSIConfigNetworkInput} from "../src/module/network/config/rsi/RSIConfigNetworkInput";
+import {NeuralNetOutput} from "../src/interface/output/NeuralNetOutput";
+import {NeuralNetConfig} from "../src/interface/NeuralNetConfig";
 
 let config = require('../config.json') as NeuralNetConfig;
 

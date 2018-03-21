@@ -1,6 +1,6 @@
-import {SupervisedNetwork} from "../../../src/interfaces/supervised/SupervisedNetwork";
-import {SupervisedNetworkTrainingResult} from "../../../src/interfaces/supervised/SupervisedNetworkTrainingResult";
-import {SupervisedNeuralNetInput} from "../../../src/interfaces/supervised/SupervisedNeuralNetInput";
+import {SupervisedNetwork} from "../../../src/interface/supervised/SupervisedNetwork";
+import {SupervisedNetworkTrainingResult} from "../../../src/interface/supervised/SupervisedNetworkTrainingResult";
+import {SupervisedNeuralNetInput} from "../../../src/interface/supervised/SupervisedNeuralNetInput";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
 
 export class SomeBoringNetwork implements SupervisedNetwork {

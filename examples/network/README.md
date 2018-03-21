@@ -16,14 +16,14 @@ Each unsupervised network should implement 3 classes like so
 
 [embedmd]:# (../../../examples/network/cool/SomeCoolNetwork.ts typescript)
 ```typescript
-import {NeuralNet} from "../../../src/interfaces/NeuralNet";
-import {UnsupervisedNetwork} from "../../../src/interfaces/unsupervised/UnsupervisedNetwork";
-import {OutputCacher} from "../../../src/interfaces/cache/OutputCacher";
-import {KMeansNetworkProvider} from "../../../src/interfaces/provider/provider/kmeans/KMeansNetworkProvider";
-import {ProvidedNetworkOutputCache} from "../../../src/models/cache/ProvidedNetworkOutputCache";
-import {NeuralNetInputData} from "../../../src/interfaces/input/NeuralNetInputData";
-import {UnsupervisedNetworkTrainingResult} from "../../../src/interfaces/unsupervised/UnsupervisedNetworkTrainingResult";
-import {UnsupervisedProvidedNetwork} from "../../../src/interfaces/provider/network/UnsupervisedProvidedNetwork";
+import {NeuralNet} from "../../../src/interface/NeuralNet";
+import {UnsupervisedNetwork} from "../../../src/interface/unsupervised/UnsupervisedNetwork";
+import {OutputCacher} from "../../../src/interface/cache/OutputCacher";
+import {KMeansNetworkProvider} from "../../../src/interface/provider/provider/kmeans/KMeansNetworkProvider";
+import {ProvidedNetworkOutputCache} from "../../../src/model/cache/ProvidedNetworkOutputCache";
+import {NeuralNetInputData} from "../../../src/interface/input/NeuralNetInputData";
+import {UnsupervisedNetworkTrainingResult} from "../../../src/interface/unsupervised/UnsupervisedNetworkTrainingResult";
+import {UnsupervisedProvidedNetwork} from "../../../src/interface/provider/network/UnsupervisedProvidedNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
 import {SomeCoolNetworkOutput} from "./SomeCoolNetworkOutput";
 import {SomeCoolNetworkInput} from "./SomeCoolNetworkInput";
@@ -103,7 +103,7 @@ export class SomeCoolNetwork implements NeuralNet, UnsupervisedNetwork, OutputCa
 
 [embedmd]:# (../../../examples/network/cool/SomeCoolNetworkInput.ts typescript)
 ```typescript
-import {NeuralNetInput} from "../../../src/interfaces/input/NeuralNetInput";
+import {NeuralNetInput} from "../../../src/interface/input/NeuralNetInput";
 
 export class SomeCoolNetworkInput implements NeuralNetInput {
 
@@ -131,7 +131,7 @@ export class SomeCoolNetworkInput implements NeuralNetInput {
 
 [embedmd]:# (../../../examples/network/cool/SomeCoolNetworkOutput.ts typescript)
 ```typescript
-import {NeuralNetOutput} from "../../../src/interfaces/output/NeuralNetOutput";
+import {NeuralNetOutput} from "../../../src/interface/output/NeuralNetOutput";
 
 export class SomeCoolNetworkOutput implements NeuralNetOutput {
     

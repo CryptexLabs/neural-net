@@ -1,4 +1,4 @@
-import {NeuralNetOutput} from "../../../src/interfaces/output/NeuralNetOutput";
+import {NeuralNetOutput} from "../../../src/interface/output/NeuralNetOutput";
 
 export class SomeCoolNetworkOutput implements NeuralNetOutput {
     
