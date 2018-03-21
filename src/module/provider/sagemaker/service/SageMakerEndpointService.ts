@@ -40,9 +40,13 @@ export class SageMakerEndpointService implements MultiVariantNetwork {
             };
             return sagemaker
                 .describeEndpoint(input).promise()
-                .catch(this._createEndpoint)
-                .then((output: SageMaker.CreateEndpointOutput) => {
-                    return sagemaker.describeEndpoint(input).promise();
+                .catch(()=>{
+                    return this._createEndpoint()
+                        .then(sagemaker.describeEndpoint(input).promise)
+                })
+                .then((output: SageMaker.DescribeEndpointOutput) => {
+                    this._endpointDescription = output;
+                    return output;
                 });
         }
     }

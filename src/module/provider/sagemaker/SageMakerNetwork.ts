@@ -9,7 +9,7 @@ import {NeuralNetOutput} from "../../../interface/output/NeuralNetOutput";
 import {NetworkMultiVariantDescriptor} from "../../../interface/provider/descriptor/NetworkMultiVariantDescriptor";
 import {SageMakerNetworkDescriptor} from "../../../interface/provider/sagemaker/SageMakerNetworkDescription";
 import {NetworkDescription} from "../../../interface/description/NetworkDescription";
-import {Container, injectable} from "inversify";
+import {Container} from "inversify";
 import "reflect-metadata";
 import {SageMakerModelService} from "./service/SageMakerModelService";
 import {SageMakerJobService} from "./service/SageMakerJobService";
