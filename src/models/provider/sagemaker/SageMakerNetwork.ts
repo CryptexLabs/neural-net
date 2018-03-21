@@ -27,18 +27,15 @@ export class SageMakerNetwork implements UnsupervisedProvidedNetwork, Supervised
 
     private _container: Container;
 
-    @inject("Config")
-    private _config: SageMakerNeuralNetConfig;
-
-    public init(description: D) {
+    constructor(config: SageMakerNeuralNetConfig, description: D){
         this._container = new Container();
-        this._container.bind<Container>("Context").toConstantValue(this._container).whenTargetIsDefault();
-        this._container.bind<D>("Description").toConstantValue(description).whenTargetIsDefault();
-        this._container.bind<SageMakerNeuralNetConfig>("Config").toConstantValue(this._config).whenTargetIsDefault();
+        this._container.bind<SageMakerNeuralNetConfig>("Config").toConstantValue(config).whenTargetIsDefault();
         this._container.bind<SageMakerJobService>(SageMakerJobService).toSelf().inSingletonScope();
         this._container.bind<SageMakerModelService>(SageMakerModelService).toSelf().inSingletonScope();
         this._container.bind<SageMakerEndpointService>(SageMakerEndpointService).toSelf().inSingletonScope();
         this._container.bind<SageMakerEndpointConfigService>(SageMakerEndpointConfigService).toSelf().inSingletonScope();
+        this._container.bind<Container>("Context").toConstantValue(this._container).whenTargetIsDefault();
+        this._container.bind<D>("Description").toConstantValue(description).whenTargetIsDefault();
     }
 
     public setMultiVariantDescriptor(descriptor: NetworkMultiVariantDescriptor) {

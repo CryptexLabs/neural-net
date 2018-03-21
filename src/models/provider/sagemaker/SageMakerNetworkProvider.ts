@@ -92,9 +92,7 @@ export class SageMakerNetworkProvider implements ServiceNetworkProvider<D>, A, P
     }
 
     public getProvidedNetwork(description: D): Promise<NeuralNet> {
-        let network = this._context.get(SageMakerNetwork);
-        network.init(description);
-        return Promise.resolve(network);
+        return Promise.resolve(new SageMakerNetwork(this._config.amazon.sagemaker, description));
     }
 
     private _getNetwork(description: NetworkDescription & SageMakerNetworkDescriptor): Promise<N> {
