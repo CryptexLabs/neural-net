@@ -22,6 +22,7 @@ export module NeuralNetService {
             // Sagemaker
             this._context.bind<SageMakerNetworkProvider>(SageMakerNetworkProvider).toSelf().inSingletonScope();
             this._context.bind<NeuralNetConfig>("Config").toConstantValue(this._config).whenTargetIsDefault();
+            this._context.bind<Container>("Container").toConstantValue(this._context).whenTargetIsDefault();
             SageMakerNetworkProviderContextHelper.bindContext(this._context);
         }
 
@@ -30,7 +31,7 @@ export module NeuralNetService {
         }
 
         public getSageMakerNetworkProvider(): SageMakerNetworkProvider {
-            return this._context.get(SageMakerNetworkProvider).init(this._context);
+            return this._context.get(SageMakerNetworkProvider);
         }
     }
 }
