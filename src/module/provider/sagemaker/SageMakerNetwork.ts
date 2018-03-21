@@ -20,7 +20,6 @@ import {SageMakerEndpointConfigService} from "./service/SageMakerEndpointConfigS
 
 interface D extends NetworkDescription, SageMakerNetworkDescriptor {}
 
-@injectable()
 export class SageMakerNetwork implements UnsupervisedProvidedNetwork, SupervisedProvidedNetwork, MultiVariantNetwork {
 
     private _context: Container;
