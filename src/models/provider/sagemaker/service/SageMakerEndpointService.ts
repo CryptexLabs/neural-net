@@ -15,10 +15,10 @@ export class SageMakerEndpointService implements MultiVariantNetwork {
     private _endpointDescription: SageMaker.DescribeEndpointOutput;
     private _config: SageMakerNeuralNetConfig;
 
-    constructor(config: SageMakerNeuralNetConfig, description: NetworkDescription & SageMakerNetworkDescriptor, instanceType: string) {
+    constructor(config: SageMakerNeuralNetConfig, description: NetworkDescription & SageMakerNetworkDescriptor) {
         this._config = config;
         this._description = description;
-        this._endPointConfigService = new SageMakerEndpointConfigService(config, description.getUniqueName(), instanceType);
+        this._endPointConfigService = new SageMakerEndpointConfigService(config, description.getUniqueName());
     }
 
     public setMultiVariantDescriptor(descriptor: NetworkMultiVariantDescriptor) {

@@ -20,17 +20,12 @@ import {SageMakerNeuralNetConfig} from "../../../interfaces/NeuralNetConfig";
 @injectable()
 export class SageMakerNetwork implements UnsupervisedProvidedNetwork, SupervisedProvidedNetwork, MultiVariantNetwork {
 
-    private _description: NetworkDescription & SageMakerNetworkDescriptor;
-
     private _endPointService: SageMakerEndpointService;
-
     private _modelService: SageMakerModelService;
-
     private _jobService: SageMakerJobService;
 
-    public constructor(config: SageMakerNeuralNetConfig, description: NetworkDescription & SageMakerNetworkDescriptor, instanceType: string) {
-        this._description = description;
-        this._endPointService = new SageMakerEndpointService(config, description, instanceType);
+    public constructor(config: SageMakerNeuralNetConfig, description: NetworkDescription & SageMakerNetworkDescriptor) {
+        this._endPointService = new SageMakerEndpointService(config, description);
         this._modelService = new SageMakerModelService(config, description);
         this._jobService = new SageMakerJobService(config, description.getUniqueName());
     }

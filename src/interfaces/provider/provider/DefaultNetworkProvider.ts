@@ -1,4 +1,4 @@
-import {KMeansNetworkProvider} from "./KMeansNetworkProvider";
+import {KMeansNetworkProvider} from "./kmeans/KMeansNetworkProvider";
 
 export interface DefaultNetworkProvider extends KMeansNetworkProvider {
 

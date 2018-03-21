@@ -18,7 +18,8 @@ Make sure your config.json file is filed out properly
 {
   "amazon": {
     "sagemaker" : {
-      "roleARN" : "arn:aws:iam::00000000000000:role/service-role/AmazonSageMaker-ExecutionRole-20180317T115106"
+      "roleARN" : "arn:aws:iam::00000000000000:role/service-role/AmazonSageMaker-ExecutionRole-20180317T115106",
+      "instanceType": "ml.t2.medium"
     }
   }
 }

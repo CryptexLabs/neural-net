@@ -9,14 +9,12 @@ import SageMaker = require("aws-sdk/clients/sagemaker");
 export class SageMakerEndpointConfigService implements MultiVariantNetwork {
 
     private _multiVariantNetworkDescriptor: NetworkMultiVariantDescriptor;
-    private _instanceType: string;
     private _networkName: string;
     private _config: SageMakerNeuralNetConfig;
 
-    constructor(config: SageMakerNeuralNetConfig, networkName: string, instanceType: string) {
+    constructor(config: SageMakerNeuralNetConfig, networkName: string) {
         this._config = config;
         this._networkName = networkName;
-        this._instanceType = instanceType;
         this._multiVariantNetworkDescriptor = new DefaultSageMakerNetworkMultiVariantDescription();
     }
 
@@ -25,7 +23,7 @@ export class SageMakerEndpointConfigService implements MultiVariantNetwork {
     }
 
     public getEndpointConfig(): Promise<SageMaker.DescribeEndpointConfigOutput> {
-
+        // TODO Save endpoint config in cache
         let sagemaker = new SageMaker();
 
         let input: SageMaker.DescribeEndpointConfigInput = {
@@ -67,7 +65,7 @@ export class SageMakerEndpointConfigService implements MultiVariantNetwork {
 
                 InitialInstanceCount: descriptor.getInstanceCount(),
 
-                InstanceType: this._instanceType,
+                InstanceType: this._config.instanceType,
 
                 InitialVariantWeight: descriptor.getWeight()
             };
