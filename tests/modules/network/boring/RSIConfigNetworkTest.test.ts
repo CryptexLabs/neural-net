@@ -1,9 +1,9 @@
 import {expect} from 'chai';
 import 'mocha';
 
-import {RSIConfigNetwork} from "../../../../src/module/network/config/rsi/RSIConfigNetwork";
+import {RSIConfigNetwork} from "../../../../src/module/network/config/rsi/model/RSIConfigNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
-import {RSIConfigNetworkInput} from "../../../../src/module/network/config/rsi/RSIConfigNetworkInput";
+import {RSIConfigNetworkInput} from "../../../../src/module/network/config/rsi/model/RSIConfigNetworkInput";
 import {NeuralNetServiceHelper} from "../../../../src/helper/NeuralNetServiceHelper";
 
 describe('RSIConfigNetwork', () => {

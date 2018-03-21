@@ -1,4 +1,4 @@
-import {NeuralNetOutput} from "../../../../interface/output/NeuralNetOutput";
+import {NeuralNetOutput} from "../../../../../interface/output/NeuralNetOutput";
 
 export class RSIConfigNetworkOutput implements NeuralNetOutput {
 

@@ -1,4 +1,4 @@
-import {NeuralNetOutput} from "../../output/NeuralNetOutput";
+import {NeuralNetOutput} from "../../../../../interface/output/NeuralNetOutput";
 
 export interface SageMakerNetworkDescriptor {
     getContainerImage(): string;

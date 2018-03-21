@@ -1,6 +1,6 @@
 import 'mocha';
 import * as chai from "chai";
-import {SageMakerNetworkProvider} from "../../../../src/module/provider/sagemaker/SageMakerNetworkProvider";
+import {SageMakerNetworkProvider} from "../../../../src/module/provider/sagemaker/models/SageMakerNetworkProvider";
 import {UnsupervisedProvidedNetwork} from "../../../../src/interface/provider/network/UnsupervisedProvidedNetwork";
 import {NeuralNetOutput} from "../../../../src/interface/output/NeuralNetOutput";
 import {NeuralNetServiceHelper} from "../../../../src/helper/NeuralNetServiceHelper";

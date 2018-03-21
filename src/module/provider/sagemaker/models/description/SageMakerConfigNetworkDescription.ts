@@ -1,11 +1,13 @@
-import {SageMakerNetworkDescriptor} from "../../../../interface/provider/sagemaker/SageMakerNetworkDescription";
+
+
 import {
     SageMakerInferenceImageAlgorithm,
     SageMakerInferenceImageDescriptions
-} from "../../../../interface/provider/sagemaker/SageMakerInferenceImageDescriptions";
-import {NeuralNetOutput} from "../../../../interface/output/NeuralNetOutput";
-import {NewableOutput} from "../../../../interface/output/NewableOutput";
-import {NetworkDescription} from "../../../../interface/description/NetworkDescription";
+} from "../../interfaces/description/SageMakerInferenceImageDescriptions";
+import {SageMakerNetworkDescriptor} from "../../interfaces/description/SageMakerNetworkDescription";
+import {NetworkDescription} from "../../../../../interface/description/NetworkDescription";
+import {NewableOutput} from "../../../../../interface/output/NewableOutput";
+import {NeuralNetOutput} from "../../../../../interface/output/NeuralNetOutput";
 
 let SageMakerInferenceImageConfig = require('./sagemaker-inference-image-paths.json') as SageMakerInferenceImageDescriptions;
 
@@ -43,8 +45,7 @@ export class SageMakerConfigNetworkDescription implements SageMakerNetworkDescri
     }
 
     public getNewOutput(data: any): NeuralNetOutput {
-        // TODO Implement SageMakerConfigNetworkDescription::getNewOutput
-        return new this._outputClass([]);
+        return new this._outputClass(data);
     }
 
     private _setContainerImage(algorithm: SageMakerInferenceImageAlgorithm, region: string) {

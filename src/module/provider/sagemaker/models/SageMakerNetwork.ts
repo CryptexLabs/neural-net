@@ -1,22 +1,22 @@
-import {UnsupervisedProvidedNetwork} from "../../../interface/provider/network/UnsupervisedProvidedNetwork";
+import {UnsupervisedProvidedNetwork} from "../../../../interface/provider/network/UnsupervisedProvidedNetwork";
 import {SageMaker} from "aws-sdk";
-import {SupervisedProvidedNetwork} from "../../../interface/provider/network/SupervisedProvidedNetwork";
-import {UnsupervisedNetworkTrainingResult} from "../../../interface/unsupervised/UnsupervisedNetworkTrainingResult";
-import {NeuralNetInputData} from "../../../interface/input/NeuralNetInputData";
-import {SupervisedNeuralNetInputData} from "../../../interface/supervised/SupervisedNeuralNetInputData";
-import {NeuralNetInput} from "../../../interface/input/NeuralNetInput";
-import {NeuralNetOutput} from "../../../interface/output/NeuralNetOutput";
-import {NetworkMultiVariantDescriptor} from "../../../interface/provider/descriptor/NetworkMultiVariantDescriptor";
-import {SageMakerNetworkDescriptor} from "../../../interface/provider/sagemaker/SageMakerNetworkDescription";
-import {NetworkDescription} from "../../../interface/description/NetworkDescription";
+import {SupervisedProvidedNetwork} from "../../../../interface/provider/network/SupervisedProvidedNetwork";
+import {UnsupervisedNetworkTrainingResult} from "../../../../interface/unsupervised/UnsupervisedNetworkTrainingResult";
+import {NeuralNetInputData} from "../../../../interface/input/NeuralNetInputData";
+import {SupervisedNeuralNetInputData} from "../../../../interface/supervised/SupervisedNeuralNetInputData";
+import {NeuralNetInput} from "../../../../interface/input/NeuralNetInput";
+import {NeuralNetOutput} from "../../../../interface/output/NeuralNetOutput";
+import {NetworkMultiVariantDescriptor} from "../../../../interface/provider/descriptor/NetworkMultiVariantDescriptor";
+import {SageMakerNetworkDescriptor} from "../interfaces/description/SageMakerNetworkDescription";
+import {NetworkDescription} from "../../../../interface/description/NetworkDescription";
 import {Container} from "inversify";
 import "reflect-metadata";
 import {SageMakerModelService} from "./service/SageMakerModelService";
 import {SageMakerJobService} from "./service/SageMakerJobService";
 import {SageMakerEndpointService} from "./service/SageMakerEndpointService";
-import {MultiVariantNetwork} from "../../../interface/provider/network/MultiVariantNetwork";
-import {SageMakerNeuralNetConfig} from "../../../interface/NeuralNetConfig";
+import {MultiVariantNetwork} from "../../../../interface/provider/network/MultiVariantNetwork";
 import {SageMakerEndpointConfigService} from "./service/SageMakerEndpointConfigService";
+import {SageMakerNeuralNetConfig} from "../interfaces/config/SageMakerNeuralNetConfig";
 
 interface D extends NetworkDescription, SageMakerNetworkDescriptor {}
 

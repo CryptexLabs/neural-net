@@ -1,16 +1,16 @@
-import {KMeansMultiVariantNetworkProvider} from "../../../../interface/provider/provider/kmeans/KMeansMultiVariantNetworkProvider";
-import {KMeansNetworkProvider} from "../../../../interface/provider/provider/kmeans/KMeansNetworkProvider";
-import {NewableOutput} from "../../../../interface/output/NewableOutput";
-import {NeuralNetOutput} from "../../../../interface/output/NeuralNetOutput";
-import {UnsupervisedProvidedNetwork} from "../../../../interface/provider/network/UnsupervisedProvidedNetwork";
-import {NetworkMultiVariantDescriptor} from "../../../../interface/provider/descriptor/NetworkMultiVariantDescriptor";
-import {MultiVariantNetwork} from "../../../../interface/provider/network/MultiVariantNetwork";
+import {KMeansMultiVariantNetworkProvider} from "../../../../../interface/provider/provider/kmeans/KMeansMultiVariantNetworkProvider";
+import {KMeansNetworkProvider} from "../../../../../interface/provider/provider/kmeans/KMeansNetworkProvider";
+import {NewableOutput} from "../../../../../interface/output/NewableOutput";
+import {NeuralNetOutput} from "../../../../../interface/output/NeuralNetOutput";
+import {UnsupervisedProvidedNetwork} from "../../../../../interface/provider/network/UnsupervisedProvidedNetwork";
+import {NetworkMultiVariantDescriptor} from "../../../../../interface/provider/descriptor/NetworkMultiVariantDescriptor";
+import {MultiVariantNetwork} from "../../../../../interface/provider/network/MultiVariantNetwork";
 import {inject, injectable} from "inversify";
 import {DefaultSageMakerNetworkMultiVariantDescription} from "../description/DefaultSageMakerNetworkMultiVariantDescription";
-import {SageMakerInferenceImageAlgorithm} from "../../../../interface/provider/sagemaker/SageMakerInferenceImageDescriptions";
+import {SageMakerInferenceImageAlgorithm} from "../../interfaces/description/SageMakerInferenceImageDescriptions";
 import {SageMakerConfigNetworkDescription} from "../description/SageMakerConfigNetworkDescription";
-import {NeuralNet} from "../../../../interface/NeuralNet";
-import {SageMakerUnsupervisedNetworkProvider} from "../../../../interface/provider/sagemaker/SageMakerUnsupervisedNetworkProvider";
+import {NeuralNet} from "../../../../../interface/NeuralNet";
+import {SageMakerUnsupervisedNetworkProvider} from "../../interfaces/provider/SageMakerUnsupervisedNetworkProvider";
 
 interface N extends
     NeuralNet,

@@ -1,5 +1,5 @@
 import {DefaultNetworkProvider} from "../interface/provider/provider/DefaultNetworkProvider";
-import {SageMakerNetworkProvider} from "../module/provider/sagemaker/SageMakerNetworkProvider";
+import {SageMakerNetworkProvider} from "../module/provider/sagemaker/models/SageMakerNetworkProvider";
 import {NeuralNetConfig} from "../interface/NeuralNetConfig";
 import {Container} from "inversify";
 

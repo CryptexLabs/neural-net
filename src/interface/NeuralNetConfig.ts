@@ -1,9 +1,4 @@
-import {SageMakerProductionVariantInstanceType} from "./provider/sagemaker/SageMakerProductionVariantInstanceType";
-
-export interface SageMakerNeuralNetConfig {
-    roleARN: string;
-    instanceType: SageMakerProductionVariantInstanceType;
-}
+import {SageMakerNeuralNetConfig} from "../module/provider/sagemaker/interfaces/config/SageMakerNeuralNetConfig";
 
 export interface AmazonNeuralNetConfig {
     sagemaker: SageMakerNeuralNetConfig;

@@ -1,4 +1,4 @@
-import {RSIConfigNetwork} from "../src/module/network/config/rsi/RSIConfigNetwork";
+import {RSIConfigNetwork} from "../src/module/network/config/rsi/model/RSIConfigNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
 import {S3CSVInputData} from "../src/model/input/S3CSVInputData";
 import {UnsupervisedNetworkTrainingResult} from "../src/interface/unsupervised/UnsupervisedNetworkTrainingResult";

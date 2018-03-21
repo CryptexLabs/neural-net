@@ -1,7 +1,7 @@
 import {NeuralNetService} from "../src/model/NeuralNetService";
-import {RSIConfigNetwork} from "../src/module/network/config/rsi/RSIConfigNetwork";
+import {RSIConfigNetwork} from "../src/module/network/config/rsi/model/RSIConfigNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
-import {RSIConfigNetworkInput} from "../src/module/network/config/rsi/RSIConfigNetworkInput";
+import {RSIConfigNetworkInput} from "../src/module/network/config/rsi/model/RSIConfigNetworkInput";
 import {NeuralNetOutput} from "../src/interface/output/NeuralNetOutput";
 import {NeuralNetConfig} from "../src/interface/NeuralNetConfig";
 

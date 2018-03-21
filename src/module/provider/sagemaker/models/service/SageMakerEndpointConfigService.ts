@@ -1,13 +1,12 @@
 import "reflect-metadata";
-import {MultiVariantNetwork} from "../../../../interface/provider/network/MultiVariantNetwork";
-import {NetworkMultiVariantDescriptor} from "../../../../interface/provider/descriptor/NetworkMultiVariantDescriptor";
-import {SageMakerEnvironmentHelper} from "../../../../helper/provider/sagemaker/SageMakerEnvironmentHelper";
-import {DefaultSageMakerNetworkMultiVariantDescription} from "../description/DefaultSageMakerNetworkMultiVariantDescription";
-import {SageMakerNeuralNetConfig} from "../../../../interface/NeuralNetConfig";
+import {MultiVariantNetwork} from "../../../../../interface/provider/network/MultiVariantNetwork";
+import {NetworkMultiVariantDescriptor} from "../../../../../interface/provider/descriptor/NetworkMultiVariantDescriptor";
+import {SageMakerEnvironmentHelper} from "../../../../../helper/provider/sagemaker/SageMakerEnvironmentHelper";
 import {inject, injectable} from "inversify";
-import {NetworkDescription} from "../../../../interface/description/NetworkDescription";
-import {SageMakerNetworkDescriptor} from "../../../../interface/provider/sagemaker/SageMakerNetworkDescription";
+import {NetworkDescription} from "../../../../../interface/description/NetworkDescription";
+import {SageMakerNetworkDescriptor} from "../../interfaces/description/SageMakerNetworkDescription";
 import SageMaker = require("aws-sdk/clients/sagemaker");
+import {SageMakerNeuralNetConfig} from "../../interfaces/config/SageMakerNeuralNetConfig";
 
 @injectable()
 export class SageMakerEndpointConfigService implements MultiVariantNetwork {

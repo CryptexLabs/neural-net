@@ -1,5 +1,5 @@
-import {NetworkMultiVariantDescriptor} from "../../../../interface/provider/descriptor/NetworkMultiVariantDescriptor";
-import {NetworkVariantDescriptor} from "../../../../interface/provider/descriptor/NetworkVariantDescriptor";
+import {NetworkMultiVariantDescriptor} from "../../../../../interface/provider/descriptor/NetworkMultiVariantDescriptor";
+import {NetworkVariantDescriptor} from "../../../../../interface/provider/descriptor/NetworkVariantDescriptor";
 import {injectable} from "inversify";
 
 @injectable()
