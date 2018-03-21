@@ -1,4 +1,4 @@
-import {injectable} from "inversify";
+import {injectable, inject} from "inversify";
 import {SageMakerNetworkDescriptor} from "../../../../interfaces/provider/sagemaker/SageMakerNetworkDescription";
 import {SageMaker} from "aws-sdk";
 import {SageMakerEnvironmentHelper} from "../../../../helpers/provider/sagemaker/SageMakerEnvironmentHelper";
@@ -8,13 +8,11 @@ import {NetworkDescription} from "../../../../interfaces/description/NetworkDesc
 @injectable()
 export class SageMakerModelService {
 
+    @inject("Config")
     private _config: SageMakerNeuralNetConfig;
-    private _description: SageMakerNetworkDescriptor & NetworkDescription;
 
-    constructor(config: SageMakerNeuralNetConfig, description: SageMakerNetworkDescriptor & NetworkDescription) {
-        this._config = config;
-        this._description = description;
-    }
+    @inject("Description")
+    private _description: SageMakerNetworkDescriptor & NetworkDescription;
 
     private getModel(): Promise<SageMaker.DescribeModelOutput> {
 

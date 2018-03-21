@@ -15,7 +15,8 @@ import {SageMakerModelService} from "./service/SageMakerModelService";
 import {SageMakerJobService} from "./service/SageMakerJobService";
 import {SageMakerEndpointService} from "./service/SageMakerEndpointService";
 import {MultiVariantNetwork} from "../../../interfaces/provider/network/MultiVariantNetwork";
-import {NeuralNetConfig, SageMakerNeuralNetConfig} from "../../../interfaces/NeuralNetConfig";
+import {SageMakerNeuralNetConfig} from "../../../interfaces/NeuralNetConfig";
+import {SageMakerEndpointConfigService} from "./service/SageMakerEndpointConfigService";
 
 interface D extends NetworkDescription, SageMakerNetworkDescriptor {}
 
@@ -23,8 +24,6 @@ interface D extends NetworkDescription, SageMakerNetworkDescriptor {}
 export class SageMakerNetwork implements UnsupervisedProvidedNetwork, SupervisedProvidedNetwork, MultiVariantNetwork {
 
     private _endPointService: SageMakerEndpointService;
-    private _modelService: SageMakerModelService;
-    private _jobService: SageMakerJobService;
 
     private _container: Container;
 
@@ -32,13 +31,14 @@ export class SageMakerNetwork implements UnsupervisedProvidedNetwork, Supervised
     private _config: SageMakerNeuralNetConfig;
 
     public init(description: D) {
-        this._endPointService = new SageMakerEndpointService(this._config, description);
-        this._modelService = new SageMakerModelService(this._config, description);
-        this._jobService = new SageMakerJobService(this._config, description.getUniqueName());
-
         this._container = new Container();
+        this._container.bind<Container>("Context").toConstantValue(this._container).whenTargetIsDefault();
         this._container.bind<D>("Description").toConstantValue(description).whenTargetIsDefault();
-        this._container.bind<SageMakerJobService>(SageMakerJobService).toSelf();
+        this._container.bind<SageMakerNeuralNetConfig>("Config").toConstantValue(this._config).whenTargetIsDefault();
+        this._container.bind<SageMakerJobService>(SageMakerJobService).toSelf().inSingletonScope();
+        this._container.bind<SageMakerModelService>(SageMakerModelService).toSelf().inSingletonScope();
+        this._container.bind<SageMakerEndpointService>(SageMakerEndpointService).toSelf().inSingletonScope();
+        this._container.bind<SageMakerEndpointConfigService>(SageMakerEndpointConfigService).toSelf().inSingletonScope();
     }
 
     public setMultiVariantDescriptor(descriptor: NetworkMultiVariantDescriptor) {

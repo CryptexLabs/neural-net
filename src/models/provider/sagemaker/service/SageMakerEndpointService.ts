@@ -7,19 +7,24 @@ import {SageMakerNetworkDescriptor} from "../../../../interfaces/provider/sagema
 import {NetworkDescription} from "../../../../interfaces/description/NetworkDescription";
 import {SageMakerEnvironmentHelper} from "../../../../helpers/provider/sagemaker/SageMakerEnvironmentHelper";
 import {SageMakerNeuralNetConfig} from "../../../../interfaces/NeuralNetConfig";
+import {inject, injectable, Container} from "inversify";
 
+@injectable()
 export class SageMakerEndpointService implements MultiVariantNetwork {
 
-    private _endPointConfigService: SageMakerEndpointConfigService;
-    private _description: NetworkDescription & SageMakerNetworkDescriptor;
     private _endpointDescription: SageMaker.DescribeEndpointOutput;
+
+    @inject("Config")
     private _config: SageMakerNeuralNetConfig;
 
-    constructor(config: SageMakerNeuralNetConfig, description: NetworkDescription & SageMakerNetworkDescriptor) {
-        this._config = config;
-        this._description = description;
-        this._endPointConfigService = new SageMakerEndpointConfigService(config, description.getUniqueName());
-    }
+    @inject("Description")
+    private _description: SageMakerNetworkDescriptor & NetworkDescription;
+
+    @inject("Context")
+    private _context: Container;
+
+    @inject(SageMakerEndpointConfigService)
+    private _endPointConfigService: SageMakerEndpointConfigService;
 
     public setMultiVariantDescriptor(descriptor: NetworkMultiVariantDescriptor) {
         this._endPointConfigService.setMultiVariantDescriptor(descriptor);

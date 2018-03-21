@@ -1,15 +1,15 @@
-import {injectable} from "inversify";
+import {inject, injectable} from "inversify";
 import {SageMakerNeuralNetConfig} from "../../../../interfaces/NeuralNetConfig";
+import {NetworkDescription} from "../../../../interfaces/description/NetworkDescription";
+import {SageMakerNetworkDescriptor} from "../../../../interfaces/provider/sagemaker/SageMakerNetworkDescription";
 
 @injectable()
 export class SageMakerJobService {
 
+    @inject("Config")
     private _config: SageMakerNeuralNetConfig;
-    private _networkName: string;
 
-    constructor(config: SageMakerNeuralNetConfig, networkName: string) {
-        this._config = config;
-        this._networkName = networkName;
-    }
+    @inject("Description")
+    private _description: SageMakerNetworkDescriptor & NetworkDescription;
 
 }
