@@ -61,8 +61,9 @@ export class SageMakerNetworkProvider implements ServiceNetworkProvider<D>, A, P
         this._config = config;
 
         this._context = new Container();
-        this._context.bind<SageMakerNetwork>(SageMakerNetwork).to(SageMakerNetwork);
         this._context.bind<SageMakerNeuralNetConfig>("Config").toConstantValue(config.amazon.sagemaker);
+        this._context.bind<SageMakerUnsupervisedNetworkProvider>("ServiceProvider").toConstantValue(this).whenTargetIsDefault();
+
         this._context.bind<DefaultSageMakerNetworkMultiVariantDescription>(DefaultSageMakerNetworkMultiVariantDescription).toSelf().inSingletonScope();
         this._context.bind<SageMakerKMeansNetworkProvider>(SageMakerKMeansNetworkProvider).toSelf().inSingletonScope();
     }
@@ -76,7 +77,7 @@ export class SageMakerNetworkProvider implements ServiceNetworkProvider<D>, A, P
     }
 
     private _getKMeansProvider(): SageMakerKMeansNetworkProvider {
-        return this._context.get(SageMakerKMeansNetworkProvider).init(this);
+        return this._context.get(SageMakerKMeansNetworkProvider);
     }
 
     public getSupervisedNetwork(description: SageMakerNetworkDescriptor & NetworkDescription): Promise<SupervisedProvidedNetwork> {

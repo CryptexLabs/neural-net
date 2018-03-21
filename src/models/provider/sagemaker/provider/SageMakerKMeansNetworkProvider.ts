@@ -24,12 +24,8 @@ export class SageMakerKMeansNetworkProvider implements KMeansNetworkProvider, KM
     @inject(DefaultSageMakerNetworkMultiVariantDescription)
     private _multiVariantDescriptor: NetworkMultiVariantDescriptor;
 
+    @inject("ServiceProvider")
     private _provider: SageMakerUnsupervisedNetworkProvider;
-
-    public init(serviceProvider: SageMakerUnsupervisedNetworkProvider): SageMakerKMeansNetworkProvider{
-        this._provider = serviceProvider;
-        return this;
-    }
 
     public getKMeansNetwork(outputClass: NewableOutput<NeuralNetOutput>, uniqueName: string): Promise<UnsupervisedProvidedNetwork> {
         let description = this._getDefaultDescription(uniqueName, outputClass);
