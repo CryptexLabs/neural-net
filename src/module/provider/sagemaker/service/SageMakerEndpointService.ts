@@ -68,7 +68,7 @@ export class SageMakerEndpointService implements MultiVariantNetwork {
         let sagemaker = new SageMaker();
         let input: SageMaker.CreateEndpointInput = {
             EndpointName: this._description.getUniqueName(),
-            EndpointConfigName: '',
+            EndpointConfigName: config.EndpointConfigName,
             Tags: [SageMakerEnvironmentHelper.getAWSEnvironmentTag()]
         };
 

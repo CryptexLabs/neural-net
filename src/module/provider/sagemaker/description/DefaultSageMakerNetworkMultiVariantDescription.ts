@@ -6,7 +6,19 @@ import {injectable} from "inversify";
 export class DefaultSageMakerNetworkMultiVariantDescription implements NetworkMultiVariantDescriptor {
 
     public getDescriptors(): NetworkVariantDescriptor[] {
-        // TODO Implement DefaultSageMakerNetworkMultiVariantDescription::getDescriptors
-        return [];
+        let descriptor: NetworkVariantDescriptor = {
+            getVariantName(): string {
+                return 'Default'
+            },
+
+            getInstanceCount(): number {
+                return 1
+            },
+
+            getWeight(): number {
+                return 1
+            },
+        };
+        return [descriptor];
     }
 }

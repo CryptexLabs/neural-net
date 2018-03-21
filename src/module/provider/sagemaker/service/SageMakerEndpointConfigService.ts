@@ -12,36 +12,36 @@ import SageMaker = require("aws-sdk/clients/sagemaker");
 @injectable()
 export class SageMakerEndpointConfigService implements MultiVariantNetwork {
 
-    private _multiVariantNetworkDescriptor: NetworkMultiVariantDescriptor;
-
     @inject("Config")
     private _config: SageMakerNeuralNetConfig;
 
     @inject("Description")
     private _description: SageMakerNetworkDescriptor & NetworkDescription;
 
-    public init(config: SageMakerNeuralNetConfig, networkName: string) {
-        this._config = config;
-        this._multiVariantNetworkDescriptor = new DefaultSageMakerNetworkMultiVariantDescription();
-    }
+    private _multiVariantNetworkDescriptor: NetworkMultiVariantDescriptor;
+
+    private _endpointConfig: SageMaker.DescribeEndpointConfigOutput;
 
     public setMultiVariantDescriptor(descriptor: NetworkMultiVariantDescriptor) {
         this._multiVariantNetworkDescriptor = descriptor;
     }
 
     public getEndpointConfig(): Promise<SageMaker.DescribeEndpointConfigOutput> {
-        // TODO Save endpoint config in cache
-        let sagemaker = new SageMaker();
+        if(this._endpointConfig){
+            return Promise.resolve(this._endpointConfig);
+        }else{
+            let sagemaker = new SageMaker();
 
-        let input: SageMaker.DescribeEndpointConfigInput = {
-            EndpointConfigName: this._description.getUniqueName()
-        };
+            let input: SageMaker.DescribeEndpointConfigInput = {
+                EndpointConfigName: this._description.getUniqueName()
+            };
 
-        return sagemaker.describeEndpointConfig(input).promise()
-            .catch(this._createEndpointConfig)
-            .then(() => {
-                return sagemaker.describeEndpointConfig(input).promise();
-            });
+            return sagemaker
+                .describeEndpointConfig(input).promise()
+                .catch(()=>{
+                    return this._createEndpointConfig().then(sagemaker.describeEndpointConfig(input).promise);
+                });
+        }
     }
 
     private _createEndpointConfig(): Promise<SageMaker.CreateEndpointConfigOutput> {
@@ -79,6 +79,7 @@ export class SageMakerEndpointConfigService implements MultiVariantNetwork {
 
             variants.push(variant);
         }
+
         return variants;
     }
 
