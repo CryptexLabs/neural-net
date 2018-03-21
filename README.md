@@ -52,7 +52,7 @@ let config = require('../config.json') as NeuralNetConfig;
 
 let market = new Market('GDAX', 'BTC', 'USD');
 
-let service = new NeuralNetService(config);
+let service = new NeuralNetService.Service(config);
 
 let provider = service.getDefaultProvider();
 
@@ -100,7 +100,7 @@ import {NeuralNetConfig} from "../src/interfaces/NeuralNetConfig";
 
 let config = require('../config.json') as NeuralNetConfig;
 
-let service = new NeuralNetService(config);
+let service = new NeuralNetService.Service(config);
 
 let market = new Market('GDAX', 'BTC', 'USD');
 

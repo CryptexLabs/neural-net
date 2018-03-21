@@ -8,8 +8,8 @@ export class NeuralNetServiceHelper {
 
     private constructor(){}
 
-    public static getWithDefaultConfig(): NeuralNetService {
-        return new NeuralNetService(DefaultConfig);
+    public static getWithDefaultConfig(): NeuralNetService.Service {
+        return new NeuralNetService.Service(DefaultConfig);
     }
 
     public static getDefaultProvider(): DefaultNetworkProvider {

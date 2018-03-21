@@ -16,8 +16,9 @@ import {KMeansMultiVariantNetworkProvider} from "../../../interfaces/provider/pr
 import {SageMakerKMeansNetworkProvider} from "./provider/SageMakerKMeansNetworkProvider";
 import {SageMakerUnsupervisedNetworkProvider} from "../../../interfaces/provider/sagemaker/SageMakerUnsupervisedNetworkProvider";
 import {SageMakerSupervisedNetworkProvider} from "../../../interfaces/provider/sagemaker/SageMakerSupervisedNetworkProvider";
-import {injectable, interfaces} from "inversify";
+import {inject, injectable, interfaces} from "inversify";
 import Container = interfaces.Container;
+import {NeuralNetService} from "../../NeuralNetService";
 
 // Required network descriptors
 interface D extends
@@ -48,7 +49,9 @@ interface P extends
 @injectable()
 export class SageMakerNetworkProvider implements ServiceNetworkProvider<D>, A, P {
 
+    @inject("Config")
     private _config: SageMakerNeuralNetConfig;
+
     private _context: Container;
     private _cache: ProvidedNetworkCache<ServiceNetworkProvider<D>, N, D>;
 
@@ -56,8 +59,7 @@ export class SageMakerNetworkProvider implements ServiceNetworkProvider<D>, A, P
         this._cache = new ProvidedNetworkCache<ServiceNetworkProvider<D>, N, D>(this);
     }
 
-    public init(context: Container, config: SageMakerNeuralNetConfig) {
-        this._config = config;
+    public init(context: Container) {
         this._context = context;
         return this;
     }

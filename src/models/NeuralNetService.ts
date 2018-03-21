@@ -4,29 +4,33 @@ import {NeuralNetConfig} from "../interfaces/NeuralNetConfig";
 import {Container} from "inversify";
 import {SageMakerNetworkProviderContextHelper} from "../helpers/provider/sagemaker/SageMakerNetworkProviderContextHelper";
 
-export class NeuralNetService {
+export module NeuralNetService {
 
-    private _config: NeuralNetConfig;
-    private _context: Container;
+    export class Service {
 
-    public constructor(config: NeuralNetConfig) {
-        this._config = config;
-        this._initContexts();
-    }
+        private _config: NeuralNetConfig;
+        private _context: Container;
 
-    private _initContexts() {
-        this._context = new Container();
+        public constructor(config: NeuralNetConfig) {
+            this._config = config;
+            this._initContexts();
+        }
 
-        // Sagemaker
-        this._context.bind<SageMakerNetworkProvider>(SageMakerNetworkProvider).toSelf().inSingletonScope();
-        SageMakerNetworkProviderContextHelper.bindContext(this._context);
-    }
+        private _initContexts() {
+            this._context = new Container();
 
-    public getDefaultProvider(): DefaultNetworkProvider {
-        return this.getSageMakerNetworkProvider();
-    }
+            // Sagemaker
+            this._context.bind<SageMakerNetworkProvider>(SageMakerNetworkProvider).toSelf().inSingletonScope();
+            this._context.bind<NeuralNetConfig>("Config").toConstantValue(this._config).whenTargetIsDefault();
+            SageMakerNetworkProviderContextHelper.bindContext(this._context);
+        }
 
-    public getSageMakerNetworkProvider(): SageMakerNetworkProvider {
-        return this._context.get(SageMakerNetworkProvider).init(this._context, this._config.amazon.sagemaker);
+        public getDefaultProvider(): DefaultNetworkProvider {
+            return this.getSageMakerNetworkProvider();
+        }
+
+        public getSageMakerNetworkProvider(): SageMakerNetworkProvider {
+            return this._context.get(SageMakerNetworkProvider).init(this._context);
+        }
     }
 }
