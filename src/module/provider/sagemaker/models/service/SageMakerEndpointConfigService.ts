@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import {MultiVariantNetwork} from "../../../../../interface/provider/network/MultiVariantNetwork";
 import {NetworkMultiVariantDescriptor} from "../../../../../interface/provider/descriptor/NetworkMultiVariantDescriptor";
-import {SageMakerEnvironmentHelper} from "../../../../../helper/provider/sagemaker/SageMakerEnvironmentHelper";
+import {SageMakerEnvironmentHelper} from "../../helper/SageMakerEnvironmentHelper";
 import {inject, injectable} from "inversify";
 import {NetworkDescription} from "../../../../../interface/description/NetworkDescription";
 import {SageMakerNetworkDescriptor} from "../../interfaces/description/SageMakerNetworkDescription";

@@ -5,7 +5,7 @@ import {NeuralNetOutput} from "../../../../../interface/output/NeuralNetOutput";
 import {SageMaker} from "aws-sdk";
 import {SageMakerNetworkDescriptor} from "../../interfaces/description/SageMakerNetworkDescription";
 import {NetworkDescription} from "../../../../../interface/description/NetworkDescription";
-import {SageMakerEnvironmentHelper} from "../../../../../helper/provider/sagemaker/SageMakerEnvironmentHelper";
+import {SageMakerEnvironmentHelper} from "../../helper/SageMakerEnvironmentHelper";
 import {Container, inject, injectable} from "inversify";
 import {SageMakerNeuralNetConfig} from "../../interfaces/config/SageMakerNeuralNetConfig";
 
