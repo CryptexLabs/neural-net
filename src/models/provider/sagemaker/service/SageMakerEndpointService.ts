@@ -7,7 +7,7 @@ import {SageMakerNetworkDescriptor} from "../../../../interfaces/provider/sagema
 import {NetworkDescription} from "../../../../interfaces/description/NetworkDescription";
 import {SageMakerEnvironmentHelper} from "../../../../helpers/provider/sagemaker/SageMakerEnvironmentHelper";
 import {SageMakerNeuralNetConfig} from "../../../../interfaces/NeuralNetConfig";
-import {inject, injectable, Container} from "inversify";
+import {Container, inject, injectable} from "inversify";
 
 @injectable()
 export class SageMakerEndpointService implements MultiVariantNetwork {

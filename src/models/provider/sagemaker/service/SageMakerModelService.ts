@@ -1,4 +1,4 @@
-import {injectable, inject} from "inversify";
+import {inject, injectable} from "inversify";
 import {SageMakerNetworkDescriptor} from "../../../../interfaces/provider/sagemaker/SageMakerNetworkDescription";
 import {SageMaker} from "aws-sdk";
 import {SageMakerEnvironmentHelper} from "../../../../helpers/provider/sagemaker/SageMakerEnvironmentHelper";

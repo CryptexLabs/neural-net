@@ -4,10 +4,10 @@ import {NetworkMultiVariantDescriptor} from "../../../../interfaces/provider/des
 import {SageMakerEnvironmentHelper} from "../../../../helpers/provider/sagemaker/SageMakerEnvironmentHelper";
 import {DefaultSageMakerNetworkMultiVariantDescription} from "../description/DefaultSageMakerNetworkMultiVariantDescription";
 import {SageMakerNeuralNetConfig} from "../../../../interfaces/NeuralNetConfig";
-import SageMaker = require("aws-sdk/clients/sagemaker");
 import {inject, injectable} from "inversify";
 import {NetworkDescription} from "../../../../interfaces/description/NetworkDescription";
 import {SageMakerNetworkDescriptor} from "../../../../interfaces/provider/sagemaker/SageMakerNetworkDescription";
+import SageMaker = require("aws-sdk/clients/sagemaker");
 
 @injectable()
 export class SageMakerEndpointConfigService implements MultiVariantNetwork {

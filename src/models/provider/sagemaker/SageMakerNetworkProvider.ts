@@ -16,7 +16,7 @@ import {KMeansMultiVariantNetworkProvider} from "../../../interfaces/provider/pr
 import {SageMakerKMeansNetworkProvider} from "./provider/SageMakerKMeansNetworkProvider";
 import {SageMakerUnsupervisedNetworkProvider} from "../../../interfaces/provider/sagemaker/SageMakerUnsupervisedNetworkProvider";
 import {SageMakerSupervisedNetworkProvider} from "../../../interfaces/provider/sagemaker/SageMakerSupervisedNetworkProvider";
-import {inject, injectable, Container} from "inversify";
+import {Container, inject, injectable} from "inversify";
 import {DefaultSageMakerNetworkMultiVariantDescription} from "./description/DefaultSageMakerNetworkMultiVariantDescription";
 
 // Required network descriptors
