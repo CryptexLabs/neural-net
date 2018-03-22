@@ -1,4 +1,4 @@
-import {SageMakerNeuralNetConfig} from "../module/provider/sagemaker/interfaces/config/SageMakerNeuralNetConfig";
+import {SageMakerNeuralNetConfig} from "../module/provider/sagemaker/interface/config/SageMakerNeuralNetConfig";
 
 export interface AmazonNeuralNetConfig {
     sagemaker: SageMakerNeuralNetConfig;

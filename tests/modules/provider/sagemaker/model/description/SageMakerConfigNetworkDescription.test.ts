@@ -1,8 +1,8 @@
 import 'mocha';
 import * as chai from "chai";
-import {SageMakerConfigNetworkDescription} from "../../../../../src/module/provider/sagemaker/models/description/SageMakerConfigNetworkDescription";
-import {SageMakerInferenceImageAlgorithm} from "../../../../../src/module/provider/sagemaker/interfaces/description/SageMakerInferenceImageDescriptions";
-import {NeuralNetOutput} from "../../../../../src/interface/output/NeuralNetOutput";
+import {SageMakerConfigNetworkDescription} from "../../../../../../src/module/provider/sagemaker/model/description/SageMakerConfigNetworkDescription";
+import {SageMakerInferenceImageAlgorithm} from "../../../../../../src/module/provider/sagemaker/interface/description/SageMakerInferenceImageDescriptions";
+import {NeuralNetOutput} from "../../../../../../src/interface/output/NeuralNetOutput";
 
 let itParam = require('mocha-param');
 

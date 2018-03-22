@@ -3,11 +3,11 @@ import {MultiVariantNetwork} from "../../../../../interface/provider/network/Mul
 import {NetworkMultiVariantDescriptor} from "../../../../../interface/provider/descriptor/NetworkMultiVariantDescriptor";
 import {NeuralNetOutput} from "../../../../../interface/output/NeuralNetOutput";
 import {SageMaker} from "aws-sdk";
-import {SageMakerNetworkDescriptor} from "../../interfaces/description/SageMakerNetworkDescription";
+import {SageMakerNetworkDescriptor} from "../../interface/description/SageMakerNetworkDescription";
 import {NetworkDescription} from "../../../../../interface/description/NetworkDescription";
 import {SageMakerEnvironmentHelper} from "../../helper/SageMakerEnvironmentHelper";
 import {Container, inject, injectable} from "inversify";
-import {SageMakerNeuralNetConfig} from "../../interfaces/config/SageMakerNeuralNetConfig";
+import {SageMakerNeuralNetConfig} from "../../interface/config/SageMakerNeuralNetConfig";
 
 @injectable()
 export class SageMakerEndpointService implements MultiVariantNetwork {

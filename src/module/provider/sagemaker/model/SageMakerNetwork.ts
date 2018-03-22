@@ -7,7 +7,7 @@ import {SupervisedNeuralNetInputData} from "../../../../interface/supervised/Sup
 import {NeuralNetInput} from "../../../../interface/input/NeuralNetInput";
 import {NeuralNetOutput} from "../../../../interface/output/NeuralNetOutput";
 import {NetworkMultiVariantDescriptor} from "../../../../interface/provider/descriptor/NetworkMultiVariantDescriptor";
-import {SageMakerNetworkDescriptor} from "../interfaces/description/SageMakerNetworkDescription";
+import {SageMakerNetworkDescriptor} from "../interface/description/SageMakerNetworkDescription";
 import {NetworkDescription} from "../../../../interface/description/NetworkDescription";
 import {Container} from "inversify";
 import "reflect-metadata";
@@ -16,7 +16,7 @@ import {SageMakerJobService} from "./service/SageMakerJobService";
 import {SageMakerEndpointService} from "./service/SageMakerEndpointService";
 import {MultiVariantNetwork} from "../../../../interface/provider/network/MultiVariantNetwork";
 import {SageMakerEndpointConfigService} from "./service/SageMakerEndpointConfigService";
-import {SageMakerNeuralNetConfig} from "../interfaces/config/SageMakerNeuralNetConfig";
+import {SageMakerNeuralNetConfig} from "../interface/config/SageMakerNeuralNetConfig";
 
 interface D extends NetworkDescription, SageMakerNetworkDescriptor {}
 

@@ -19,7 +19,7 @@ Each unsupervised network should implement 3 classes like so
 import {NeuralNet} from "../../../src/interface/NeuralNet";
 import {UnsupervisedNetwork} from "../../../src/interface/unsupervised/UnsupervisedNetwork";
 import {OutputCacher} from "../../../src/interface/cache/OutputCacher";
-import {KMeansNetworkProvider} from "../../../src/interface/provider/provider/kmeans/KMeansNetworkProvider";
+import {KMeansNetworkProvider} from "../../../src/interface/algorithm/kmeans/KMeansNetworkProvider";
 import {ProvidedNetworkOutputCache} from "../../../src/model/cache/ProvidedNetworkOutputCache";
 import {NeuralNetInputData} from "../../../src/interface/input/NeuralNetInputData";
 import {UnsupervisedNetworkTrainingResult} from "../../../src/interface/unsupervised/UnsupervisedNetworkTrainingResult";

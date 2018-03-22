@@ -1,4 +1,4 @@
-import {SageMakerProductionVariantInstanceType} from "../network/SageMakerProductionVariantInstanceType";
+import {SageMakerProductionVariantInstanceType} from "../network/variant/SageMakerProductionVariantInstanceType";
 
 export interface SageMakerNeuralNetConfig {
     roleARN: string;

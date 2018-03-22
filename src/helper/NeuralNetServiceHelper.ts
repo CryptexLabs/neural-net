@@ -9,7 +9,11 @@ export class NeuralNetServiceHelper {
     private constructor(){}
 
     public static getWithDefaultConfig(): NeuralNetService.Service {
-        return new NeuralNetService.Service(DefaultConfig);
+        return new NeuralNetService.Service(NeuralNetServiceHelper.getDefaultConfig());
+    }
+
+    public static getDefaultConfig(): NeuralNetConfig {
+        return DefaultConfig;
     }
 
     public static getDefaultProvider(): DefaultNetworkProvider {

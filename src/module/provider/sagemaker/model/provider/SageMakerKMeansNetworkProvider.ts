@@ -1,5 +1,5 @@
-import {KMeansMultiVariantNetworkProvider} from "../../../../../interface/provider/provider/kmeans/KMeansMultiVariantNetworkProvider";
-import {KMeansNetworkProvider} from "../../../../../interface/provider/provider/kmeans/KMeansNetworkProvider";
+import {KMeansMultiVariantNetworkProvider} from "../../../../../interface/algorithm/kmeans/KMeansMultiVariantNetworkProvider";
+import {KMeansNetworkProvider} from "../../../../../interface/algorithm/kmeans/KMeansNetworkProvider";
 import {NewableOutput} from "../../../../../interface/output/NewableOutput";
 import {NeuralNetOutput} from "../../../../../interface/output/NeuralNetOutput";
 import {UnsupervisedProvidedNetwork} from "../../../../../interface/provider/network/UnsupervisedProvidedNetwork";
@@ -7,10 +7,10 @@ import {NetworkMultiVariantDescriptor} from "../../../../../interface/provider/d
 import {MultiVariantNetwork} from "../../../../../interface/provider/network/MultiVariantNetwork";
 import {inject, injectable} from "inversify";
 import {DefaultSageMakerNetworkMultiVariantDescription} from "../description/DefaultSageMakerNetworkMultiVariantDescription";
-import {SageMakerInferenceImageAlgorithm} from "../../interfaces/description/SageMakerInferenceImageDescriptions";
+import {SageMakerInferenceImageAlgorithm} from "../../interface/description/SageMakerInferenceImageDescriptions";
 import {SageMakerConfigNetworkDescription} from "../description/SageMakerConfigNetworkDescription";
 import {NeuralNet} from "../../../../../interface/NeuralNet";
-import {SageMakerUnsupervisedNetworkProvider} from "../../interfaces/provider/SageMakerUnsupervisedNetworkProvider";
+import {SageMakerUnsupervisedNetworkProvider} from "../../interface/provider/SageMakerUnsupervisedNetworkProvider";
 
 interface N extends
     NeuralNet,

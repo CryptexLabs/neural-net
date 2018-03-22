@@ -1,9 +1,9 @@
 import {inject, injectable} from "inversify";
-import {SageMakerNetworkDescriptor} from "../../interfaces/description/SageMakerNetworkDescription";
+import {SageMakerNetworkDescriptor} from "../../interface/description/SageMakerNetworkDescription";
 import {SageMaker} from "aws-sdk";
 import {SageMakerEnvironmentHelper} from "../../helper/SageMakerEnvironmentHelper";
 import {NetworkDescription} from "../../../../../interface/description/NetworkDescription";
-import {SageMakerNeuralNetConfig} from "../../interfaces/config/SageMakerNeuralNetConfig";
+import {SageMakerNeuralNetConfig} from "../../interface/config/SageMakerNeuralNetConfig";
 
 @injectable()
 export class SageMakerModelService {
@@ -14,25 +14,25 @@ export class SageMakerModelService {
     @inject("Description")
     private _description: SageMakerNetworkDescriptor & NetworkDescription;
 
-    private getModel(): Promise<SageMaker.DescribeModelOutput> {
+    private _model: SageMaker.DescribeModelOutput;
 
-        let sagemaker = new SageMaker();
+    public getModel(): Promise<SageMaker.DescribeModelOutput> {
 
-        let describeModelInput: SageMaker.DescribeModelInput = {
-            ModelName: this._description.getUniqueName()
-        };
+        if(this._model){
+           return Promise.resolve(this._model);
+        }else{
 
-        return sagemaker
-            .describeModel(describeModelInput).promise()
-            .catch(() => {
-                return this._getNetworkFromNewModel()
-            })
-            .then(() => {
-                return sagemaker.describeModel(describeModelInput).promise()
-            })
+            let sagemaker = new SageMaker();
+
+            let describeModelInput: SageMaker.DescribeModelInput = {
+                ModelName: this._description.getUniqueName()
+            };
+
+            return sagemaker.describeModel(describeModelInput).promise()
+        }
     }
 
-    private _getNetworkFromNewModel(): Promise<SageMaker.CreateModelOutput> {
+    public createModel(): Promise<SageMaker.CreateModelOutput> {
 
         let sagemaker = new SageMaker();
 

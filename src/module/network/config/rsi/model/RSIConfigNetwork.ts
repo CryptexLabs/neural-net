@@ -6,7 +6,7 @@ import {UnsupervisedNetworkTrainingResult} from "../../../../../interface/unsupe
 import {Market} from "cryptex-shared-models/src/models/market/Market";
 import {NeuralNetInputData} from "../../../../../interface/input/NeuralNetInputData";
 import {UnsupervisedProvidedNetwork} from "../../../../../interface/provider/network/UnsupervisedProvidedNetwork";
-import {KMeansNetworkProvider} from "../../../../../interface/provider/provider/kmeans/KMeansNetworkProvider";
+import {KMeansNetworkProvider} from "../../../../../interface/algorithm/kmeans/KMeansNetworkProvider";
 import {RSIConfigNetworkInput} from "./RSIConfigNetworkInput";
 import {ProvidedNetworkOutputCache} from "../../../../../model/cache/ProvidedNetworkOutputCache";
 import {OutputCacher} from "../../../../../interface/cache/OutputCacher";

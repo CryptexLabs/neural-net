@@ -3,8 +3,8 @@
 import {
     SageMakerInferenceImageAlgorithm,
     SageMakerInferenceImageDescriptions
-} from "../../interfaces/description/SageMakerInferenceImageDescriptions";
-import {SageMakerNetworkDescriptor} from "../../interfaces/description/SageMakerNetworkDescription";
+} from "../../interface/description/SageMakerInferenceImageDescriptions";
+import {SageMakerNetworkDescriptor} from "../../interface/description/SageMakerNetworkDescription";
 import {NetworkDescription} from "../../../../../interface/description/NetworkDescription";
 import {NewableOutput} from "../../../../../interface/output/NewableOutput";
 import {NeuralNetOutput} from "../../../../../interface/output/NeuralNetOutput";
