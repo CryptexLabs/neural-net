@@ -3,10 +3,11 @@ import {MultiVariantNetwork} from "../../../../../interface/provider/network/Mul
 import {NetworkMultiVariantDescriptor} from "../../../../../interface/provider/descriptor/NetworkMultiVariantDescriptor";
 import {SageMakerEnvironmentHelper} from "../../helper/SageMakerEnvironmentHelper";
 import {inject, injectable} from "inversify";
-import {NetworkDescription} from "../../../../../interface/description/NetworkDescription";
-import {SageMakerNetworkDescriptor} from "../../interface/description/SageMakerNetworkDescription";
-import SageMaker = require("aws-sdk/clients/sagemaker");
+import {NetworkDescriptor} from "../../../../../interface/description/NetworkDescriptor";
+import {SageMakerNetworkDescriptor} from "../../interface/description/SageMakerNetworkDescriptor";
 import {SageMakerNeuralNetConfig} from "../../interface/config/SageMakerNeuralNetConfig";
+import {SageMakerIOTransformer} from "../../interface/transform/SageMakerIOTransformer";
+import SageMaker = require("aws-sdk/clients/sagemaker");
 
 @injectable()
 export class SageMakerEndpointConfigService implements MultiVariantNetwork {
@@ -14,8 +15,8 @@ export class SageMakerEndpointConfigService implements MultiVariantNetwork {
     @inject("Config")
     private _config: SageMakerNeuralNetConfig;
 
-    @inject("Description")
-    private _description: SageMakerNetworkDescriptor & NetworkDescription;
+    @inject("Assistant")
+    private _assistant: SageMakerNetworkDescriptor & NetworkDescriptor & SageMakerIOTransformer;
 
     private _multiVariantNetworkDescriptor: NetworkMultiVariantDescriptor;
 
@@ -32,7 +33,7 @@ export class SageMakerEndpointConfigService implements MultiVariantNetwork {
             let sagemaker = new SageMaker();
 
             let input: SageMaker.DescribeEndpointConfigInput = {
-                EndpointConfigName: this._description.getUniqueName()
+                EndpointConfigName: this._assistant.getUniqueName()
             };
 
             return sagemaker
@@ -47,7 +48,7 @@ export class SageMakerEndpointConfigService implements MultiVariantNetwork {
         let sagemaker = new SageMaker();
 
         let input: SageMaker.CreateEndpointConfigInput = {
-            EndpointConfigName: this._description.getUniqueName(),
+            EndpointConfigName: this._assistant.getUniqueName(),
             ProductionVariants: this._getVariants(),
             Tags: [SageMakerEnvironmentHelper.getAWSEnvironmentTag()]
         };
@@ -67,7 +68,7 @@ export class SageMakerEndpointConfigService implements MultiVariantNetwork {
 
                 VariantName: descriptor.getVariantName(),
 
-                ModelName: this._description.getUniqueName(),
+                ModelName: this._assistant.getUniqueName(),
 
                 InitialInstanceCount: descriptor.getInstanceCount(),
 

@@ -1,10 +1,15 @@
-import {NeuralNetOutput} from "../../../../../interface/output/NeuralNetOutput";
+import {KMeansNeuralNetOutput} from "../../../../../interface/algorithm/kmeans/KMeansNeuralNetOutput";
+import {KMeansPrediction} from "../../../../../interface/algorithm/kmeans/KMeansPrediction";
 
-export class RSIConfigNetworkOutput implements NeuralNetOutput {
+export class RSIConfigNetworkOutput implements KMeansNeuralNetOutput {
 
-    private _a: number;
+    private _output: KMeansNeuralNetOutput;
 
-    constructor(output: any[]) {
-        this._a = output[0];
+    constructor(output: KMeansNeuralNetOutput) {
+        this._output = output;
+    }
+
+    public getPredictions(): KMeansPrediction[] {
+        return this._output.getPredictions();
     }
 }

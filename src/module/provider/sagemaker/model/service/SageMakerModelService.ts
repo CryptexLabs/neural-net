@@ -1,8 +1,8 @@
 import {inject, injectable} from "inversify";
-import {SageMakerNetworkDescriptor} from "../../interface/description/SageMakerNetworkDescription";
+import {SageMakerNetworkDescriptor} from "../../interface/description/SageMakerNetworkDescriptor";
 import {SageMaker} from "aws-sdk";
 import {SageMakerEnvironmentHelper} from "../../helper/SageMakerEnvironmentHelper";
-import {NetworkDescription} from "../../../../../interface/description/NetworkDescription";
+import {NetworkDescriptor} from "../../../../../interface/description/NetworkDescriptor";
 import {SageMakerNeuralNetConfig} from "../../interface/config/SageMakerNeuralNetConfig";
 
 @injectable()
@@ -11,8 +11,8 @@ export class SageMakerModelService {
     @inject("Config")
     private _config: SageMakerNeuralNetConfig;
 
-    @inject("Description")
-    private _description: SageMakerNetworkDescriptor & NetworkDescription;
+    @inject("Assistant")
+    private _assistant: SageMakerNetworkDescriptor & NetworkDescriptor;
 
     private _model: SageMaker.DescribeModelOutput;
 
@@ -25,7 +25,7 @@ export class SageMakerModelService {
             let sagemaker = new SageMaker();
 
             let describeModelInput: SageMaker.DescribeModelInput = {
-                ModelName: this._description.getUniqueName()
+                ModelName: this._assistant.getUniqueName()
             };
 
             return sagemaker.describeModel(describeModelInput).promise()
@@ -38,10 +38,10 @@ export class SageMakerModelService {
 
         let createModelInput: SageMaker.CreateModelInput = {
             ExecutionRoleArn: this._config.roleARN,
-            ModelName: this._description.getUniqueName(),
+            ModelName: this._assistant.getUniqueName(),
             PrimaryContainer: {
-                Image: this._description.getContainerImage(),
-                ModelDataUrl: this._description.getModelDataUrl()
+                Image: this._assistant.getContainerImage(),
+                ModelDataUrl: this._assistant.getModelDataUrl()
             },
             Tags: [SageMakerEnvironmentHelper.getAWSEnvironmentTag()]
         };

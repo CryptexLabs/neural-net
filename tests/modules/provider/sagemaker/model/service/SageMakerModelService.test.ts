@@ -1,16 +1,18 @@
 import 'mocha';
 import 'reflect-metadata';
 import * as chai from 'chai';
-import {NeuralNetOutput} from "../../../../../../src/interface/output/NeuralNetOutput";
 import {Container} from "inversify";
 import {SageMakerModelService} from "../../../../../../src/module/provider/sagemaker/model/service/SageMakerModelService";
 import {NeuralNetServiceHelper} from "../../../../../../src/helper/NeuralNetServiceHelper";
 import {SageMakerNeuralNetConfig} from "../../../../../../src/module/provider/sagemaker/interface/config/SageMakerNeuralNetConfig";
-import {NetworkDescription} from "../../../../../../src/interface/description/NetworkDescription";
-import {SageMakerNetworkDescriptor} from "../../../../../../src/module/provider/sagemaker/interface/description/SageMakerNetworkDescription";
+import {NetworkDescriptor} from "../../../../../../src/interface/description/NetworkDescriptor";
+import {SageMakerNetworkDescriptor} from "../../../../../../src/module/provider/sagemaker/interface/description/SageMakerNetworkDescriptor";
 import {SageMaker} from "aws-sdk";
+import {SageMakerKMeansNeuralNetOutput} from "../../../../../../src/module/provider/sagemaker/model/output/kmeans/SageMakerKMeansNeuralNetOutput";
+import {NeuralNetInput} from "../../../../../../src/interface/input/NeuralNetInput";
+import {SageMakerIOTransformer} from "../../../../../../src/module/provider/sagemaker/interface/transform/SageMakerIOTransformer";
 
-interface D extends SageMakerNetworkDescriptor, NetworkDescription {
+interface D extends SageMakerNetworkDescriptor, NetworkDescriptor, SageMakerIOTransformer {
 }
 
 describe('SageMakerModelService', () => {
@@ -29,11 +31,12 @@ describe('SageMakerModelService', () => {
         let description: D = {
             getContainerImage(): string {return 'fake/docker/image' },
             getModelDataUrl(): string { return undefined; },
-            getNewOutput(data: any): NeuralNetOutput {return null; },
-            getUniqueName(): string { return "TESTA" }
+            getUniqueName(): string { return "TESTA" },
+            deserialize(data: any) { return new SageMakerKMeansNeuralNetOutput(data);},
+            serialize(input: NeuralNetInput) { return [];}
         };
 
-        context.bind<D>("Description").toConstantValue(description);
+        context.bind<D>("Assistant").toConstantValue(description);
 
         context.get<SageMakerModelService>(SageMakerModelService)
             .getModel()
@@ -43,7 +46,6 @@ describe('SageMakerModelService', () => {
             .then(done)
             .catch(chai.assert.fail);
 
-
     }).timeout(10000);
 
     it('should not get a sagemaker model description', (done) => {
@@ -51,11 +53,12 @@ describe('SageMakerModelService', () => {
         let description: D = {
             getContainerImage(): string {return 'fake/docker/image' },
             getModelDataUrl(): string { return undefined; },
-            getNewOutput(data: any): NeuralNetOutput {return null; },
-            getUniqueName(): string { return "SomeNonExistentModel" }
+            getUniqueName(): string { return "SomeNonExistentModel" },
+            deserialize(data: any) { return new SageMakerKMeansNeuralNetOutput(data);},
+            serialize(input: NeuralNetInput) { return [];}
         };
 
-        context.bind<D>("Description").toConstantValue(description);
+        context.bind<D>("Assistant").toConstantValue(description);
 
         context.get<SageMakerModelService>(SageMakerModelService)
             .getModel()

@@ -3,4 +3,5 @@ import {SageMakerProductionVariantInstanceType} from "../network/variant/SageMak
 export interface SageMakerNeuralNetConfig {
     roleARN: string;
     instanceType: SageMakerProductionVariantInstanceType;
+    region: string;
 }

@@ -1,6 +1,6 @@
-import {NeuralNetInput} from "../../../../../interface/input/NeuralNetInput";
+import {KMeansNeuralNetInput} from "../../../../../interface/algorithm/kmeans/KMeansNeuralNetInput";
 
-export class RSIConfigNetworkInput implements NeuralNetInput {
+export class RSIConfigNetworkInput implements KMeansNeuralNetInput {
 
     private _fifteenMinute: number;
     private _oneHour: number;

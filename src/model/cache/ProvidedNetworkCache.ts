@@ -2,9 +2,9 @@ import {ServiceNetworkProvider} from "../../interface/provider/provider/ServiceN
 import {NetworkProvider} from "../../interface/provider/provider/NetworkProvider";
 import {NeuralNet} from "../../interface/NeuralNet";
 import {NetworkCache} from "./NetworkCache";
-import {NetworkDescription} from "../../interface/description/NetworkDescription";
+import {NetworkDescriptor} from "../../interface/description/NetworkDescriptor";
 
-export class ProvidedNetworkCache<P extends ServiceNetworkProvider<D>, N extends NeuralNet, D extends NetworkDescription> implements NetworkProvider<D> {
+export class ProvidedNetworkCache<P extends ServiceNetworkProvider<D>, N extends NeuralNet, D extends NetworkDescriptor> implements NetworkProvider<D> {
 
     private _provider: P;
     private _cache: NetworkCache<N>;

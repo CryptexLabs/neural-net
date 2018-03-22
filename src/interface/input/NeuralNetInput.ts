@@ -1,5 +1,5 @@
 export interface NeuralNetInput {
     getUniqueID(): string
 
-    getInput(): any[]
+    getInput(): any
 }

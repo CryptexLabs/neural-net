@@ -33,6 +33,7 @@
     "markdown-include": "^0.4.3",
     "mocha": "^5.0.4",
     "mocha-param": "^2.0.0",
+    "mocha-tags": "^1.0.1",
     "reflect-metadata": "^0.1.12",
     "ts-mockito": "^2.3.0",
     "ts-node": "^5.0.1",

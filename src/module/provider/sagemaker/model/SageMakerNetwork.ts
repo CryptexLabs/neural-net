@@ -7,8 +7,8 @@ import {SupervisedNeuralNetInputData} from "../../../../interface/supervised/Sup
 import {NeuralNetInput} from "../../../../interface/input/NeuralNetInput";
 import {NeuralNetOutput} from "../../../../interface/output/NeuralNetOutput";
 import {NetworkMultiVariantDescriptor} from "../../../../interface/provider/descriptor/NetworkMultiVariantDescriptor";
-import {SageMakerNetworkDescriptor} from "../interface/description/SageMakerNetworkDescription";
-import {NetworkDescription} from "../../../../interface/description/NetworkDescription";
+import {SageMakerNetworkDescriptor} from "../interface/description/SageMakerNetworkDescriptor";
+import {NetworkDescriptor} from "../../../../interface/description/NetworkDescriptor";
 import {Container} from "inversify";
 import "reflect-metadata";
 import {SageMakerModelService} from "./service/SageMakerModelService";
@@ -17,19 +17,21 @@ import {SageMakerEndpointService} from "./service/SageMakerEndpointService";
 import {MultiVariantNetwork} from "../../../../interface/provider/network/MultiVariantNetwork";
 import {SageMakerEndpointConfigService} from "./service/SageMakerEndpointConfigService";
 import {SageMakerNeuralNetConfig} from "../interface/config/SageMakerNeuralNetConfig";
+import {SageMakerIOTransformer} from "../interface/transform/SageMakerIOTransformer";
 
-interface D extends NetworkDescription, SageMakerNetworkDescriptor {}
+interface A extends NetworkDescriptor, SageMakerNetworkDescriptor, SageMakerIOTransformer {}
 
 export class SageMakerNetwork implements UnsupervisedProvidedNetwork, SupervisedProvidedNetwork, MultiVariantNetwork {
 
     private _context: Container;
 
-    constructor(config: SageMakerNeuralNetConfig, description: D){
+    constructor(config: SageMakerNeuralNetConfig, assistant: A) {
+
         this._context = new Container();
 
         this._context.bind<SageMakerNeuralNetConfig>("Config").toConstantValue(config).whenTargetIsDefault();
         this._context.bind<Container>("Context").toConstantValue(this._context).whenTargetIsDefault();
-        this._context.bind<D>("Description").toConstantValue(description).whenTargetIsDefault();
+        this._context.bind<A>("Assistant").toConstantValue(assistant).whenTargetIsDefault();
 
         this._context.bind<SageMakerJobService>(SageMakerJobService).toSelf().inSingletonScope();
         this._context.bind<SageMakerModelService>(SageMakerModelService).toSelf().inSingletonScope();
@@ -49,7 +51,7 @@ export class SageMakerNetwork implements UnsupervisedProvidedNetwork, Supervised
     public guess(input: NeuralNetInput): Promise<NeuralNetOutput> {
         return this._context.get(SageMakerEndpointService).getEndpoint()
             .then((endpoint: SageMaker.DescribeEndpointOutput) => {
-                return this._context.get(SageMakerEndpointService).getOutputForEndpoint(endpoint);
+                return this._context.get(SageMakerEndpointService).getOutputForEndpoint(input, endpoint);
             });
     }
 

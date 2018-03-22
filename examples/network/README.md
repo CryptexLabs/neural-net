@@ -81,7 +81,7 @@ export class SomeCoolNetwork implements NeuralNet, UnsupervisedNetwork, OutputCa
 
     private _getNetwork(): Promise<UnsupervisedProvidedNetwork> {
         // This will return a ProvidedNetwork object that allows you to interact with the network on the remote service
-        return this._networkProvider.getKMeansNetwork(SomeCoolNetworkOutput, this._getNetworkName());
+        return this._networkProvider.getKMeansNetwork(this._getNetworkName());
     }
 
     private _getNetworkName(): string {
@@ -131,24 +131,35 @@ export class SomeCoolNetworkInput implements NeuralNetInput {
 
 [embedmd]:# (../../../examples/network/cool/SomeCoolNetworkOutput.ts typescript)
 ```typescript
+import {KMeansNeuralNetOutput} from "../../../src/interface/algorithm/kmeans/KMeansNeuralNetOutput";
+import {KMeansPrediction} from "../../../src/interface/algorithm/kmeans/KMeansPrediction";
 import {NeuralNetOutput} from "../../../src/interface/output/NeuralNetOutput";
 
 export class SomeCoolNetworkOutput implements NeuralNetOutput {
     
-    private _a: number;
-    private _b: string;
+    private _predictions: KMeansPrediction[];
 
-    constructor(output: any[]) {
-        this._a = output[0];
-        this._b = output[1];
+    constructor(output: KMeansNeuralNetOutput) {
+       this._predictions = output.getPredictions();
     }
 
-    get a(): number {
-        return this._a;
+    public getCategory(): number {
+        return this._getPredictionWithLeastDistance().getClosestCluster();
     }
 
-    get b(): string {
-        return this._b;
+    private _getPredictionWithLeastDistance(): KMeansPrediction {
+        let smallest = this._predictions[0];
+        for(let i = 1; i < this._predictions.length; i++){
+            let prediction = this._predictions[i];
+            if(prediction.getDistanceToCluster() < smallest.getDistanceToCluster()){
+                smallest = prediction;
+            }
+        }
+        return smallest;
+    }
+
+    public getCategoryDistance(): number {
+        return this._getPredictionWithLeastDistance().getDistanceToCluster();
     }
 }
 ```

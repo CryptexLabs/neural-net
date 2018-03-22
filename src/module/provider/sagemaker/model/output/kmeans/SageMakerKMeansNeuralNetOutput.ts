@@ -1,6 +1,6 @@
 import {KMeansNeuralNetOutput} from "../../../../../../interface/algorithm/kmeans/KMeansNeuralNetOutput";
-import {SageMakerKMeansResponse} from "../../../interface/response/kmeans/SageMakerKMeansResponse";
-import {SageMakerKMeansResponsePrediction} from "../../../interface/response/kmeans/SageMakerKMeansResponsePrediction";
+import {SageMakerKMeansResponse} from "../../../interface/algorithm/kmeans/response/SageMakerKMeansResponse";
+import {SageMakerKMeansResponsePrediction} from "../../../interface/algorithm/kmeans/response/SageMakerKMeansResponsePrediction";
 import {KMeansPrediction} from "../../../../../../interface/algorithm/kmeans/KMeansPrediction";
 import {SageMakerKMeansPrediction} from "./SageMakerKMeansPrediction";
 

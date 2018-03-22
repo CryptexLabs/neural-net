@@ -63,7 +63,7 @@ export class SomeCoolNetwork implements NeuralNet, UnsupervisedNetwork, OutputCa
 
     private _getNetwork(): Promise<UnsupervisedProvidedNetwork> {
         // This will return a ProvidedNetwork object that allows you to interact with the network on the remote service
-        return this._networkProvider.getKMeansNetwork(SomeCoolNetworkOutput, this._getNetworkName());
+        return this._networkProvider.getKMeansNetwork(this._getNetworkName());
     }
 
     private _getNetworkName(): string {

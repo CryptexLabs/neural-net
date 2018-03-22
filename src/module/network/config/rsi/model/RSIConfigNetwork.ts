@@ -52,7 +52,7 @@ export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork, OutputC
     }
 
     private _getNetwork(): Promise<UnsupervisedProvidedNetwork> {
-        return this._networkProvider.getKMeansNetwork(RSIConfigNetworkOutput, this._getNetworkName());
+        return this._networkProvider.getKMeansNetwork(this._getNetworkName());
     }
 
     private _getNetworkName(): string {
