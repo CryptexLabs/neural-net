@@ -10,9 +10,8 @@ import {SageMakerNetworkDescriptor} from "../../../../../../src/module/provider/
 import {SageMaker} from "aws-sdk";
 import {SageMakerKMeansNeuralNetOutput} from "../../../../../../src/module/provider/sagemaker/model/output/kmeans/SageMakerKMeansNeuralNetOutput";
 import {NeuralNetInput} from "../../../../../../src/interface/input/NeuralNetInput";
-import {SageMakerIOTransformer} from "../../../../../../src/module/provider/sagemaker/interface/transform/SageMakerIOTransformer";
 
-interface D extends SageMakerNetworkDescriptor, NetworkDescriptor, SageMakerIOTransformer {
+interface D extends SageMakerNetworkDescriptor, NetworkDescriptor {
 }
 
 describe('SageMakerModelService', () => {
@@ -32,8 +31,6 @@ describe('SageMakerModelService', () => {
             getContainerImage(): string {return 'fake/docker/image' },
             getModelDataUrl(): string { return undefined; },
             getUniqueName(): string { return "TESTA" },
-            deserialize(data: any) { return new SageMakerKMeansNeuralNetOutput(data);},
-            serialize(input: NeuralNetInput) { return [];}
         };
 
         context.bind<D>("Assistant").toConstantValue(description);
@@ -54,8 +51,6 @@ describe('SageMakerModelService', () => {
             getContainerImage(): string {return 'fake/docker/image' },
             getModelDataUrl(): string { return undefined; },
             getUniqueName(): string { return "SomeNonExistentModel" },
-            deserialize(data: any) { return new SageMakerKMeansNeuralNetOutput(data);},
-            serialize(input: NeuralNetInput) { return [];}
         };
 
         context.bind<D>("Assistant").toConstantValue(description);

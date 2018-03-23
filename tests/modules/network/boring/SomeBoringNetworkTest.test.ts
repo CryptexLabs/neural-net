@@ -1,5 +1,6 @@
 import {expect} from 'chai';
 import 'mocha';
+import 'reflect-metadata';
 
 import {SomeBoringNetwork} from '../../../../examples/network/boring/SomeBoringNetwork';
 import {SupervisedBoringNeuralNetInput} from "../../../../examples/network/boring/SupervisedBoringNeuralNetInput";

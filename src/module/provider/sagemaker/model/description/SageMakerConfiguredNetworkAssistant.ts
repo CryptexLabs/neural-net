@@ -11,16 +11,16 @@ import {NeuralNetInput} from "../../../../../interface/input/NeuralNetInput";
 
 let SageMakerInferenceImageConfig = require('./sagemaker-inference-image-paths.json') as SageMakerInferenceImageDescriptions;
 
-export class SageMakerConfigNetworkDescription implements SageMakerNetworkDescriptor, NetworkDescriptor {
+export class SageMakerConfiguredNetworkAssistant<O extends NeuralNetOutput> implements SageMakerNetworkDescriptor, NetworkDescriptor {
 
     private _name: string;
     private _region: string;
     private _algorithm: string;
     private _modelDataUrl: string;
-    private _outputDeserializer: SageMakerOutputDeserializer;
+    private _outputDeserializer: SageMakerOutputDeserializer<O>;
     private _inputSerializer: SageMakerInputSerializer;
 
-    constructor(name: string, region: string, algorithm: SageMakerInferenceImageAlgorithm, inputSerializer: SageMakerInputSerializer, outputDeserializer: SageMakerOutputDeserializer) {
+    constructor(name: string, region: string, algorithm: SageMakerInferenceImageAlgorithm, inputSerializer: SageMakerInputSerializer, outputDeserializer: SageMakerOutputDeserializer<O>) {
         this._name = name;
         this._outputDeserializer = outputDeserializer;
         this._inputSerializer = inputSerializer;
@@ -60,7 +60,7 @@ export class SageMakerConfigNetworkDescription implements SageMakerNetworkDescri
 
     }
 
-    public deserialize(data: any): NeuralNetOutput {
+    public deserialize(data: any): O {
         return this._outputDeserializer.deserialize(data);
     }
 

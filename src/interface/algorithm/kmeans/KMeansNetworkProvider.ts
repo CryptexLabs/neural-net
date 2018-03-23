@@ -1,5 +1,6 @@
-import {UnsupervisedProvidedNetwork} from "../../provider/network/UnsupervisedProvidedNetwork";
+
+import {KMeansProvidedNetwork} from "./KMeansProvidedNetwork";
 
 export interface KMeansNetworkProvider {
-    getKMeansNetwork(uniqueName: string): Promise<UnsupervisedProvidedNetwork>;
+    getKMeansNetwork(uniqueName: string): Promise<KMeansProvidedNetwork>;
 }

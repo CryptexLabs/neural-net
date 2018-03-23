@@ -14,28 +14,27 @@ import "reflect-metadata";
 import {SageMakerModelService} from "./service/SageMakerModelService";
 import {SageMakerJobService} from "./service/SageMakerJobService";
 import {SageMakerEndpointService} from "./service/SageMakerEndpointService";
-import {MultiVariantNetwork} from "../../../../interface/provider/network/MultiVariantNetwork";
 import {SageMakerEndpointConfigService} from "./service/SageMakerEndpointConfigService";
 import {SageMakerNeuralNetConfig} from "../interface/config/SageMakerNeuralNetConfig";
-import {SageMakerIOTransformer} from "../interface/transform/SageMakerIOTransformer";
+import {NeuralNet} from "../../../../interface/NeuralNet";
+import {ProvidedNetwork} from "../../../../interface/provider/network/ProvidedNetwork";
+import {SageMakerNetworkAssistant} from "../interface/assistant/SageMakerNetworkAssistant";
 
-interface A extends NetworkDescriptor, SageMakerNetworkDescriptor, SageMakerIOTransformer {}
-
-export class SageMakerNetwork implements UnsupervisedProvidedNetwork, SupervisedProvidedNetwork, MultiVariantNetwork {
+export class SageMakerNetwork<N extends NeuralNet, I extends NeuralNetInput, O extends NeuralNetOutput> implements ProvidedNetwork<N, I, O> {
 
     private _context: Container;
 
-    constructor(config: SageMakerNeuralNetConfig, assistant: A) {
+    constructor(config: SageMakerNeuralNetConfig, assistant: SageMakerNetworkAssistant<O>) {
 
         this._context = new Container();
 
         this._context.bind<SageMakerNeuralNetConfig>("Config").toConstantValue(config).whenTargetIsDefault();
         this._context.bind<Container>("Context").toConstantValue(this._context).whenTargetIsDefault();
-        this._context.bind<A>("Assistant").toConstantValue(assistant).whenTargetIsDefault();
+        this._context.bind<SageMakerNetworkAssistant<O>>("Assistant").toConstantValue(assistant).whenTargetIsDefault();
 
         this._context.bind<SageMakerJobService>(SageMakerJobService).toSelf().inSingletonScope();
         this._context.bind<SageMakerModelService>(SageMakerModelService).toSelf().inSingletonScope();
-        this._context.bind<SageMakerEndpointService>(SageMakerEndpointService).toSelf().inSingletonScope();
+        this._context.bind<SageMakerEndpointService<O>>(SageMakerEndpointService).toSelf().inSingletonScope();
         this._context.bind<SageMakerEndpointConfigService>(SageMakerEndpointConfigService).toSelf().inSingletonScope();
     }
 
@@ -48,11 +47,12 @@ export class SageMakerNetwork implements UnsupervisedProvidedNetwork, Supervised
         throw new Error("Method not implemented.");
     }
 
-    public guess(input: NeuralNetInput): Promise<NeuralNetOutput> {
-        return this._context.get(SageMakerEndpointService).getEndpoint()
-            .then((endpoint: SageMaker.DescribeEndpointOutput) => {
-                return this._context.get(SageMakerEndpointService).getOutputForEndpoint(input, endpoint);
-            });
+    public guess(input: I): Promise<O> {
+            return this._context.get(SageMakerEndpointService).getEndpoint()
+                .then((endpoint: SageMaker.DescribeEndpointOutput) => {
+                    return undefined;
+                    // return this._context.get(SageMakerEndpointService).getOutputForEndpoint(input, endpoint);
+                });
     }
 
     /**

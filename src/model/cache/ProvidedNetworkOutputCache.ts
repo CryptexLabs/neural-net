@@ -4,7 +4,7 @@ import {OutputCache} from "./OutputCache";
 import {NeuralNetOutput} from "../../interface/output/NeuralNetOutput";
 import {OutputCacher} from "../../interface/cache/OutputCacher";
 
-export class ProvidedNetworkOutputCache<O extends NeuralNetOutput> implements OutputCacher<O> {
+export class ProvidedNetworkOutputCache<N extends NeuralNet, O extends NeuralNetOutput> implements OutputCacher<O> {
 
     private _cache: OutputCache<O>;
 
@@ -12,7 +12,7 @@ export class ProvidedNetworkOutputCache<O extends NeuralNetOutput> implements Ou
         this._cache = new OutputCache<O>();
     }
 
-    public guess(providedNetwork: NeuralNet, input: NeuralNetInput): Promise<O> {
+    public guess(providedNetwork: N, input: NeuralNetInput): Promise<O> {
         return this._cache
             .get(input)
             .catch(() => {

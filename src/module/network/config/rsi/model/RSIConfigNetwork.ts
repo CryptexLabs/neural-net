@@ -1,6 +1,5 @@
 import {NeuralNet} from "../../../../../interface/NeuralNet";
 import {NeuralNetInput} from "../../../../../interface/input/NeuralNetInput";
-import {NeuralNetOutput} from "../../../../../interface/output/NeuralNetOutput";
 import {UnsupervisedNetwork} from "../../../../../interface/unsupervised/UnsupervisedNetwork";
 import {UnsupervisedNetworkTrainingResult} from "../../../../../interface/unsupervised/UnsupervisedNetworkTrainingResult";
 import {Market} from "cryptex-shared-models/src/models/market/Market";
@@ -11,19 +10,25 @@ import {RSIConfigNetworkInput} from "./RSIConfigNetworkInput";
 import {ProvidedNetworkOutputCache} from "../../../../../model/cache/ProvidedNetworkOutputCache";
 import {OutputCacher} from "../../../../../interface/cache/OutputCacher";
 import {RSIConfigNetworkOutput} from "./RSIConfigNetworkOutput";
+import {KMeansProvidedNetwork} from "../../../../../interface/algorithm/kmeans/KMeansProvidedNetwork";
+import {KMeansNeuralNetOutput} from "../../../../../interface/algorithm/kmeans/KMeansNeuralNetOutput";
 
 let ucwords = require("ucwords");
 
-export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork, OutputCacher<RSIConfigNetworkOutput> {
+interface Network extends KMeansProvidedNetwork {}
+interface Output extends KMeansNeuralNetOutput {}
+interface NetworkProvider extends KMeansNetworkProvider {}
 
-    private _networkProvider: KMeansNetworkProvider;
+export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork, OutputCacher<Output> {
+
+    private _networkProvider: NetworkProvider;
     private _market: Market;
-    private _cache: ProvidedNetworkOutputCache<RSIConfigNetworkOutput>;
+    private _cache: ProvidedNetworkOutputCache<Network, Output>;
 
-    constructor(market: Market, provider: KMeansNetworkProvider) {
+    constructor(market: Market, provider: NetworkProvider) {
         this._market = market;
         this._networkProvider = provider;
-        this._cache = new ProvidedNetworkOutputCache<RSIConfigNetworkOutput>();
+        this._cache = new ProvidedNetworkOutputCache<Network, Output>();
     }
 
     public train(input: NeuralNetInputData<RSIConfigNetworkInput>): Promise<UnsupervisedNetworkTrainingResult> {
@@ -40,10 +45,13 @@ export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork, OutputC
             })
     }
 
-    public guess(input: NeuralNetInput): Promise<NeuralNetOutput> {
+    public guess(input: NeuralNetInput): Promise<RSIConfigNetworkOutput> {
         return this._getNetwork()
-            .then((network: UnsupervisedProvidedNetwork) => {
+            .then((network: Network) => {
                 return this._cache.guess(network, input);
+            })
+            .then((output: Output)=>{
+                return new RSIConfigNetworkOutput(output);
             });
     }
 
@@ -51,7 +59,7 @@ export class RSIConfigNetwork implements NeuralNet, UnsupervisedNetwork, OutputC
         return this._cache.setOutputsForInputs(inputs, outputs);
     }
 
-    private _getNetwork(): Promise<UnsupervisedProvidedNetwork> {
+    private _getNetwork(): Promise<Network> {
         return this._networkProvider.getKMeansNetwork(this._getNetworkName());
     }
 

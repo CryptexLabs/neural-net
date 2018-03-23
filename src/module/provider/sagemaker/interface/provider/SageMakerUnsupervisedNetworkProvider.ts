@@ -3,5 +3,5 @@ import {NetworkDescriptor} from "../../../../../interface/description/NetworkDes
 import {SageMakerNetworkDescriptor} from "../description/SageMakerNetworkDescriptor";
 
 export interface SageMakerUnsupervisedNetworkProvider {
-    getUnsupervisedNetwork(description: SageMakerNetworkDescriptor & NetworkDescriptor): Promise<UnsupervisedProvidedNetwork>;
+    getUnsupervisedNetwork<N extends UnsupervisedProvidedNetwork>(description: SageMakerNetworkDescriptor & NetworkDescriptor): Promise<N>;
 }

@@ -15,7 +15,7 @@ export class OutputCache<V extends NeuralNetOutput> implements NeuralNet, Neural
         this._cache.clear();
     }
 
-    public guess(input: NeuralNetInput): Promise<NeuralNetOutput> {
+    public guess<T extends NeuralNetOutput>(input: NeuralNetInput): Promise<T> {
         throw new Error("Method not implemented.");
     }
 

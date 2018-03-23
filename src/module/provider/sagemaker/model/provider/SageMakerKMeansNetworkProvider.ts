@@ -6,52 +6,63 @@ import {MultiVariantNetwork} from "../../../../../interface/provider/network/Mul
 import {inject, injectable} from "inversify";
 import {DefaultSageMakerNetworkMultiVariantDescription} from "../description/DefaultSageMakerNetworkMultiVariantDescription";
 import {SageMakerInferenceImageAlgorithm} from "../../interface/description/SageMakerInferenceImageDescriptions";
-import {SageMakerConfigNetworkDescription} from "../description/SageMakerConfigNetworkDescription";
 import {NeuralNet} from "../../../../../interface/NeuralNet";
-import {SageMakerUnsupervisedNetworkProvider} from "../../interface/provider/SageMakerUnsupervisedNetworkProvider";
 import {SageMakerKMeansOutputDeserializer} from "../../interface/algorithm/kmeans/output/SageMakerKMeansOutputDeserializer";
 import {KMeansNeuralNetOutput} from "../../../../../interface/algorithm/kmeans/KMeansNeuralNetOutput";
 import {SageMakerKMeansNeuralNetOutput} from "../output/kmeans/SageMakerKMeansNeuralNetOutput";
 import {SageMakerNeuralNetConfig} from "../../interface/config/SageMakerNeuralNetConfig";
 import {SageMakerKMeansInputSerializer} from "../../interface/algorithm/kmeans/input/SageMakerKMeansInputSerializer";
 import {SageMakerKMeansInput} from "../../interface/algorithm/kmeans/input/SageMakerKMeansInput";
+import {KMeansProvidedNetwork} from "../../../../../interface/algorithm/kmeans/KMeansProvidedNetwork";
+import {ProvidedNetworkCache} from "../../../../../model/cache/ProvidedNetworkCache";
+import {ServiceNetworkProvider} from "../../../../../interface/provider/provider/ServiceNetworkProvider";
+import {SageMakerNetworkAssistant} from "../../interface/assistant/SageMakerNetworkAssistant";
+import {SageMakerConfiguredNetworkAssistant} from "../description/SageMakerConfiguredNetworkAssistant";
 
-interface N extends
-    NeuralNet,
+interface Assistant extends SageMakerNetworkAssistant<KMeansNeuralNetOutput> {}
+
+interface Network extends KMeansProvidedNetwork,
+    MultiVariantNetwork {
+}
+
+interface N extends NeuralNet,
     UnsupervisedProvidedNetwork,
     MultiVariantNetwork {
 }
 
 @injectable()
-export class SageMakerKMeansNetworkProvider implements KMeansNetworkProvider, KMeansMultiVariantNetworkProvider, SageMakerKMeansOutputDeserializer, SageMakerKMeansInputSerializer {
+export class SageMakerKMeansNetworkProvider implements ServiceNetworkProvider<Assistant>, KMeansNetworkProvider, KMeansMultiVariantNetworkProvider, SageMakerKMeansOutputDeserializer, SageMakerKMeansInputSerializer {
 
     @inject(DefaultSageMakerNetworkMultiVariantDescription)
     private _multiVariantDescriptor: NetworkMultiVariantDescriptor;
 
-    @inject("ServiceProvider")
-    private _provider: SageMakerUnsupervisedNetworkProvider;
-
     @inject("Config")
     private _config: SageMakerNeuralNetConfig;
 
-    public getKMeansNetwork(uniqueName: string): Promise<UnsupervisedProvidedNetwork> {
-        let description = this._getDefaultDescription(uniqueName);
+    private _cache: ProvidedNetworkCache<ServiceNetworkProvider<Assistant>, Network, Assistant>;
 
-        return this._provider.getUnsupervisedNetwork(description);
+    constructor() {
+        this._cache = new ProvidedNetworkCache<ServiceNetworkProvider<Assistant>, Network, Assistant>(this);
+    }
+
+    public getKMeansNetwork(uniqueName: string): Promise<KMeansProvidedNetwork> {
+        let assistant = this._getDefaultDescription(uniqueName);
+
+        return this._getNetwork(assistant);
     }
 
     public getKMeanMultiVariantNetwork(uniqueName: string, variant: NetworkMultiVariantDescriptor): Promise<UnsupervisedProvidedNetwork & MultiVariantNetwork> {
-        let description = this._getDefaultDescription(uniqueName);
+        let assistant = this._getDefaultDescription(uniqueName);
 
-        return this._provider.getUnsupervisedNetwork(description)
+        return this._getNetwork(assistant)
             .then((network: N) => {
                 network.setMultiVariantDescriptor(variant);
                 return network;
             });
     }
 
-    private _getDefaultDescription(uniqueName: string) {
-        return new SageMakerConfigNetworkDescription(
+    private _getDefaultDescription(uniqueName: string): Assistant {
+        return new SageMakerConfiguredNetworkAssistant<KMeansNeuralNetOutput>(
             uniqueName,
             this._config.region,
             SageMakerInferenceImageAlgorithm.kmeans,
@@ -65,6 +76,15 @@ export class SageMakerKMeansNetworkProvider implements KMeansNetworkProvider, KM
 
     public serialize(input: SageMakerKMeansInput): any {
         return JSON.stringify(input.getInput());
+    }
+
+    private _getNetwork(assistant: Assistant): Promise<Network> {
+        return this._cache.getNetwork(assistant);
+    }
+
+    public getProvidedNetwork(assistant: Assistant): Promise<Network> {
+        return undefined;
+        // return Promise.resolve(new SageMakerNetwork(this._config, assistant));
     }
 
 }

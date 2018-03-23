@@ -1,5 +1,6 @@
 import {expect} from 'chai';
 import 'mocha';
+import 'reflect-metadata';
 
 import {RSIConfigNetwork} from "../../../../src/module/network/config/rsi/model/RSIConfigNetwork";
 import {Market} from "cryptex-shared-models/src/models/market/Market";

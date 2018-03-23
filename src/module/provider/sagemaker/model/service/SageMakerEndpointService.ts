@@ -10,10 +10,10 @@ import {Container, inject, injectable} from "inversify";
 import {SageMakerNeuralNetConfig} from "../../interface/config/SageMakerNeuralNetConfig";
 import {SageMakerEndpointHack} from "./SageMakerEndpointHack";
 import {NeuralNetInput} from "../../../../../interface/input/NeuralNetInput";
-import {SageMakerIOTransformer} from "../../interface/transform/SageMakerIOTransformer";
+import {SageMakerNetworkAssistant} from "../../interface/assistant/SageMakerNetworkAssistant";
 
 @injectable()
-export class SageMakerEndpointService implements MultiVariantNetwork {
+export class SageMakerEndpointService<O extends NeuralNetOutput> implements MultiVariantNetwork {
 
     private _endpointDescription: SageMaker.DescribeEndpointOutput;
 
@@ -21,7 +21,7 @@ export class SageMakerEndpointService implements MultiVariantNetwork {
     private _config: SageMakerNeuralNetConfig;
 
     @inject("Assistant")
-    private _description: SageMakerNetworkDescriptor & NetworkDescriptor & SageMakerIOTransformer;
+    private _assistant: SageMakerNetworkAssistant<O>;
 
     @inject("Context")
     private _context: Container;
@@ -39,7 +39,7 @@ export class SageMakerEndpointService implements MultiVariantNetwork {
         } else {
             let sagemaker = new SageMaker();
             let input: SageMaker.DescribeEndpointInput = {
-                EndpointName: this._description.getUniqueName()
+                EndpointName: this._assistant.getUniqueName()
             };
             return sagemaker
                 .describeEndpoint(input).promise()
@@ -54,14 +54,14 @@ export class SageMakerEndpointService implements MultiVariantNetwork {
         }
     }
 
-    public getOutputForEndpoint(input: NeuralNetInput, endpoint: SageMaker.DescribeEndpointOutput): Promise<NeuralNetOutput> {
+    public getOutputForEndpoint(input: NeuralNetInput, endpoint: SageMaker.DescribeEndpointOutput): Promise<O> {
 
         let sagemakerRuntime = new SageMakerEndpointHack(this._config.region);
 
         return sagemakerRuntime
-            .invokeEndpoint(endpoint.EndpointName, this._description.serialize(input))
+            .invokeEndpoint(endpoint.EndpointName, this._assistant.serialize(input))
             .then((data: any)=>{
-                return this._description.deserialize(data);
+                return this._assistant.deserialize(data);
             })
     }
 
@@ -76,7 +76,7 @@ export class SageMakerEndpointService implements MultiVariantNetwork {
 
         let sagemaker = new SageMaker();
         let input: SageMaker.CreateEndpointInput = {
-            EndpointName: this._description.getUniqueName(),
+            EndpointName: this._assistant.getUniqueName(),
             EndpointConfigName: config.EndpointConfigName,
             Tags: [SageMakerEnvironmentHelper.getAWSEnvironmentTag()]
         };

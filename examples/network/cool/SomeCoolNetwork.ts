@@ -9,16 +9,20 @@ import {UnsupervisedProvidedNetwork} from "../../../src/interface/provider/netwo
 import {Market} from "cryptex-shared-models/src/models/market/Market";
 import {SomeCoolNetworkOutput} from "./SomeCoolNetworkOutput";
 import {SomeCoolNetworkInput} from "./SomeCoolNetworkInput";
+import {KMeansProvidedNetwork} from "../../../src/interface/algorithm/kmeans/KMeansProvidedNetwork";
 
 let ucwords = require("ucwords");
 
+interface Network extends KMeansProvidedNetwork {}
+interface NetworkProvider extends KMeansNetworkProvider {}
+
 export class SomeCoolNetwork implements NeuralNet, UnsupervisedNetwork, OutputCacher<SomeCoolNetworkOutput> {
 
-    private _networkProvider: KMeansNetworkProvider;
+    private _networkProvider: NetworkProvider;
     private _market: Market;
-    private _cache: ProvidedNetworkOutputCache<SomeCoolNetworkOutput>;
+    private _cache: ProvidedNetworkOutputCache<Network, SomeCoolNetworkOutput>;
 
-    constructor(market: Market, provider: KMeansNetworkProvider) {
+    constructor(market: Market, provider: NetworkProvider) {
         this._market = market;
         this._networkProvider = provider;
 
@@ -26,7 +30,7 @@ export class SomeCoolNetwork implements NeuralNet, UnsupervisedNetwork, OutputCa
         // This is used 2 reasons.
         // 1. It could improve the performance of your guesses
         // 2. When using the network in a backtest as part of a training session you may need the output to be predetermined
-        this._cache = new ProvidedNetworkOutputCache<SomeCoolNetworkOutput>();
+        this._cache = new ProvidedNetworkOutputCache<Network, SomeCoolNetworkOutput>();
     }
 
     public train(input: NeuralNetInputData<SomeCoolNetworkInput>): Promise<UnsupervisedNetworkTrainingResult> {
@@ -40,7 +44,7 @@ export class SomeCoolNetwork implements NeuralNet, UnsupervisedNetwork, OutputCa
     public scoreTrainingResult(resultID: string, score: number): Promise<void> {
         // For unsupervised network a training session must be scored.
         return this._getNetwork()
-            .then((network: UnsupervisedProvidedNetwork) => {
+            .then((network: Network) => {
                 return network.scoreTrainingResult(resultID, score);
             })
     }
@@ -49,7 +53,7 @@ export class SomeCoolNetwork implements NeuralNet, UnsupervisedNetwork, OutputCa
         // This will make a guess from the neural network based on the inputs
         // If the cache is enabled the cached results based on the inputs will be used
         return this._getNetwork()
-            .then((network: UnsupervisedProvidedNetwork) => {
+            .then((network: Network) => {
                 return this._cache.guess(network, input);
             });
     }
