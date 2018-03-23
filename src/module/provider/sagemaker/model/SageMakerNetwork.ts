@@ -1,14 +1,10 @@
-import {UnsupervisedProvidedNetwork} from "../../../../interface/provider/network/UnsupervisedProvidedNetwork";
 import {SageMaker} from "aws-sdk";
-import {SupervisedProvidedNetwork} from "../../../../interface/provider/network/SupervisedProvidedNetwork";
 import {UnsupervisedNetworkTrainingResult} from "../../../../interface/unsupervised/UnsupervisedNetworkTrainingResult";
 import {NeuralNetInputData} from "../../../../interface/input/NeuralNetInputData";
 import {SupervisedNeuralNetInputData} from "../../../../interface/supervised/SupervisedNeuralNetInputData";
 import {NeuralNetInput} from "../../../../interface/input/NeuralNetInput";
 import {NeuralNetOutput} from "../../../../interface/output/NeuralNetOutput";
 import {NetworkMultiVariantDescriptor} from "../../../../interface/provider/descriptor/NetworkMultiVariantDescriptor";
-import {SageMakerNetworkDescriptor} from "../interface/description/SageMakerNetworkDescriptor";
-import {NetworkDescriptor} from "../../../../interface/description/NetworkDescriptor";
 import {Container} from "inversify";
 import "reflect-metadata";
 import {SageMakerModelService} from "./service/SageMakerModelService";

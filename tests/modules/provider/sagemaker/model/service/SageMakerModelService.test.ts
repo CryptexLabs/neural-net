@@ -8,8 +8,6 @@ import {SageMakerNeuralNetConfig} from "../../../../../../src/module/provider/sa
 import {NetworkDescriptor} from "../../../../../../src/interface/description/NetworkDescriptor";
 import {SageMakerNetworkDescriptor} from "../../../../../../src/module/provider/sagemaker/interface/description/SageMakerNetworkDescriptor";
 import {SageMaker} from "aws-sdk";
-import {SageMakerKMeansNeuralNetOutput} from "../../../../../../src/module/provider/sagemaker/model/output/kmeans/SageMakerKMeansNeuralNetOutput";
-import {NeuralNetInput} from "../../../../../../src/interface/input/NeuralNetInput";
 
 interface D extends SageMakerNetworkDescriptor, NetworkDescriptor {
 }

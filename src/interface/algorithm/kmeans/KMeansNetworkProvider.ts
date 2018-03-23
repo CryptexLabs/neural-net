@@ -1,4 +1,3 @@
-
 import {KMeansProvidedNetwork} from "./KMeansProvidedNetwork";
 
 export interface KMeansNetworkProvider {

@@ -6,7 +6,6 @@ import {MultiVariantNetwork} from "../../../../interface/provider/network/MultiV
 import {KMeansMultiVariantNetworkProvider} from "../../../../interface/algorithm/kmeans/KMeansMultiVariantNetworkProvider";
 import {SageMakerKMeansNetworkProvider} from "./provider/SageMakerKMeansNetworkProvider";
 import {Container, inject, injectable} from "inversify";
-import {DefaultSageMakerNetworkMultiVariantDescription} from "./description/DefaultSageMakerNetworkMultiVariantDescription";
 import {SageMakerNeuralNetConfig} from "../interface/config/SageMakerNeuralNetConfig";
 import {KMeansProvidedNetwork} from "../../../../interface/algorithm/kmeans/KMeansProvidedNetwork";
 

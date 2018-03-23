@@ -3,8 +3,6 @@ import {MultiVariantNetwork} from "../../../../../interface/provider/network/Mul
 import {NetworkMultiVariantDescriptor} from "../../../../../interface/provider/descriptor/NetworkMultiVariantDescriptor";
 import {NeuralNetOutput} from "../../../../../interface/output/NeuralNetOutput";
 import {SageMaker} from "aws-sdk";
-import {SageMakerNetworkDescriptor} from "../../interface/description/SageMakerNetworkDescriptor";
-import {NetworkDescriptor} from "../../../../../interface/description/NetworkDescriptor";
 import {SageMakerEnvironmentHelper} from "../../helper/SageMakerEnvironmentHelper";
 import {Container, inject, injectable} from "inversify";
 import {SageMakerNeuralNetConfig} from "../../interface/config/SageMakerNeuralNetConfig";
